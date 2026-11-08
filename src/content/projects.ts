@@ -3,6 +3,7 @@ import type { StaticImageData } from "next/image";
 import blueprintsCatalogue from "./images/leonardo/blueprints-catalogue.jpg";
 import blueprintsSteps from "./images/leonardo/blueprints-steps.jpg";
 import flowStateStream from "./images/leonardo/flow-state-stream.jpg";
+import generationHistory from "./images/leonardo/generation-history.jpg";
 import seerDataViewer from "./images/seer/data-viewer.jpg";
 
 export type ProjectImage = {
@@ -273,6 +274,14 @@ export const projects: Project[] = [
         blurb:
           "Making generation history, where people go back to everything they've made, fast again, and untangling the React components behind it.",
         stack: ["React", "Next.js", "TypeScript"],
+        images: [
+          {
+            src: generationHistory,
+            alt: "Leonardo's generation history: two past prompts for illustrations of a fluffy cat, each with model, size and style tags, a How was this output? rating, and a row of four generated images, one set of orange cats and one of grey cats.",
+            caption:
+              "Every prompt you've run, with its settings and the images it made. Long histories like this are what had to stay fast.",
+          },
+        ],
         body: {
           context: [
             "Generation history is where Leonardo users go back to the images and videos they've made, and it had become slow.",
