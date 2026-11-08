@@ -2,15 +2,17 @@
 
 import { Float } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+import { makeGrainTexture, makeNameTexture } from "./clayTextures";
 import { QUALITIES } from "./qualities";
 
-const PER_QUALITY = 7;
-const COUNT = QUALITIES.length * PER_QUALITY;
+const COUNT = QUALITIES.length; // 7
+const RADIUS = 0.9;
 const CYCLE = 11; // seconds for one scatter -> combine -> scatter loop
-const MERGED_RADIUS = 1.1;
-const MERGED_SCALE = 0.27;
+const RING = 2.4; // scattered ring radius
+const CLUSTER = 1.86; // touching cluster: one in the centre, six around it
+const CENTER = COUNT - 1; // Humility sits at the heart of the cluster
 
 type ModelProps = {
   /** Idle motion and the combine/distribute loop. False holds a static scattered pose. */
@@ -18,29 +20,6 @@ type ModelProps = {
   /** Tilt toward the pointer (fine pointers only). */
   tilt: boolean;
 };
-
-type Item = {
-  colorIndex: number;
-  orbit: number;
-  speed: number;
-  phase: number;
-  y: number;
-  size: number;
-  delay: number;
-  merged: THREE.Vector3;
-};
-
-// Small seeded PRNG so the layout is identical on every load.
-function mulberry32(seed: number) {
-  let a = seed;
-  return () => {
-    a |= 0;
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
 
 const easeInOut = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
@@ -55,102 +34,126 @@ function mergeAmount(c: number) {
 }
 
 /**
- * Forty-nine spheres in seven colours, one per quality. They drift on their own orbits,
- * stream together into a single ball, hold, then spread out again, on a loop.
+ * Seven matte clay spheres, one per quality, each lettered with its name. They drift
+ * in a loose ring, draw together into a touching cluster, hold, then spread out again.
+ * The spheres never rotate, so every name keeps facing the viewer.
  */
 export function Model({ animate, tilt }: ModelProps) {
   const tiltGroup = useRef<THREE.Group>(null);
-  const spinGroup = useRef<THREE.Group>(null);
-  const mesh = useRef<THREE.InstancedMesh>(null);
-  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const spheres = useRef<Array<THREE.Mesh | null>>([]);
+  const [textures, setTextures] = useState<THREE.Texture[] | null>(null);
+  const [grain, setGrain] = useState<THREE.Texture | null>(null);
 
-  const items = useMemo<Item[]>(() => {
-    const rand = mulberry32(7);
-    const golden = Math.PI * (3 - Math.sqrt(5));
-    return Array.from({ length: COUNT }, (_, i) => {
-      // Fibonacci sphere: the combined ball. Consecutive colours spiral around it.
-      const yy = 1 - (i / (COUNT - 1)) * 2;
-      const r = Math.sqrt(1 - yy * yy);
-      const th = i * golden;
+  // Textures are painted client-side once fonts are ready, so names use the site font.
+  useEffect(() => {
+    let cancelled = false;
+    const made: THREE.Texture[] = [];
+    document.fonts.ready.then(() => {
+      if (cancelled) return;
+      const family =
+        getComputedStyle(document.documentElement).getPropertyValue("--font-inter-tight").trim() ||
+        "system-ui, sans-serif";
+      QUALITIES.forEach((q) => made.push(makeNameTexture(q.name, q.color, family)));
+      const g = makeGrainTexture();
+      made.push(g);
+      setTextures(made.slice(0, COUNT));
+      setGrain(g);
+    });
+    return () => {
+      cancelled = true;
+      made.forEach((t) => t.dispose());
+    };
+  }, []);
+
+  const layout = useMemo(() => {
+    return QUALITIES.map((_, i) => {
+      // Scattered: evenly spaced on a ring, with a small depth bob per sphere.
+      const ringAngle = (i / COUNT) * Math.PI * 2 + Math.PI / 2;
+      // Combined: Humility in the middle, the other six on a hexagon around it.
+      const k = i < CENTER ? i : 0;
+      const hexAngle = (k / (COUNT - 1)) * Math.PI * 2 + Math.PI / 2;
+      const merged =
+        i === CENTER
+          ? new THREE.Vector3(0, 0, 0)
+          : new THREE.Vector3(Math.cos(hexAngle) * CLUSTER, Math.sin(hexAngle) * CLUSTER, 0);
       return {
-        colorIndex: i % QUALITIES.length,
-        orbit: 1.5 + rand() * 1.4,
-        speed: (0.12 + rand() * 0.22) * (rand() < 0.5 ? -1 : 1),
-        phase: rand() * Math.PI * 2,
-        y: (rand() - 0.5) * 3.2,
-        size: 0.13 + rand() * 0.15,
-        delay: rand() * 0.3,
-        merged: new THREE.Vector3(Math.cos(th) * r, yy, Math.sin(th) * r).multiplyScalar(MERGED_RADIUS),
+        ringAngle,
+        merged,
+        delay: ((i * 37) % 7) / 7 * 0.25,
+        phase: i * 1.3,
+        size: 0.86 + ((i * 53) % 5) * 0.03,
       };
     });
   }, []);
 
-  useLayoutEffect(() => {
-    const m = mesh.current;
-    if (!m) return;
-    const c = new THREE.Color();
-    items.forEach((it, i) => m.setColorAt(i, c.set(QUALITIES[it.colorIndex].color)));
-    if (m.instanceColor) m.instanceColor.needsUpdate = true;
-  }, [items]);
-
-  useFrame((state, delta) => {
-    const m = mesh.current;
-    const spin = spinGroup.current;
+  useFrame((state) => {
     const tg = tiltGroup.current;
-    if (!m || !spin || !tg) return;
+    if (!tg) return;
 
     const t = animate ? state.clock.elapsedTime : 0;
     const merge = animate ? mergeAmount((t % CYCLE) / CYCLE) : 0;
+    const swirl = t * 0.12; // the whole ring turns slowly, in the plane facing the viewer
 
-    items.forEach((it, i) => {
+    layout.forEach((it, i) => {
+      const mesh = spheres.current[i];
+      if (!mesh) return;
       const local = easeInOut(clamp01(merge * 1.35 - it.delay));
-      const a = it.phase + t * it.speed;
-      const sx = Math.cos(a) * it.orbit;
-      const sz = Math.sin(a) * it.orbit;
-      const sy = it.y + Math.sin(t * 0.6 + it.phase) * 0.25;
-      dummy.position.set(
+      const a = it.ringAngle + swirl;
+      const r = RING + Math.sin(t * 0.5 + it.phase) * 0.15;
+      const sx = Math.cos(a) * r;
+      const sy = Math.sin(a) * r;
+      const sz = Math.sin(t * 0.4 + it.phase) * 0.45;
+      mesh.position.set(
         THREE.MathUtils.lerp(sx, it.merged.x, local),
         THREE.MathUtils.lerp(sy, it.merged.y, local),
         THREE.MathUtils.lerp(sz, it.merged.z, local),
       );
-      dummy.scale.setScalar(THREE.MathUtils.lerp(it.size, MERGED_SCALE, local));
-      dummy.updateMatrix();
-      m.setMatrixAt(i, dummy.matrix);
+      mesh.scale.setScalar(THREE.MathUtils.lerp(it.size, 1.0, local));
     });
-    m.instanceMatrix.needsUpdate = true;
 
-    const scroll = window.scrollY;
-    const p = Math.min(scroll / Math.max(window.innerHeight, 1), 1);
-    if (animate) spin.rotation.y += delta * 0.12;
-    spin.rotation.z = p * 0.5;
-    tg.scale.setScalar(THREE.MathUtils.lerp(tg.scale.x, 1 - p * 0.35, 0.1));
+    // Fit the whole arrangement to narrow canvases, and shrink it as the hero scrolls away.
+    const fit = THREE.MathUtils.clamp(state.viewport.width / 7.4, 0.55, 1);
+    const p = Math.min(window.scrollY / Math.max(window.innerHeight, 1), 1);
+    const target = fit * (1 - p * 0.35);
+    tg.scale.setScalar(THREE.MathUtils.lerp(tg.scale.x, target, 0.1));
+
     if (tilt) {
       const { x, y } = state.pointer;
-      tg.rotation.x = THREE.MathUtils.lerp(tg.rotation.x, -y * 0.25, 0.06);
-      tg.rotation.y = THREE.MathUtils.lerp(tg.rotation.y, x * 0.35, 0.06);
+      tg.rotation.x = THREE.MathUtils.lerp(tg.rotation.x, -y * 0.18, 0.06);
+      tg.rotation.y = THREE.MathUtils.lerp(tg.rotation.y, x * 0.25, 0.06);
     }
   });
 
   const body = (
-    <group ref={tiltGroup} rotation={[0.15, 0, 0.1]}>
-      <group ref={spinGroup}>
-        <instancedMesh ref={mesh} args={[undefined, undefined, COUNT]} frustumCulled={false}>
-          <sphereGeometry args={[1, 28, 28]} />
-          <meshPhysicalMaterial
-            roughness={0.3}
+    <group ref={tiltGroup}>
+      {QUALITIES.map((q, i) => (
+        <mesh
+          key={q.name}
+          ref={(m) => {
+            spheres.current[i] = m;
+          }}
+        >
+          <sphereGeometry args={[RADIUS, 64, 64]} />
+          <meshStandardMaterial
+            // A new key forces a fresh material when textures arrive (three.js does not
+            // recompile when `map` goes from null to a texture).
+            key={textures ? "painted" : "plain"}
+            // Until the painted texture is ready the sphere is a plain colour.
+            color={textures ? "#ffffff" : q.color}
+            map={textures?.[i] ?? null}
+            bumpMap={grain}
+            bumpScale={1.2}
+            roughness={0.94}
             metalness={0}
-            clearcoat={0.7}
-            clearcoatRoughness={0.2}
-            envMapIntensity={0.45}
-            toneMapped={false}
+            envMapIntensity={0.35}
           />
-        </instancedMesh>
-      </group>
+        </mesh>
+      ))}
     </group>
   );
 
   return animate ? (
-    <Float speed={1.2} rotationIntensity={0.1} floatIntensity={0.4}>
+    <Float speed={1.1} rotationIntensity={0} floatIntensity={0.35}>
       {body}
     </Float>
   ) : (

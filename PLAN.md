@@ -124,13 +124,16 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
   Preload the model, compress with `gltf-transform` if a .glb is used.
 
 > **Phase 2 notes:**
-> - REVISED: the double helix was replaced by 49 spheres in 7 colours (one per quality) that orbit, converge into one ball, then spread, on an 11 s loop.
+> - REVISED AGAIN: the hero is now exactly 7 matte clay spheres, one per quality, each lettered with its name (Humility sits at the centre when combined).
+>   They ring-drift, draw into a touching cluster, hold, then spread, on an 11 s loop. Names are painted on per-sphere canvas textures
+>   (`clayTextures.ts`) with a shared grain bump map; spheres never rotate so names face the viewer. No legend. Keep to 7: do not add more spheres.
+> - (Superseded) earlier iteration was 49 spheres in 7 colours.
 >   Qualities and colours live in `src/components/hero/qualities.ts` (Creativity orange, Care peach, Pragmatism grey, Resilience rust, Drive bright blue,
->   Intelligence blue, Humility near-black); `Legend.tsx` names them under the model. Edit that one file to change the set.
-> - Files: `src/components/hero/` Model (instanced spheres, converge/disperse loop), Scene (R3F canvas, local Lightformer
+>   Intelligence blue, Humility near-black); Edit that one file to change the set (names, colours).
+> - Files: `src/components/hero/` Model (seven meshes, converge/disperse loop), Scene (R3F canvas, local Lightformer
 >   environment, no HDR download), HeroVisual (lazy `next/dynamic` ssr:false, WebGL check, pauses off-screen via IntersectionObserver,
 >   reduced-motion and coarse-pointer handling), StaticOrb (skeleton and no-WebGL fallback), ScrollDrift (hero text and model move at different rates).
-> - Colours: `toneMapped={false}` keeps them vivid. Avoid blending complementary colours (orange into blue goes grey).
+> - Gotcha: three.js does not recompile a material when `map` goes from null to a texture; Model.tsx re-keys the material when textures load.
 > - Not yet exercised: the no-WebGL fallback and reduced-motion paths (written but untested), and real touch devices.
 > - Later: swap the procedural model for a bespoke `.glb` in `public/models/` if wanted; run Lighthouse on the deployed URL.
 

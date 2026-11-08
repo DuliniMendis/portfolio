@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { Legend } from "./Legend";
 import { StaticOrb } from "./StaticOrb";
 
 // The 3D code (three.js and friends) loads only on the client, after first paint.
@@ -53,7 +52,6 @@ export function HeroVisual() {
           <StaticOrb />
         )}
       </div>
-      <Legend />
     </div>
   );
 }
