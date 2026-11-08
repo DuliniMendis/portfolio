@@ -2,19 +2,19 @@ import Link from "next/link";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 
-// Draft copy: confirm and add real outcomes with the owner (see CONTENT.md).
+// Plain-language summary of the Leonardo.ai case study. Keep it in step with that page.
 const points = [
   {
-    title: "Empowered",
-    body: "Clear goals, real ownership. Teams decide how, and leaders clear the path.",
+    title: "People own the work",
+    body: "Every part of a feature has a champion who runs it from kickoff to launch, and keeps looking after it once it's live.",
   },
   {
-    title: "Sustainable",
-    body: "High performance and work-life balance are not a trade-off. Rested teams ship better.",
+    title: "Time to switch off",
+    body: "Rested people make better calls. I don't see doing great work and having a life outside it as a trade-off.",
   },
   {
-    title: "Growing",
-    body: "Hiring, coaching and feedback that leave people more capable than they arrived.",
+    title: "Room to grow",
+    body: "Coaching, honest feedback and real responsibility. One of my mid-level engineers had grown into a senior by the time I left.",
   },
 ];
 
@@ -25,11 +25,11 @@ export function Leader() {
         <Reveal className="max-w-2xl">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-text">Leader</p>
           <h2 className="mt-3 text-3xl font-semibold leading-tight md:text-5xl">
-            Teams that are empowered, high performing, and well rested.
+            Teams that own their work and still log off on time.
           </h2>
           <p className="mt-4 text-lg text-ink/70">
-            At Leonardo.ai I built a team culture where people own the outcome and still log
-            off on time.
+            At Leonardo.ai I led four engineers. Instead of handing out tickets, I gave each
+            part of a feature an owner, and spent my time coaching.
           </p>
         </Reveal>
 

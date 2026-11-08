@@ -16,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
-  return project ? { title: `${project.name} — Dulini Mendis`, description: project.summary } : {};
+  return project ? { title: `${project.name} · Dulini Mendis`, description: project.summary } : {};
 }
 
 export default async function ProjectPage({ params }: PageProps<"/work/[slug]">) {
@@ -45,7 +45,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
           {project.roles?.length ? (
             <Reveal className="mt-14 max-w-3xl">
               <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-muted">
-                Roles at {project.name}
+                My roles at {project.name}
               </h2>
               <ol className="mt-6 border-l border-border">
                 {project.roles.map((r) => (
@@ -70,7 +70,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
       <section className="pb-24 md:pb-32">
         <Container>
           <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-muted">
-            In this project
+            What I worked on
           </h2>
           <Stagger className="mt-6 grid gap-6 md:grid-cols-2">
             {project.sections.map((s) => (
@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
                   </div>
                   <h3 className="mt-6 text-3xl font-semibold">{s.title}</h3>
                   <p className="mt-3 flex-1 text-muted">
-                    {finalCopy(s.blurb) ?? "Write-up coming soon."}
+                    {finalCopy(s.blurb) ?? "This one is still being written."}
                   </p>
                 </Link>
               </StaggerItem>

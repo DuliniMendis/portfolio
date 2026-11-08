@@ -20,7 +20,7 @@ export async function generateMetadata({
   const project = getProject(slug);
   const sec = project && getSection(project, section);
   return project && sec
-    ? { title: `${sec.title} · ${project.name} — Dulini Mendis`, description: finalCopy(sec.blurb) }
+    ? { title: `${sec.title} · ${project.name} · Dulini Mendis`, description: finalCopy(sec.blurb) }
     : {};
 }
 
@@ -41,7 +41,7 @@ export default async function SectionPage({ params }: PageProps<"/work/[slug]/[s
             <Tag>{KIND_LABEL[sec.kind]}</Tag>
             <h1 className="mt-5 text-5xl font-semibold leading-tight md:text-7xl">{sec.title}</h1>
             <p className="mt-6 text-xl text-ink/80">
-              {finalCopy(sec.blurb) ?? `A closer look at my work on ${sec.title} at ${project.name}.`}
+              {finalCopy(sec.blurb) ?? `My work on ${sec.title} at ${project.name}.`}
             </p>
             {sec.stack?.length ? (
               <div className="mt-8">
@@ -99,7 +99,7 @@ export default async function SectionPage({ params }: PageProps<"/work/[slug]/[s
                       ))}
                     </div>
                   ) : (
-                    <p className="mt-3 text-muted">This write-up is in progress.</p>
+                    <p className="mt-3 text-muted">This part is still being written.</p>
                   )}
                 </div>
               );

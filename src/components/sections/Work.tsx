@@ -12,7 +12,7 @@ export function Work() {
       <Container>
         <SectionHeading
           eyebrow="Selected work"
-          title="Three companies, one thread: build well, lead well."
+          title="Three companies, and what I did at each."
         />
         <Stagger className="mt-14 grid gap-6 md:grid-cols-3">
           {projects.map((p) => (

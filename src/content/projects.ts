@@ -75,12 +75,12 @@ export const projects: Project[] = [
       {
         title: "Senior Software Engineer",
         period: "Oct 2018 – May 2020",
-        note: "Built the Data Viewer, the live device interfaces and the clinic tools, backend to frontend.",
+        note: "Built the Data Viewer, the live device interfaces and the clinic tools, from backend to frontend.",
       },
       {
         title: "Engineering Manager",
         period: "May 2020 – Mar 2023",
-        note: "Led the Seer-Clinic team of three to five engineers: hiring, onboarding, mentoring and planning.",
+        note: "Led the Seer-Clinic team of three to five engineers, including hiring, onboarding, mentoring and planning.",
       },
       {
         title: "Senior Engineering Manager",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
       {
         title: "Staff Engineer",
         period: "Feb 2024 – Oct 2024",
-        note: "When Seer scaled back, went back to hands-on work, maintaining the product and its integrations across the stack.",
+        note: "When Seer scaled back, I went back to hands-on work, looking after the product and its integrations across the stack.",
       },
     ],
     sections: [
@@ -99,7 +99,7 @@ export const projects: Project[] = [
         title: "Data Viewer",
         kind: "build",
         blurb:
-          "Days of EEG, ECG and video from home monitoring in one synchronised view, so clinicians can find and judge events quickly.",
+          "Days of EEG, ECG and video from a patient's home, kept in sync in one view so clinicians can find the moments that matter.",
         stack: ["React", "TypeScript", "GraphQL", "Node.js", "PostgreSQL", "Python", "AWS"],
         images: [
           {
@@ -129,7 +129,7 @@ export const projects: Project[] = [
         title: "Live monitoring",
         kind: "build",
         blurb:
-          "A real-time version of the Data Viewer that streams signals and video from a patient's Seer Sense while they are wearing it.",
+          "A real-time version of the Data Viewer that streams signals and video from a patient's Seer Sense while they're wearing it.",
         stack: ["React", "TypeScript", "GraphQL", "Node.js", "AWS"],
         body: {
           context: [
@@ -158,9 +158,9 @@ export const projects: Project[] = [
           ],
           did: [
             "I built a set of operational tools into the Seer Cloud platform.",
-            "A Kanban board for referrals, so the team could see where every referral was and move it along. A calendar for bookings and equipment, so patients were scheduled against the devices that were free.",
-            "Dynamic forms that clinicians, patients and admin staff used to add referrals, patient information and billing details. The forms were generated from definitions rather than built one by one, so each group got the form it needed.",
-            "Integrations with Zendesk, Asset Panda and Mailchimp for managing equipment, bookings and communications, so the platform and those tools stayed in step.",
+            "There was a Kanban board for referrals, so the team could see where each one was and move it along, and a calendar for bookings and equipment, so patients were booked against devices that were free.",
+            "Clinicians, patients and admin staff used dynamic forms to add referrals, patient information and billing details. The forms were generated from definitions rather than built one by one, so each group got the form it needed.",
+            "I also built integrations with Zendesk, Asset Panda and Mailchimp for managing equipment, bookings and communications, so the platform and those tools stayed in step.",
           ],
           outcome: [
             "These tools ran the day-to-day work of Seer's clinics. As an engineering manager I went on to lead the Seer-Clinic team that owned them.",
@@ -175,7 +175,7 @@ export const projects: Project[] = [
     role: "Frontend Tech Lead",
     period: "TODO(dulini)",
     summary:
-      "I led the frontend for the squad behind two of Leonardo's flagship AI features, Flow State and Blueprints, and grew the team along the way.",
+      "I led the frontend for the squad behind two of Leonardo's biggest AI features, Flow State and Blueprints, and grew the team along the way.",
     sections: [
       {
         slug: "flow-state",
@@ -201,7 +201,8 @@ export const projects: Project[] = [
           did: [
             "I joined Leonardo partway through Flow State, and the project was pretty chaotic at that point. I got up to speed fast and helped the squad finish it. That meant fixing bugs, getting it out the door, and bringing some calm and clarity to a project that badly needed it.",
             "Two things made it tricky. It had to feel instant, with new images showing up in under five seconds. And every image costs the user a token, Leonardo's credits, so the app can't race ahead and make hundreds of images nobody sees. Images are only made as you scroll towards them.",
-            "Under the hood, it was a Next.js app written in TypeScript and React. It ran entirely in the browser (client-side rendering) and used GraphQL to talk to the backend. The hardest part was keeping track of everything happening at once: images loading as you scroll, the trail of steps as you dig into an image, and the stream starting over whenever you change the prompt or style. XState handled that by describing the feature as a state machine. Think of it as a map of every situation the screen can be in, and exactly how it gets from one to the next. With that many moving parts, having the map written down makes the feature far easier to reason about and to debug.",
+            "Under the hood, it was a Next.js app written in TypeScript and React. It ran entirely in the browser (client-side rendering) and used GraphQL to talk to the backend. The hardest part was keeping track of everything happening at once: images loading as you scroll, the trail of steps as you dig into an image, and the stream starting over whenever you change the prompt or style.",
+            "XState handled that by describing the feature as a state machine. Think of it as a map of every situation the screen can be in, and exactly how it gets from one to the next. With that many moving parts, having the map written down makes the feature far easier to reason about and to debug.",
           ],
           outcome: [
             "Flow State launched in December 2024 for everyone, free and paid. It sits on Leonardo's home page right next to the main prompt bar, and speed was the headline when Leonardo's founder talked about it in the press.",
@@ -270,14 +271,14 @@ export const projects: Project[] = [
     role: "TODO(dulini)",
     period: "TODO(dulini)",
     summary:
-      "At Canva I worked on AI design generation, then moved to a platform team supporting Canva AI. I led the work to bring down the cost of generating designs and to move design generation from fixed pipelines to agent tools, and built tools that made day-to-day work easier, from one-click bug reports to AI automations.",
+      "I worked on AI design generation at Canva, then joined a platform team supporting Canva AI. I led the work to cut the cost of generating designs and to move design generation from fixed pipelines to agent tools, and I built tools like one-click bug reports to make everyday work easier.",
     sections: [
       {
         slug: "cost-reduction",
         title: "Cost reduction",
         kind: "build",
         blurb:
-          "Cutting the cost of Liberation, one of the ways Canva AI generates designs, by moving it off expensive frontier models and checking with real users that the designs held up.",
+          "Cutting the cost of Liberation, one of the ways Canva AI makes designs, by switching it to cheaper models and testing with real users that the designs were still good.",
         stack: ["LLM evals", "A/B testing", "Open-source models", "First-party models", "Frontier models"],
         body: {
           context: [
@@ -314,7 +315,7 @@ export const projects: Project[] = [
         title: "One-click bug reports",
         kind: "build",
         blurb:
-          "Letting Canva staff report a Canva AI bug with one click and a short description, with the traces and everything else needed to fix it captured automatically.",
+          "Canva staff can report a Canva AI bug with one click and a short description. The traces and everything else needed to fix it are captured automatically.",
         stack: ["CoreWeave Forge", "Langfuse", "Jira", "Slack"],
         body: {
           context: [
@@ -337,7 +338,7 @@ export const projects: Project[] = [
         title: "From pipelines to agent tools",
         kind: "lead",
         blurb:
-          "Moving Canva's design generation from fixed pipelines to tools an AI agent can call, and retiring the ones newer methods had overtaken, without breaking any of the Canva AI launches running in parallel.",
+          "Moving Canva's design generation from fixed pipelines to tools an AI agent can call, and retiring old pipelines without disrupting the Canva AI launches happening at the same time.",
         body: {
           context: [
             "Canva's design generation had grown up as a set of workflows: fixed pipelines that each took a request through the same steps to produce a design. As Canva AI moved to an agent, which decides for itself which tools to use, those pipelines no longer fit how the product worked.",
@@ -366,9 +367,9 @@ export const projects: Project[] = [
           ],
           did: [
             "I built AI automations to take that work off the team's plate.",
-            "A daily round-up that posts the things that happened that day which matter to the team, so nobody has to dig through threads to stay in the loop.",
-            "Slides for our regular meetings, created automatically, so each meeting starts from an up-to-date deck instead of one someone threw together the hour before.",
-            "Jira updates for weekly reporting, made automatically, so the report shows where the work really is without anyone chasing tickets.",
+            "One posts a daily round-up of what happened that matters to the team, so nobody has to dig through threads to stay in the loop.",
+            "Another creates the slides for our regular meetings, so each meeting starts from an up-to-date deck instead of one someone threw together the hour before.",
+            "A third makes the Jira updates for weekly reporting, so the report shows where the work really is without anyone chasing tickets.",
           ],
           outcome: [
             "The routine admin ran in the background, and the team got that time back for the work that mattered.",

@@ -26,8 +26,9 @@ export function Hero() {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="mt-6 max-w-lg text-lg text-muted">
-              Engineering leader who still builds. From clinical data tools to generative
-              AI products, I care about craft, and about the people doing the work.
+              I lead engineering teams and still build things myself. I&apos;ve worked on
+              clinical data tools and AI products, and I care about the craft and the
+              people doing it.
             </p>
           </Reveal>
           <Reveal delay={0.24} className="mt-10 flex flex-wrap gap-3">

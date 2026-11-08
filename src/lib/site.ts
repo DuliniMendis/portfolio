@@ -3,4 +3,4 @@ export const SITE_URL = "https://dulini-mendis-portfolio.vercel.app";
 export const SITE_NAME = "Dulini Mendis";
 export const SITE_TAGLINE = "I build products and the teams that ship them.";
 export const SITE_DESCRIPTION =
-  "Portfolio of Dulini Mendis: an engineering leader who still builds. Seer Medical, Leonardo.ai and Canva.";
+  "The portfolio of Dulini Mendis, an engineering leader who still builds. Work from Seer Medical, Leonardo.ai and Canva.";

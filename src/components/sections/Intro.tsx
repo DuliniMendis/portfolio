@@ -19,8 +19,8 @@ export function Intro() {
         </Reveal>
         <Reveal delay={0.1} className="max-w-4xl">
           <p className="font-display text-3xl font-medium leading-snug md:text-5xl">
-            Great products come from teams that are trusted to think, rested enough to
-            care, and close enough to the problem to build the right thing.
+            The best work I&apos;ve seen came from teams who were trusted to make their own
+            calls, and who still got to log off at a decent hour.
           </p>
         </Reveal>
       </Container>

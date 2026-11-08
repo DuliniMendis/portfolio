@@ -14,18 +14,18 @@ const interTight = Inter_Tight({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `${SITE_NAME} — Builder & Leader`,
+  title: `${SITE_NAME} · Builder and leader`,
   description: SITE_DESCRIPTION,
   openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Builder & Leader`,
+    title: `${SITE_NAME} · Builder and leader`,
     description: SITE_TAGLINE,
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — Builder & Leader`,
+    title: `${SITE_NAME} · Builder and leader`,
     description: SITE_TAGLINE,
   },
 };

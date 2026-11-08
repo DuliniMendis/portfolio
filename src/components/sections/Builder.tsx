@@ -7,22 +7,22 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 const cards = [
   {
     icon: Database,
-    title: "Data-heavy, real-time interfaces",
-    body: "Interfaces that stay fast and legible with dense data, like EEG signals synchronised with video.",
+    title: "Screens full of live data",
+    body: "Making dense data easy to read and quick to use, like days of EEG lined up with video.",
     href: "/work/seer-medical/data-viewer",
     cta: "Seer Data Viewer",
   },
   {
     icon: Sparkles,
-    title: "Generative AI products",
-    body: "Creative tools that turn powerful models into workflows people actually enjoy.",
+    title: "AI products people enjoy",
+    body: "Flow State and Blueprints turn powerful image models into tools you can pick up without learning prompt tricks.",
     href: "/work/leonardo-ai",
     cta: "Flow State and Blueprints",
   },
   {
     icon: TrendingDown,
-    title: "Platform cost and performance",
-    body: "Finding where the money and milliseconds go, and removing them without slowing the team.",
+    title: "Making AI cheaper to run",
+    body: "At Canva I helped cut the cost of generating designs by moving to cheaper models, then checked with real users that the designs were still good.",
     href: "/work/canva/cost-reduction",
     cta: "Canva cost reduction",
   },
@@ -34,8 +34,8 @@ export function Builder() {
       <Container>
         <SectionHeading
           eyebrow="Builder"
-          title="Hands on, where it counts."
-          lead="I stay close to the code and the craft, because that is how you earn the right to guide others."
+          title="I still build things."
+          lead="I stay close to the code. It&apos;s hard to lead engineers well once you&apos;ve stopped building yourself."
         />
         <Stagger className="mt-14 grid gap-6 md:grid-cols-3">
           {cards.map(({ icon: Icon, title, body, href, cta }) => (
