@@ -59,12 +59,18 @@ export function Leader() {
           ))}
         </Stagger>
 
-        <Reveal className="mt-10">
+        <Reveal className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-8">
+          <Link
+            href="/work/seer-medical/leading-the-teams"
+            className="text-sm font-medium text-ink underline underline-offset-4 hover:text-blue-text"
+          >
+            How I led Seer&apos;s clinic and platform teams →
+          </Link>
           <Link
             href="/work/leonardo-ai/building-the-team"
             className="text-sm font-medium text-ink underline underline-offset-4 hover:text-blue-text"
           >
-            Read how I built the team →
+            How I built the team at Leonardo.ai →
           </Link>
         </Reveal>
       </Container>
