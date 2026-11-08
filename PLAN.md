@@ -98,7 +98,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > **Palette (current; brighter orange and blue):**
 > - Theme tokens in `src/app/globals.css`: ink `#0e1717`, muted `#5a6a72`, background `#f7f9fa`, accent orange `#ff9a3d` (fills; dark ink on it is 8.6:1),
 >   blue `#1a96d2` (fills, icons, focus ring; only 3.3:1 on white, so NOT for small text), blue-light `#5cc6f4` (hovers), blue-text `#08689e`
->   (small blue text: eyebrows, hover text; 5.7:1), sky `#d6eefc` and peach `#ffeedd` (washes, Leader gradient).
+>   (small blue text: eyebrows, hover text; 5.7:1), sky `#d6eefc` and peach `#ffeedd` (washes). The Leadership section is the one dark section: `bg-ink`, cream text at 75% or more (about 9.7:1), orange stat numbers, `blue-light` eyebrow and link hovers.
 > - Rule: small blue text uses `text-blue-text`; icons and fills use `blue`. Buttons are `bg-accent` with ink text, hover `bg-blue-light`.
 > - The seven spheres are shades of orange and blue only (`src/components/hero/qualities.ts`): Care soft orange, Creativity bright orange, Resilience deep orange,
 >   Pragmatism pale blue, Drive bright blue, Intelligence mid blue, Humility deep blue (centre of the cluster). Array order = ring order = marble bands.
