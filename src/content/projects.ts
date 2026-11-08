@@ -72,6 +72,7 @@ export const projects: Project[] = [
         kind: "build",
         blurb:
           "An endless stream of images from a single prompt, built for exploring ideas before you commit to one.",
+        stack: ["TypeScript", "React", "Next.js", "Client-side rendering", "GraphQL", "XState"],
         images: [
           {
             src: flowStateStream,
@@ -83,11 +84,13 @@ export const projects: Project[] = [
         body: {
           context: [
             "Image generators are built for precision. You write a careful prompt, wait, and judge a small batch. That works when you know what you want. It is slow when you are still looking.",
-            "Flow State turns that around. You type one idea and scroll through a continuous stream of images, each a different take on it. Style controls for vibe, lighting, shot type and colour theme steer the stream, and More Like This narrows it towards an image you like.",
+            "Flow State turns that around. You type one idea and images generate in near real time as you scroll, each a different take on it. Style controls for vibe, lighting, shot type and colour theme set the starting look.",
+            "When an image catches your eye, More Like This digs into it and generates versions closer to that original. Do it again and they get closer still. You start wide, across very different aesthetics, and dig down until you are making the smallest refinements. That makes it a tool for ideation, not just generation.",
           ],
           did: [
             "Our squad built Flow State end to end. As frontend tech lead I set the direction for the frontend and led the engineers who built it: the prompt and style controls, the scrolling image stream, More Like This, the stages that let you step back to an earlier point, and saving images to your Library.",
             "Two constraints shaped the frontend. It had to feel instant, with new options arriving in under five seconds. And every image that appears costs the user a token, so images are generated as you scroll rather than far ahead of you.",
+            "It was a TypeScript and React app on Next.js, rendered entirely on the client, talking to the backend over GraphQL. The state was the hard part: images generating as you scroll, a trail of stages as you dig into an image, and prompt or style changes that restart the stream. We modelled it as a state machine in XState, so every state and every transition between them was explicit.",
           ],
           outcome: [
             "Flow State launched in December 2024 for free and paid users. It sits on Leonardo's home page next to the main prompt bar, and Leonardo's founder pointed to its speed when talking about the product in the press.",
