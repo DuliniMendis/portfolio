@@ -275,8 +275,8 @@ Code:
 
 1. **Skills as pickups?** DECIDED 2026-11-08: no. Story only. The 22 skills leave the hero; they remain in
    the CV and the rest of the site. Delete `skills.ts` with the brush code (section 5).
-2. **Logos or names?** Real logos on the buildings (section 6) or the company name in the pixel font. Logos as
-   asked; names are the fallback.
+2. **Logos or names?** DECIDED 2026-11-08: real logos on the buildings (section 6). The pixel-font name is
+   only the fallback if an official asset cannot be obtained for a company.
 3. **Years on the level cards?** Cards with years ("SEER MEDICAL · 2017–2024") or names only. Recommendation:
    years, since the hero currently gives no sense of time.
 4. **Sri Lanka detail:** beach and palms is the generic choice; a Colombo landmark (Lotus Tower) or the Virtusa
