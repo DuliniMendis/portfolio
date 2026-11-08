@@ -18,9 +18,17 @@ export function Intro() {
           />
         </Reveal>
         <Reveal delay={0.1} className="max-w-4xl">
-          <p className="font-display text-3xl font-medium leading-snug md:text-5xl">
-            The best work I&apos;ve seen came from teams who were trusted to make their own
-            calls, and who still got to log off at a decent hour.
+          {/* The TL;DR from Dulini's CV. */}
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-text">TL;DR</p>
+          <p className="mt-4 font-display text-2xl font-medium leading-snug md:text-4xl">
+            Over the years I&apos;ve gone from being a founding software engineer at Seer
+            Medical, a regulated medtech company that ran on software I built or led, to tech
+            lead at Leonardo.Ai and now Engineering Manager for Canva&apos;s Design Generation
+            Platform, which supports the LLM pipelines behind Canva AI.
+          </p>
+          <p className="mt-6 text-lg text-ink/80 md:text-xl">
+            Solving problems that truly make a difference, supporting the growth of others and
+            getting things into the hands of users is what motivates me the most.
           </p>
         </Reveal>
       </Container>

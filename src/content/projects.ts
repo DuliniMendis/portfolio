@@ -63,7 +63,7 @@ export const projects: Project[] = [
     slug: "seer-medical",
     name: "Seer Medical",
     role: "Founding engineer to Senior Engineering Manager",
-    period: "2017 – 2024",
+    period: "Jul 2017 – Oct 2024",
     summary:
       "Seer moved week-long epilepsy monitoring out of hospital and into the home. I joined as one of its first software engineers and grew into leading its clinic and platform teams.",
     roles: [
@@ -173,7 +173,7 @@ export const projects: Project[] = [
     slug: "leonardo-ai",
     name: "Leonardo.ai",
     role: "Frontend Tech Lead",
-    period: "TODO(dulini)",
+    period: "Nov 2024 – Apr 2026",
     summary:
       "I led the frontend for the squad behind two of Leonardo's biggest AI features, Flow State and Blueprints, and grew the team along the way.",
     sections: [
@@ -268,8 +268,8 @@ export const projects: Project[] = [
   {
     slug: "canva",
     name: "Canva",
-    role: "TODO(dulini)",
-    period: "TODO(dulini)",
+    role: "Engineering Manager",
+    period: "May 2026 – Nov 2026",
     summary:
       "I worked on AI design generation at Canva, then joined a platform team supporting Canva AI. I led the work to cut the cost of generating designs and to move design generation from fixed pipelines to agent tools, and I built tools like one-click bug reports to make everyday work easier.",
     sections: [

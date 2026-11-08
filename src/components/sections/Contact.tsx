@@ -12,6 +12,9 @@ export function Contact() {
           <h2 className="mt-3 text-5xl font-semibold leading-tight md:text-7xl">
             Let&apos;s build something good.
           </h2>
+          <p className="mt-6 text-lg text-muted md:text-xl">
+            Based in Melbourne, Australia. Open to engineering and leadership roles.
+          </p>
           <a
             href={LINKEDIN}
             target="_blank"
