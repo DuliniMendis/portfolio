@@ -49,7 +49,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
   deep teal — pick one, record it here), border `#e5e7eb`. Fonts: a geometric sans for
   headings (e.g. `Geist` or `Inter Tight`) and `Inter` for body, loaded with `next/font`.
   Type scale: 14/16/18/24/32/48/72. Radius 12px. Max content width 1200px.
-- [ ] **0.6 Deploy pipeline.** Push to GitHub, connect to Vercel, confirm a preview URL
+- [x] **0.6 Deploy pipeline.** Push to GitHub, connect to Vercel, confirm a preview URL
   builds green before writing any feature code.
 
 > **Phase 0 notes (done 2026-11-08):**
@@ -61,7 +61,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Accent colour chosen: warm coral `#f2603f`. Fonts: Inter Tight (display) + Inter (body). Light only.
 > - Tokens live in `src/app/globals.css` as CSS variables and Tailwind theme colours
 >   (`bg-background`, `text-ink`, `text-muted`, `bg-accent`, `border-border`, `rounded-card`).
-> - 0.6 (GitHub + Vercel) needs the owner to authorise accounts; not done.
+> - 0.6 done: repo at github.com/DuliniMendis/portfolio (SSH remote), deployed to https://dulini-mendis-portfolio.vercel.app/. Pushes to `main` auto-deploy; other branches get preview URLs.
 
 ## Phase 1 — Landing page shell
 
