@@ -43,15 +43,9 @@ Order on the site: most recent first. Confirm ordering is Canva → Leonardo →
     tech stack, outcome.
 
 ### Leonardo.ai — slug `leonardo-ai`
-- Summary: `TODO(dulini)`
-- Sections:
-  - **Blueprints** — slug `blueprints`, kind `build`
-    Blurb: `TODO(dulini)` (what Blueprints is, Dulini's role, outcome)
-  - **Flow State** — slug `flow-state`, kind `build`
-    Blurb: `TODO(dulini)`
-  - **Building the team** — slug `building-the-team`, kind `lead`
-    Blurb: How the team became empowered and high-performing while protecting work-life
-    balance. Expand later: starting point, principles, rituals, hiring, what changed, metrics.
+- Role: Frontend Tech Lead. Period: `TODO(dulini)`
+- Copy for Flow State, Blueprints and Building the team lives in `src/content/projects.ts`
+  (drafted 2026-11-08 from Leonardo's help centre, launch press and Dulini's notes).
 
 ### Canva — slug `canva`
 - Summary: `TODO(dulini)`

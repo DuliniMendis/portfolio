@@ -17,7 +17,7 @@ const cards = [
     title: "Generative AI products",
     body: "Creative tools that turn powerful models into workflows people actually enjoy.",
     href: "/work/leonardo-ai",
-    cta: "Blueprints and Flow State",
+    cta: "Flow State and Blueprints",
   },
   {
     icon: TrendingDown,

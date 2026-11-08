@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Reveal } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { BackLink } from "@/components/work/BackLink";
-import { KIND_LABEL, finalCopy, getProject, getSection, projects } from "@/content/projects";
+import { BODY_PARTS, KIND_LABEL, finalCopy, getProject, getSection, isDraft, projects } from "@/content/projects";
 
 export function generateStaticParams() {
   return projects.flatMap((p) => p.sections.map((s) => ({ slug: p.slug, section: s.slug })));
@@ -21,9 +22,6 @@ export async function generateMetadata({
     ? { title: `${sec.title} · ${project.name} — Dulini Mendis`, description: finalCopy(sec.blurb) }
     : {};
 }
-
-// Body headings for every section page. The write-ups themselves come later (see CONTENT.md).
-const BODY = ["Context", "What I did", "Outcome"];
 
 export default async function SectionPage({ params }: PageProps<"/work/[slug]/[section]">) {
   const { slug, section } = await params;
@@ -44,21 +42,67 @@ export default async function SectionPage({ params }: PageProps<"/work/[slug]/[s
             <p className="mt-6 text-xl text-ink/80">
               {finalCopy(sec.blurb) ?? `A closer look at my work on ${sec.title} at ${project.name}.`}
             </p>
+            {sec.stack?.length ? (
+              <div className="mt-8">
+                <h2 className="text-xs font-medium uppercase tracking-[0.18em] text-muted">Built with</h2>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {sec.stack.map((t) => (
+                    <li key={t}>
+                      <Tag>{t}</Tag>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </Reveal>
         </Container>
       </section>
+
+      {sec.images?.length ? (
+        <section className="pb-16 md:pb-24">
+          <Container className="space-y-12">
+            {sec.images.map((img, i) => (
+              <Reveal key={img.src.src}>
+                <figure>
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    placeholder="blur"
+                    sizes="(min-width: 1200px) 1120px, 100vw"
+                    preload={i === 0}
+                    className="h-auto w-full rounded-card border border-border shadow-lg"
+                  />
+                  {img.caption ? (
+                    <figcaption className="mt-4 text-sm text-muted">{img.caption}</figcaption>
+                  ) : null}
+                </figure>
+              </Reveal>
+            ))}
+          </Container>
+        </section>
+      ) : null}
 
       <section className="border-t border-border bg-surface py-16 md:py-24">
         <Container className="grid gap-12 md:grid-cols-[1fr_2fr]">
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-muted">The story</p>
           <div className="space-y-12">
-            {BODY.map((heading) => (
-              <div key={heading}>
-                <h2 className="text-3xl font-semibold">{heading}</h2>
-                {/* TODO(dulini): write this section. Replace the placeholder with the case-study copy. */}
-                <p className="mt-3 text-muted">This write-up is in progress.</p>
-              </div>
-            ))}
+            {BODY_PARTS.map(({ key, heading }) => {
+              const paragraphs = sec.body?.[key]?.filter((p) => !isDraft(p));
+              return (
+                <div key={key}>
+                  <h2 className="text-3xl font-semibold">{heading}</h2>
+                  {paragraphs?.length ? (
+                    <div className="mt-4 max-w-prose space-y-4 text-lg leading-relaxed text-ink/80">
+                      {paragraphs.map((p) => (
+                        <p key={p}>{p}</p>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-3 text-muted">This write-up is in progress.</p>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </Container>
       </section>
