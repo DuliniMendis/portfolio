@@ -179,6 +179,19 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Not yet done: a real-time Performance trace in a visible browser (the test pane throttles rAF while hidden, so checks were made by stepping the engine at exact
 >   60 fps frame times), a real touch device, a screen reader pass. Share image and favicon still use `qualities.ts` (follow-up).
 
+> **Phase 2 v3 notes: the career game (2026-11-08, replaces the paint strokes; spec and deviations in `PLAN-hero-career-game.md`):**
+> - What it does: an auto-playing 45 s pixel-art cutscene of Dulini's career in eleven beats (Sri Lanka, flight, jump to Melbourne, PhD, Seer grows,
+>   Seer crumbles, Leonardo.Ai, the big hand, Canva, the fall, the wave), then an iris back to the start. Level cards carry names only. Story only, no skills.
+> - Files (`src/components/hero/game/`): `palette.ts`, `font.ts` (5 × 7 bitmap font), `sprites/` (`types.ts` sprite format, grid builder with auto outline,
+>   dither, crop, lean; `raster.ts`; `dulini.ts`; `people.ts` palette-swapped colleagues; `landmarks.ts`; `props.ts`), `world.ts` (camera, parallax, sky,
+>   ground, `Painter` interface, `panelLayout`), `timeline.ts` (beat lengths, cards, clock), `particles.ts` (stateless, closed-form bursts and wind),
+>   `beats/00-…10-*.ts` (one per beat), `scene.ts` (draws any moment), `engine.ts` (canvas, rAF, pause, crisp layer for logos and the iris, postcards),
+>   `svg.ts` + `StaticFrame.tsx` (the same scene drawn as SVG paths on the server), `logos.ts`, `story.ts`, `CareerGame.tsx`.
+>   `Hero.tsx` passes `<StaticFrame />` into `HeroVisual` so the SVG is rendered by the server component, not recomputed on the client.
+>   Deleted: `PaintStrokes.tsx`, `StaticStroke.tsx`, `brush.ts`, `skills.ts`. Kept: `contrast.ts` (the share image uses it), `qualities.ts`.
+> - Measured (stepped at 60 fps over the whole loop in the lab, 560 × 600 panel at 2× DPR, dev build, pane visible): 0.105 ms mean frame work, 1.3 ms p99.
+>   Hero client chunk 21.0 kB gzipped in the production build (it also carries `ScrollDrift`; the game code alone measured 15.9 kB while the lab route split it out). Static SVG frame 10.2 kB. 34 colours used, none outside the palette.
+
 ## Phase 3 — Project scaffolding (structure only, light copy)
 
 - [x] **3.1 Content model** in `src/content/projects.ts`:

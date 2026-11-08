@@ -1,6 +1,6 @@
 /**
  * The story clock. One loop is TOTAL ms; at any time exactly one beat is current, with a local progress p in 0..1.
- * Everything drawn is a pure function of the time, so the lab scrubber and the visibility pause need no extra state.
+ * Everything drawn is a pure function of the time, so seeking and the visibility pause need no extra state.
  * No React or DOM here.
  */
 

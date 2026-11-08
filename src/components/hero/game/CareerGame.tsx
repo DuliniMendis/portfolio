@@ -12,24 +12,16 @@ export function CareerGame({
   active,
   animate,
   fallback,
-  onEngine,
 }: {
   active: boolean;
   animate: boolean | null;
   fallback?: ReactNode;
-  /** Lab only: receives the engine for the scrubber and timings. */
-  onEngine?: (engine: Engine | null) => void;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const staticRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(active);
   const engineRef = useRef<Engine | null>(null);
-  const onEngineRef = useRef(onEngine);
-
-  useEffect(() => {
-    onEngineRef.current = onEngine;
-  }, [onEngine]);
 
   useEffect(() => {
     activeRef.current = active;
@@ -46,11 +38,9 @@ export function CareerGame({
       isActive: () => activeRef.current,
     });
     engineRef.current = engine;
-    onEngineRef.current?.(engine);
     return () => {
       engine?.destroy();
       engineRef.current = null;
-      onEngineRef.current?.(null);
     };
   }, [animate]);
 

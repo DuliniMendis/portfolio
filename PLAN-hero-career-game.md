@@ -1,6 +1,7 @@
 # Hero visual v3: the career game — implementation plan
 
-Status: PLAN, READY TO BUILD (written 2026-11-08; all owner decisions made the same day, section 10). Nothing is built yet.
+Status: BUILT (2026-11-08). Built in the order of section 11 in its own worktree; the lab route is deleted. Deviations from the plan are
+listed in section 12 at the end; acceptance results are ticked in section 9.
 Written so a fresh session can execute it.
 
 Companion docs: `PLAN.md` (site build plan and phase notes), `PLAN-hero-paint-strokes.md` (the hero being replaced;
@@ -247,28 +248,28 @@ use a logo, fall back to the company name in the pixel font on the building (sec
 ## 9. Acceptance checks (run before the final commit)
 
 Visual, in the browser pane at 375, 768, 1280 and 1920 px wide, with the scrubber and with screenshots:
-- [ ] Every beat in section 2 is recognisable in a single screenshot of its midpoint, at both pixel scales.
-- [ ] Dulini is recognisable: brown skin, black bun, consistent across all frames; the lab coat variant is clearly a coat.
-- [ ] The loop is seamless: the iris closes on the wave and opens on Sri Lanka with no visible camera jump.
-- [ ] Total loop length is 42 to 48 s; no beat feels rushed when watched at real speed in a visible browser.
-- [ ] Logos are crisp (not pixelated) at every width and device pixel ratio, and sit on their buildings at both camera positions.
-- [ ] No colour outside the palette except inside the logos (spot-check the pixel buffer with a colour count in the lab route).
-- [ ] Level cards fit the panel at 375 px (longest: "UNIVERSITY OF MELBOURNE" in the 5 × 7 font at 2 CSS px/pixel = 276 px; confirm, or shorten to "UNI OF MELBOURNE").
-- [ ] Reduced motion: postcards cross-fade, nothing scrolls, no particles (force the media query as v2 did).
-- [ ] The static SVG frame occupies the same box as the canvas; no layout shift when the engine starts.
-- [ ] The parallax wrapper (`ScrollDrift`) still moves the panel; the loop pauses when the hero is scrolled off screen and resumes from the same point.
-- [ ] Nothing reads as unkind toward Seer Medical or Canva: the crumble and the fall are cartoon beats; everyone gets out.
+- [x] Every beat in section 2 is recognisable in a single screenshot of its midpoint, at both pixel scales.
+- [x] Dulini is recognisable: brown skin, black bun, consistent across all frames; the lab coat variant is clearly a coat.
+- [x] The loop is seamless: the iris closes on the wave and opens on Sri Lanka with no visible camera jump.
+- [x] Total loop length is 42 to 48 s; no beat feels rushed when watched at real speed in a visible browser. (45 s. Watched in the browser pane at real speed in parts; an owner viewing of the whole loop is still worth doing.)
+- [x] Logos are crisp (not pixelated) at every width and device pixel ratio, and sit on their buildings at both camera positions.
+- [x] No colour outside the palette except inside the logos (spot-check the pixel buffer with a colour count in the lab route).
+- [x] Level cards fit the panel at 375 px (longest: "UNIVERSITY OF MELBOURNE" in the 5 × 7 font at 2 CSS px/pixel = 276 px; confirm, or shorten to "UNI OF MELBOURNE").
+- [x] Reduced motion: postcards cross-fade, nothing scrolls, no particles (force the media query as v2 did).
+- [x] The static SVG frame occupies the same box as the canvas; no layout shift when the engine starts.
+- [x] The parallax wrapper (`ScrollDrift`) still moves the panel; the loop pauses when the hero is scrolled off screen and resumes from the same point.
+- [x] Nothing reads as unkind toward Seer Medical or Canva: the crumble and the fall are cartoon beats; everyone gets out.
 
 Performance:
-- [ ] Frame work under 1 ms mean, 3 ms p99 at 1280 px (time `update + draw` in the lab route at fixed 60 fps steps, as v2 did).
-- [ ] Hero client JS at most 30 kB gz after removing the brush code (`pnpm build` output). Logos are separate static files.
-- [ ] No console errors or hydration warnings.
+- [x] Frame work under 1 ms mean, 3 ms p99 at 1280 px (time `update + draw` in the lab route at fixed 60 fps steps, as v2 did).
+- [x] Hero client JS at most 30 kB gz after removing the brush code (`pnpm build` output). Logos are separate static files.
+- [x] No console errors or hydration warnings.
 
 Code:
-- [ ] `engine.ts`, `timeline.ts`, `world.ts`, `particles.ts`, `sprites/*` have no React imports.
-- [ ] All timing/size knobs are named constants.
-- [ ] Lab route removed; sitemap unchanged.
-- [ ] `PLAN.md`, `SUMMARY.md` updated (hero description, bundle size, gotchas); this file's status set to BUILT with deviations noted.
+- [x] `engine.ts`, `timeline.ts`, `world.ts`, `particles.ts`, `sprites/*` have no React imports.
+- [x] All timing/size knobs are named constants.
+- [x] Lab route removed; sitemap unchanged.
+- [x] `PLAN.md`, `SUMMARY.md` updated (hero description, bundle size, gotchas); this file's status set to BUILT with deviations noted.
 
 ---
 
@@ -308,3 +309,44 @@ skip to the next beat; record a real-browser Performance trace.
 9. Wire `CareerGame` into `HeroVisual.tsx`; replace the sr-only list; delete the brush files;
    `pnpm lint && pnpm build`.
 10. Run section 9. Update `PLAN.md` and `SUMMARY.md`. Remove the lab route. Commit.
+
+---
+
+## 12. As built: results and deviations (2026-11-08)
+
+Results of section 9:
+- Visual: every beat checked with the lab scrubber at 343 × 352 (2×) and 560 × 600 (3×), and on the home page at 375, 768, 1280 and
+  1920 px wide. Iris closes on the wave and opens on Sri Lanka; no camera jump is visible because the screen is fully closed at the wrap.
+- "UNIVERSITY OF MELBOURNE" card: 145 game px including padding, inside the 164 game px of the 375 px layout. Not shortened.
+- Colour count over the whole loop (every 125 ms, pixel buffer): 34 colours, none outside `palette.ts`. Logos are on the crisp layer.
+- Frame work, stepped at 60 fps over the whole loop, 560 × 600 panel at 2× DPR, browser pane visible: 0.105 ms mean, 1.3 ms p99.
+- Hero client chunk: 21.0 kB gzipped in the final production build (`HeroVisual`, the game and `ScrollDrift`; the game alone measured 15.9 kB while the lab route split it out). Logos are separate static files (1.7 to 3.7 kB each).
+- Static SVG frame: 10.2 kB of HTML. Off screen: the canvas stops changing and the clock resumes where it stopped.
+- Reduced motion: checked through the lab's switch, which drives the same `animate` prop as the media query in `HeroVisual`.
+
+Deviations:
+1. **Pixel scale rule.** 3 CSS px per game pixel when the panel is at least 432 × 528 CSS px, else 2 (`panelLayout` in `world.ts`), instead of
+   switching at a 768 px viewport. The panel is only 312 px wide at 768 and 440 px at 1024, and the phone-to-tablet single column is
+   wide but only 352 px tall, so a width-only rule either cropped the scene or left a short panel. The ground line sits 26 game px above the
+   bottom at 2× and 38 at 3×, plus half of any height beyond 200 game px, so tall narrow panels (768 px) keep the scene mid-panel over a road bed.
+2. **Static frame and start.** The SVG repeats that rule with a size container query and CSS `round()` (with a plain fallback). The hydrated
+   loop starts on the same moment as the SVG (her waving, beat 10 at 22 %), so the canvas takes over invisibly, and the first thing it plays
+   is the iris into Sri Lanka. `Hero.tsx` passes `<StaticFrame />` into `HeroVisual` as a prop so the SVG is rendered by the server component.
+   SVG paths keep draw order (a rectangle joins its colour's path only if nothing drawn since overlaps it) and walk with relative moves.
+3. **Particles** are closed-form functions of age, seeded by index, rather than a pooled system with state. Same look; scrubbing and the pause are free.
+4. **Extra modules:** `scene.ts` (draws any moment, shared by the canvas and the SVG), `svg.ts`, `logos.ts`. The skyline is drawn with rectangles,
+   not a sprite, to keep the SVG small.
+5. **`contrast.ts` kept.** The share image (`opengraph-image.tsx`) imports `readableTextColor` from it; only the comment changed.
+6. **Canva tower:** colleagues are 28 px tall, so the cutaway shows four double-height floors; the facade shows eight rows of windows.
+7. **Seer:** she reappears on the roof and rides it up as the floors extrude, rather than sitting in a window; floors drop from the bottom,
+   so the building sinks floor by floor into dust, then leaves a little rubble. The colleagues land beside it and cheer.
+8. **Logos:** fetched 2026-11-08 from `seermedical.com/seer-logo.svg`, `leonardo.ai/images/leonardo_wordmark.svg` and the canva.com header
+   (`static.canva.com/.../856bac30….svg`). Canva's published header wordmark is white and Leonardo's is light grey, so their signs are a blue
+   crown and a dark board; nothing is recoloured. Leonardo's wordmark is 9:1, so its roof sign is wider (60 game px).
+9. **People** are front-facing (windows, desks and the crowd read better that way); Dulini turns to face out for the landing smile and the wave.
+10. **Small additions:** a pixel sun on a near-static parallax layer, a far skyline behind Melbourne that rises during the flight, and a
+    deeper ground band on tall panels. Postcards are taken at a chosen point in each beat (`POSTCARD_P`), not always the midpoint.
+11. **Screen-reader story:** the first line reads "Started work in Sri Lanka, as an engineer at Virtusa, 2011 to 2013." The plan's
+    "Grew up …" is not in `CONTENT.md`, so it was left out.
+12. **A bug found in testing:** a destroyed engine could restart itself when a logo finished loading (seen under React Strict Mode). The
+    engine now has a `destroyed` flag checked by `wake` and `resize`.

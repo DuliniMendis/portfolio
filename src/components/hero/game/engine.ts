@@ -22,13 +22,13 @@ export const POSTCARD_FADE_MS = 600;
 export const POSTCARD_P = [0.5, 0.6, 0.5, 0.3, 0.8, 0.45, 0.8, 0.6, 0.45, 0.85, 0.22];
 /** The postcard shown first: the same moment as the server-rendered frame. */
 const FIRST_POSTCARD = POSTCARD_P.length - 1;
-/** How many frame timings the lab can read back. */
+/** How many recent frame timings `stats()` keeps. */
 const STATS = 600;
 
 export type Engine = {
   wake(): void;
   destroy(): void;
-  /** Lab only: jump to a time, hold or resume the clock, read timings and the pixel buffer. */
+  /** For tooling and a future tap-to-skip: jump to a time, hold or resume the clock, read timings and the pixel buffer. */
   seek(t: number): void;
   setHeld(held: boolean): void;
   time(): number;
@@ -54,6 +54,8 @@ export function createEngine(opts: {
   // Logos load in the background; frames before then simply leave the signs blank.
   const images = new Map<LogoId, HTMLImageElement>();
   let loaded = 0;
+  // Set on teardown: late callbacks (a logo finishing loading) must not restart a destroyed engine.
+  let destroyed = false;
   for (const id of Object.keys(LOGOS) as LogoId[]) {
     const img = new Image();
     img.decoding = "async";
@@ -101,6 +103,7 @@ export function createEngine(opts: {
   const timings: number[] = [];
 
   function resize() {
+    if (destroyed) return;
     const w = box.clientWidth;
     const h = box.clientHeight;
     if (!w || !h) return;
@@ -199,7 +202,7 @@ export function createEngine(opts: {
   }
 
   function wake() {
-    if (raf) return;
+    if (raf || destroyed) return;
     if (!shouldRun()) {
       draw();
       return;
@@ -218,6 +221,7 @@ export function createEngine(opts: {
   return {
     wake,
     destroy() {
+      destroyed = true;
       cancelAnimationFrame(raf);
       raf = 0;
       ro.disconnect();
