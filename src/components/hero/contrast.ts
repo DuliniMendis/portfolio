@@ -1,4 +1,4 @@
-// Plain colour maths shared by the hero (label shadows), the favicon and the share image.
+// Plain colour maths for the share image (text colour on each quality).
 const INK = "#0e1717";
 const CREAM = "#fff4e6";
 

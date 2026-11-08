@@ -1,4 +1,5 @@
 import { HeroVisual } from "@/components/hero/HeroVisual";
+import { StaticFrame } from "@/components/hero/game/StaticFrame";
 import { ScrollDrift } from "@/components/hero/ScrollDrift";
 import type { CSSProperties } from "react";
 import { Button } from "@/components/ui/Button";
@@ -10,7 +11,7 @@ const delay = (seconds: number) => ({ "--hero-delay": `${seconds}s` }) as CSSPro
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden pt-16">
-      {/* Faint colour wash behind the paint strokes, drawn from the portrait palette. Kept light so the strokes carry the colour. */}
+      {/* Faint colour wash behind the game panel, drawn from the portrait palette. */}
       <div
         aria-hidden
         className="pointer-events-none absolute -right-40 top-1/2 h-[720px] w-[720px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(92,198,244,0.08),rgba(255,154,61,0.07)_45%,transparent_70%)]"
@@ -46,7 +47,7 @@ export function Hero() {
         </ScrollDrift>
 
         <ScrollDrift rate={0.12} className="order-1 h-[22rem] md:order-2 md:h-[600px]">
-          <HeroVisual />
+          <HeroVisual fallback={<StaticFrame />} />
         </ScrollDrift>
       </Container>
     </section>
