@@ -39,7 +39,7 @@ Order on the site: most recent first. Confirm ordering is Canva → Leonardo →
   LinkedIn) is in `roles` in `src/content/projects.ts`.
 - Copy for Data Viewer, Live monitoring and Clinic operations lives in `src/content/projects.ts`
   (drafted 2026-11-08 from Dulini's notes and LinkedIn, Rob Kerr's "Seer Cloud" Medium
-  article, and public Seer Sense / FDA coverage).
+  article, and public Seer Sense coverage).
 - `TODO(dulini)`: Live monitoring outcome.
 
 ### Leonardo.ai — slug `leonardo-ai`

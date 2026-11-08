@@ -112,7 +112,6 @@ export const projects: Project[] = [
           ],
           outcome: [
             "The Data Viewer became the core of how Seer's clinical team reviewed studies, scanning EEG and ECG in sync with video at up to 40 times normal speed. Referring doctors used the same platform to see their patients' data and reports.",
-            "In 2022 Seer Home received FDA clearance for diagnosing epilepsy through multi-day video-EEG-ECG monitoring.",
           ],
         },
       },
