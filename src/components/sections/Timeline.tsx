@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 // Roles and dates to be added by the owner (see CONTENT.md). Order: most recent first.
 const entries = [
-  { company: "Canva", note: "AI cost reduction and team automations" },
+  { company: "Canva", note: "AI cost reduction, agent tools and team automations" },
   { company: "Leonardo.ai", note: "Flow State, Blueprints, and building the team" },
   { company: "Seer Medical", note: "Data Viewer, live monitoring and clinic tools" },
 ];

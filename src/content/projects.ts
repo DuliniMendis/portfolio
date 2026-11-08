@@ -270,7 +270,7 @@ export const projects: Project[] = [
     role: "TODO(dulini)",
     period: "TODO(dulini)",
     summary:
-      "At Canva I worked on AI design generation, then moved to a platform team supporting Canva AI. I led the work to bring down the cost of generating designs, and built AI automations that took the routine admin out of the team's week.",
+      "At Canva I worked on AI design generation, then moved to a platform team supporting Canva AI. I led the work to bring down the cost of generating designs and to move design generation from fixed pipelines to agent tools, and built AI automations that took the routine admin out of the team's week.",
     sections: [
       {
         slug: "cost-reduction",
@@ -308,6 +308,28 @@ export const projects: Project[] = [
             href: "https://www.forbes.com.au/news/innovation/canva-founder-says-ai-costs-down-90-per-cent/",
           },
         ],
+      },
+      {
+        slug: "pipelines-to-agent-tools",
+        title: "From pipelines to agent tools",
+        kind: "lead",
+        blurb:
+          "Moving Canva's design generation from fixed pipelines to tools an AI agent can call, and retiring the ones newer methods had overtaken, without breaking any of the Canva AI launches running in parallel.",
+        body: {
+          context: [
+            "Canva's design generation had grown up as a set of workflows: fixed pipelines that each took a request through the same steps to produce a design. As Canva AI moved to an agent, which decides for itself which tools to use, those pipelines no longer fit how the product worked.",
+            "Many of them had also been overtaken. Newer design generation methods made better designs, but the older pipelines were still running, and plenty of internal teams still relied on them.",
+          ],
+          did: [
+            "I led the project to move design generation from pipelines to agent tools. We went through the pipelines one by one. The ones that still had a future were packaged as tools the agent could call. The ones that newer methods had surpassed in quality were retired.",
+            "Retiring them was mostly about people. Many internal teams were still using the older pipelines, so I worked with each of them on how and when they would move off, and negotiated timelines we could all keep.",
+            "The timing made it harder. Canva was launching different versions of Canva AI to different groups of users at the same time. Every deprecation had to land without disrupting any of those launches, and without breaking anything for users still on the older versions.",
+          ],
+          outcome: [
+            "The pipelines worth keeping became tools the agent could use, and the ones newer methods had replaced were retired, leaving fewer old systems to keep running.",
+            "TODO(dulini): how many pipelines were retired or turned into tools, and how many teams moved off them.",
+          ],
+        },
       },
       {
         slug: "ai-automations",
