@@ -280,9 +280,8 @@ Code:
 3. **Years on the level cards?** DECIDED 2026-11-08: names only, no years anywhere in the panel. Cards read
    "SRI LANKA", "UNIVERSITY OF MELBOURNE", "SEER MEDICAL", "LEONARDO.AI", "CANVA". The company cards keep the
    name even though the logo is on the building, so every level opens the same way. Years stay in the sr-only story.
-4. **Sri Lanka detail:** beach and palms is the generic choice; a Colombo landmark (Lotus Tower) or the Virtusa
-   office (her first job, 2011–2013) would be more specific. Recommendation: beach and palms plus the airport
-   sign; keep it light.
+4. **Sri Lanka detail:** DECIDED 2026-11-08: beach, two palm trees and the small airport sign, as in beat 0.
+   No city landmark and no Virtusa office.
 5. **Mobile length:** 45 s is long for a phone where the hero scrolls away quickly; the loop could run faster
    (0.8×) below 768 px. Recommendation: same speed everywhere; the pause-when-unseen already saves work.
 
