@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 
 const links = [
@@ -15,6 +15,19 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  // Escape closes the mobile menu and returns focus to its toggle.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      toggleRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/70 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
@@ -44,6 +57,7 @@ export function Nav() {
         </nav>
 
         <button
+          ref={toggleRef}
           type="button"
           className="md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}

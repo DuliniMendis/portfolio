@@ -1,8 +1,11 @@
 import { HeroVisual } from "@/components/hero/HeroVisual";
 import { ScrollDrift } from "@/components/hero/ScrollDrift";
-import { Reveal } from "@/components/motion/Reveal";
+import type { CSSProperties } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+
+// CSS entrance (see .hero-in in globals.css) rather than <Reveal>, so the headline is visible at first paint.
+const delay = (seconds: number) => ({ "--hero-delay": `${seconds}s` }) as CSSProperties;
 
 export function Hero() {
   return (
@@ -14,24 +17,24 @@ export function Hero() {
       />
       <Container className="relative grid items-center gap-4 md:grid-cols-2 md:gap-12">
         <ScrollDrift rate={-0.08} fade className="order-2 md:order-1">
-          <Reveal>
+          <div className="hero-in">
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-text">
               Dulini Mendis
             </p>
-          </Reveal>
-          <Reveal delay={0.08}>
+          </div>
+          <div className="hero-in" style={delay(0.08)}>
             <h1 className="mt-4 text-5xl font-semibold leading-[1.05] md:text-7xl">
               I build products and the teams that ship them.
             </h1>
-          </Reveal>
-          <Reveal delay={0.16}>
+          </div>
+          <div className="hero-in" style={delay(0.16)}>
             <p className="mt-6 max-w-lg text-lg text-muted">
               I lead engineering teams and still build things myself. I&apos;ve worked on
               clinical data tools and AI products, and I care about the craft and the
               people doing it.
             </p>
-          </Reveal>
-          <Reveal delay={0.24} className="mt-10 flex flex-wrap gap-3">
+          </div>
+          <div className="hero-in mt-10 flex flex-wrap gap-3" style={delay(0.24)}>
             <Button href="/#work">See my work</Button>
             <Button href="/#leadership" variant="ghost">
               How I lead
@@ -39,7 +42,7 @@ export function Hero() {
             <Button href="/dulini-mendis-cv.pdf" variant="ghost" download>
               Download CV
             </Button>
-          </Reveal>
+          </div>
         </ScrollDrift>
 
         <ScrollDrift rate={0.12} className="order-1 h-[22rem] md:order-2 md:h-[600px]">
