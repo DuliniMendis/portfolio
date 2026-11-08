@@ -1,7 +1,7 @@
 # Hero visual v2: painted skill strokes — implementation plan
 
-Status: PLAN ONLY (written 2026-11-08). Nothing in this document has been built. It is meant to be
-executed by a fresh Claude session (Opus). Discovery and library research are done; results are below.
+Status: BUILT (2026-11-08) with Spike A (hand-rolled Canvas 2D). Deviations from this spec and the reasons are in `PLAN.md`
+(Phase 2 v2 notes); acceptance results are in section 8. Originally written as a plan for a fresh session.
 
 Companion docs: `PLAN.md` (original build plan, phase notes, gotchas), `SUMMARY.md` (state of the site),
 `AGENTS.md` (this Next.js version has breaking changes; read `node_modules/next/dist/docs/` first).
@@ -248,30 +248,35 @@ port 3000 is held by the Claude app). `pnpm lint` and `pnpm build` must pass (Ca
 dynamic APIs in server components during prerender).
 
 Visual (check in the browser pane with screenshots at 375, 768, 1280, 1920 px wide):
-- [ ] The stroke is visibly *drawn* left to right over ~1.5 s, with a soft landing and a drier, thinner trail at the end.
-- [ ] Bristle streaks and ragged edges are visible at 1280 px; the stroke does not look like a rounded rectangle.
-- [ ] The label sits on the stroke, is readable (contrast ≥ 4.5:1 against the stroke colour), never clips the canvas at 375 px,
-      and never overflows a stroke for the longest labels ("Observability & monitoring", "Project management & delivery").
-- [ ] Previous stroke fades while the next draws; no frame shows two fully opaque strokes.
-- [ ] Colours alternate orange/blue over the sequence; no stroke uses a hue outside the palette.
-- [ ] The fallback (`StaticStroke`) occupies the same box; no layout shift between server HTML and the animated canvas
-      (check with the Network tab throttled or by disabling JS once).
-- [ ] Reduced motion (emulate in DevTools): no drawing animation; cross-fade only or static.
-- [ ] The hero still parallaxes via `ScrollDrift`, and the loop pauses when the hero is scrolled off screen (check the rAF stops:
-      add a temporary counter log, then remove it).
+- [x] The stroke is visibly *drawn* left to right over ~1.5 s, with a soft landing and a drier, thinner trail at the end.
+      Stepped frame by frame at 30 / 60 / 100 % of the draw at 1280 px; landing is staggered and narrow, trail thins to 55 % width and breaks into dashes.
+- [x] Bristle streaks and ragged edges are visible at 1280 px; the stroke does not look like a rounded rectangle. (1:1 canvas dumps checked in the lab route.)
+- [x] The label sits on the stroke, is readable, never clips the canvas at 375 px, and never overflows a stroke for the longest labels.
+      All 22 labels checked at 375, 768 and 1280: inside the canvas, at most two lines, 17 to 44 px. Measured paint behind the text box
+      (composited over the page): median contrast above 5.1:1 for every label at every width. Deep blue + cream is the tightest (5.0:1 at full paint);
+      a same-hue halo behind cream text holds it over streaks. Plain colour ratios: 5.0 to 12.9:1.
+- [x] Previous stroke fades while the next draws; no frame shows two fully opaque strokes (fade starts at 1 when the new stroke is at 0 % and is 0 by 0.9 s).
+- [x] Colours alternate orange/blue over the sequence; no stroke uses a hue outside the palette. (The plan's order has some blue runs; consecutive blues
+      always differ in shade. Shading only lightens toward white or scales darker within the same hue.)
+- [x] The fallback (`StaticStroke`) occupies the same box; no layout shift. The SVG, canvas and wrapper measure the same (440 x 600 at the pane's width);
+      the server HTML contains the SVG and the first label, so it shows without JavaScript.
+- [x] Reduced motion: no drawing animation; strokes appear fully painted and cross-fade (labels 0 → 0.33 → 0.67 → 1 over 0.9 s). Checked by forcing the
+      media query in the page and hot-reloading `HeroVisual` (the pane cannot emulate the preference).
+- [x] The hero still parallaxes via `ScrollDrift` (unchanged wrapper), and the loop pauses when the hero is scrolled off screen: a temporary frame counter
+      stopped while scrolled away and resumed on return (counter removed).
 
 Performance:
-- [ ] `pnpm build` output: no `three` chunk remains; the hero client JS is well under 30 kB gz.
-- [ ] Chrome Performance panel at 1280 px: steady 60 fps while drawing, main-thread work per frame < 2 ms on an M-series Mac.
-- [ ] No console errors or React hydration warnings.
+- [x] `pnpm build` output: no `three` chunk remains; the hero client JS is 11.5 kB gz (27 kB raw), down from ~269 kB gz.
+- [~] Chrome Performance panel at 1280 px: not recorded, because the browser pane throttles rAF while hidden. Instead each frame's work was timed by stepping
+      the engine at exact 60 fps frame times on an M-series Mac: drawing frames 0.09 ms mean, 0.4 ms p99. Preparing the next stroke costs 2 to 5 ms once per
+      stroke and runs during the hold, when nothing moves (first, cold call ~13 ms). A real-time trace in a visible browser is still worth doing.
+- [x] No console errors or React hydration warnings (dev server, fresh load).
 
 Code:
-- [ ] `brush.ts` has no React or DOM-global imports beyond `CanvasRenderingContext2D` types, so it can be unit tested later.
-- [ ] All timing/size knobs are named constants at the top of `PaintStrokes.tsx` or `brush.ts`.
-- [ ] Lab route removed or production-guarded; sitemap unchanged.
-- [ ] `PLAN.md` and `SUMMARY.md` updated; commit messages describe the change (owner policy: commit finished work directly).
-
----
+- [x] `brush.ts` has no React or DOM-global imports (it imports only `contrast.ts`; canvases and contexts are passed in).
+- [x] All timing/size knobs are named constants at the top of `PaintStrokes.tsx` or `brush.ts`.
+- [x] Lab route removed (`src/app/lab/` deleted before commit); sitemap unchanged.
+- [x] `PLAN.md` and `SUMMARY.md` updated; commit messages describe the change.
 
 ## 9. Suggested execution order for the executor
 

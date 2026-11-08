@@ -10,10 +10,10 @@ const delay = (seconds: number) => ({ "--hero-delay": `${seconds}s` }) as CSSPro
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden pt-16">
-      {/* Soft colour wash behind the model, drawn from the portrait palette. */}
+      {/* Faint colour wash behind the paint strokes, drawn from the portrait palette. Kept light so the strokes carry the colour. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 top-1/2 h-[720px] w-[720px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(92,198,244,0.22),rgba(255,154,61,0.20)_45%,transparent_70%)]"
+        className="pointer-events-none absolute -right-40 top-1/2 h-[720px] w-[720px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(92,198,244,0.08),rgba(255,154,61,0.07)_45%,transparent_70%)]"
       />
       <Container className="relative grid items-center gap-4 md:grid-cols-2 md:gap-12">
         <ScrollDrift rate={-0.08} fade className="order-2 md:order-1">
