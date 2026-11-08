@@ -1,0 +1,41 @@
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { Stagger, StaggerItem } from "@/components/motion/Reveal";
+import { Container } from "@/components/ui/Container";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Tag } from "@/components/ui/Tag";
+import { projects } from "@/content/projects";
+
+export function Work() {
+  return (
+    <section id="work" className="scroll-mt-20 py-24 md:py-32">
+      <Container>
+        <SectionHeading
+          eyebrow="Selected work"
+          title="Three companies, one thread: build well, lead well."
+        />
+        <Stagger className="mt-14 grid gap-6 md:grid-cols-3">
+          {projects.map((p) => (
+            <StaggerItem key={p.slug}>
+              <Link
+                href={`/work/${p.slug}`}
+                className="group flex h-full min-h-72 flex-col rounded-card border border-border bg-surface p-8 transition-all hover:-translate-y-1 hover:border-ink hover:shadow-lg"
+              >
+                <div className="flex items-start justify-between">
+                  <h3 className="text-3xl font-semibold">{p.name}</h3>
+                  <ArrowUpRight className="text-muted transition-colors group-hover:text-accent" />
+                </div>
+                <p className="mt-4 flex-1 text-muted">{p.summary}</p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {p.sections.map((s) => (
+                    <Tag key={s.slug}>{s.title}</Tag>
+                  ))}
+                </div>
+              </Link>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </Container>
+    </section>
+  );
+}

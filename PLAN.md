@@ -65,10 +65,10 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 
 ## Phase 1 — Landing page shell
 
-- [ ] **1.1 Layout & nav.** Sticky, translucent nav: name/wordmark left; links `Work`,
+- [x] **1.1 Layout & nav.** Sticky, translucent nav: name/wordmark left; links `Work`,
   `Leadership`, `About`, `Contact` right; CTA button `Let's talk`. Collapses to a minimal
   menu on mobile. Smooth-scroll to section anchors.
-- [ ] **1.2 Section skeleton.** Landing page is a single scroll with these sections in order:
+- [x] **1.2 Section skeleton.** Landing page is a single scroll with these sections in order:
   1. Hero (3D banner) — Phase 2
   2. Intro strip — one-line thesis: "I build products and the teams that ship them."
   3. Builder — 3 cards: what she builds (data-heavy UIs, generative AI tooling, platform
@@ -79,10 +79,21 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
      role, 1-line impact, hover lift, click-through to `/work/[slug]`.
   6. Timeline — compact career timeline (companies + years). Facts from CONTENT.md.
   7. Contact — email, LinkedIn, GitHub. Footer.
-- [ ] **1.3 Motion primitives.** `Reveal` (fade+rise on enter, once, stagger children) and
+- [x] **1.3 Motion primitives.** `Reveal` (fade+rise on enter, once, stagger children) and
   `Parallax` (translateY proportional to scroll via `useScroll`/`useTransform`). Respect
   `prefers-reduced-motion` — disable transforms, keep opacity.
-- [ ] **1.4 Lenis smooth scroll** wired in root layout; confirm anchors still work.
+- [x] **1.4 Lenis smooth scroll** wired in root layout; confirm anchors still work.
+
+> **Phase 1 notes (done):**
+> - Hero is a stand-in: a gradient orb inside `<Parallax>` in `src/components/sections/Hero.tsx`.
+>   Phase 2 replaces the orb with the R3F canvas. Keep the left-hand copy and CTAs.
+> - Motion helpers: `Reveal`, `Stagger`/`StaggerItem`, `Parallax`, `SmoothScroll` (Lenis) in `src/components/motion/`.
+> - Cache Components is on: do not call `new Date()` or other dynamic APIs in server components
+>   during prerender (the build fails). Use client components or `"use cache"`.
+> - Timeline has company names only; roles and dates wait on the owner (see CONTENT.md).
+> - Leader and Builder copy is draft wording with no invented metrics.
+> - Project links point at `/work/...` routes that do not exist until Phase 3 (they 404 for now).
+> - Local preview: `.claude/launch.json` starts `pnpm dev` with Node on the PATH.
 
 ## Phase 2 — Hero banner with 3D model (the showpiece)
 
