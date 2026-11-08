@@ -188,7 +188,7 @@ now. Target under 12 kB of HTML.
 
 **Integration.** `HeroVisual.tsx` swaps `PaintStrokes` for `CareerGame` and replaces the sr-only skills list
 with the sr-only story list from `story.ts` (section 8). Then delete `PaintStrokes.tsx`, `StaticStroke.tsx`,
-`brush.ts`, `contrast.ts`, and `skills.ts` unless section 10's skill pickups are adopted. `qualities.ts` stays
+`brush.ts`, `contrast.ts` and `skills.ts` (the skills leave the hero; section 10, decision 1). `qualities.ts` stays
 (favicon and share image). The colour-wash `div` in `Hero.tsx` can stay; check it does not fight the sky.
 
 ---
@@ -273,12 +273,8 @@ Code:
 
 ## 10. Decisions for the owner (ask one at a time)
 
-1. **Skills as pickups?** The current hero shows 22 skills. The game drops them unless we add a game mechanic:
-   skill tags float like coins at each workplace and she "collects" them with a sparkle as she passes (React and
-   TypeScript at Seer, Next.js and GraphQL at Leonardo, LLM ops and Evals at Canva, leadership skills where she
-   led), with a small "★ 12/22" counter top-right. It keeps the skills in the hero and makes it feel more like a
-   game, at the cost of about 6 s and more on-screen text. Recommendation: yes, but only after the story beats
-   are done and reviewed.
+1. **Skills as pickups?** DECIDED 2026-11-08: no. Story only. The 22 skills leave the hero; they remain in
+   the CV and the rest of the site. Delete `skills.ts` with the brush code (section 5).
 2. **Logos or names?** Real logos on the buildings (section 6) or the company name in the pixel font. Logos as
    asked; names are the fallback.
 3. **Years on the level cards?** Cards with years ("SEER MEDICAL · 2017–2024") or names only. Recommendation:
@@ -310,4 +306,3 @@ skip to the next beat; record a real-browser Performance trace.
 9. Wire `CareerGame` into `HeroVisual.tsx`; replace the sr-only list; delete the brush files;
    `pnpm lint && pnpm build`.
 10. Run section 9. Update `PLAN.md` and `SUMMARY.md`. Remove the lab route. Commit.
-11. Then raise decision 1 (skill pickups) with the owner.
