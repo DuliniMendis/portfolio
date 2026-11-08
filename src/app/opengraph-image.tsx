@@ -1,18 +1,11 @@
 import { ImageResponse } from "next/og";
+import { readableTextColor } from "@/components/hero/contrast";
 import { QUALITIES } from "@/components/hero/qualities";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 
 export const alt = `${SITE_NAME}: ${SITE_TAGLINE}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-function isLight(hex: string) {
-  const n = parseInt(hex.slice(1), 16);
-  const r = (n >> 16) & 255;
-  const g = (n >> 8) & 255;
-  const b = n & 255;
-  return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.55;
-}
 
 // One sphere in the middle, six around it, as in the hero when the qualities combine.
 const D = 150;
@@ -39,7 +32,7 @@ export default function Image() {
         justifyContent: "center",
         fontSize: 22,
         fontWeight: 600,
-        color: isLight(color) ? "#0e1717" : "#fff4e6",
+        color: readableTextColor(color),
       }}
     >
       {name}

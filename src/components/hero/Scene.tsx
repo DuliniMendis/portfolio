@@ -22,11 +22,11 @@ export default function Scene({ active, animate, tilt }: SceneProps) {
     >
       <ambientLight intensity={1.3} />
       <directionalLight position={[4, 5, 6]} intensity={1.9} color="#fff4e6" />
-      <pointLight position={[-5, -2, 3]} intensity={18} color="#4db3de" />
+      <pointLight position={[-5, -2, 3]} intensity={18} color="#7fd4f8" />
       {/* Local studio lights for reflections; no HDR download. */}
       <Environment resolution={128}>
         <Lightformer form="rect" intensity={3} color="#ffd9b0" position={[3, 3, 4]} scale={[6, 3, 1]} />
-        <Lightformer form="rect" intensity={2} color="#7fc4e0" position={[-4, 0, 3]} scale={[3, 6, 1]} />
+        <Lightformer form="rect" intensity={2} color="#8fd6f8" position={[-4, 0, 3]} scale={[3, 6, 1]} />
         <Lightformer form="ring" intensity={1.5} color="#ffffff" position={[0, 4, -3]} scale={4} />
       </Environment>
       <Model animate={animate} tilt={tilt} />

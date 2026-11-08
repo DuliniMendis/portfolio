@@ -1,13 +1,9 @@
 import * as THREE from "three";
+import { readableTextColor } from "./contrast";
 import { QUALITIES } from "./qualities";
 
 const W = 1280;
 const H = 640;
-
-function luminance(hex: string) {
-  const c = new THREE.Color(hex);
-  return 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
-}
 
 /**
  * Paints a quality's name onto an equirectangular texture. The front of a three.js sphere
@@ -32,8 +28,8 @@ export function makeNameTexture(name: string, color: string, fontFamily: string)
   ctx.font = `600 ${size}px ${fontFamily}`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  // Dark ink on light clay, cream on dark clay.
-  ctx.fillStyle = luminance(color) > 0.2 ? "rgba(14,23,23,0.88)" : "rgba(255,244,230,0.92)";
+  // Dark ink or cream, whichever reads better on this clay (at least 5:1 for every quality).
+  ctx.fillStyle = readableTextColor(color);
   ctx.fillText(name, W * 0.25, H * 0.5);
 
   const tex = new THREE.CanvasTexture(canvas);

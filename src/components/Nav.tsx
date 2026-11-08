@@ -37,7 +37,7 @@ export function Nav() {
           ))}
           <Link
             href="/#contact"
-            className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-ink transition-colors hover:bg-blue hover:text-white"
+            className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-ink transition-colors hover:bg-blue-light"
           >
             Let&apos;s talk
           </Link>

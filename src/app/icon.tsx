@@ -19,7 +19,7 @@ export default function Icon() {
           borderRadius: 14,
         }}
       >
-        <div style={{ width: 36, height: 36, borderRadius: 36, background: QUALITIES[0].color }} />
+        <div style={{ width: 36, height: 36, borderRadius: 36, background: QUALITIES.find((q) => q.name === "Creativity")!.color }} />
       </div>
     ),
     size,

@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
         <Container>
           <BackLink href="/#work">All work</BackLink>
           <Reveal className="mt-10 max-w-3xl">
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-text">
               Selected work
             </p>
             <h1 className="mt-3 text-5xl font-semibold leading-tight md:text-7xl">{project.name}</h1>

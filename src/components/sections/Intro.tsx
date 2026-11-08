@@ -14,7 +14,7 @@ export function Intro() {
             width={200}
             height={200}
             priority
-            className="h-[200px] w-[200px] rounded-card object-cover shadow-[0_24px_60px_-20px_rgba(12,111,152,0.4)] ring-1 ring-border"
+            className="h-[200px] w-[200px] rounded-card object-cover shadow-[0_24px_60px_-20px_rgba(92,198,244,0.5)] ring-1 ring-border"
           />
         </Reveal>
         <Reveal delay={0.1} className="max-w-4xl">

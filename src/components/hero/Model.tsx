@@ -173,7 +173,7 @@ export function Model({ animate, tilt }: ModelProps) {
         <sphereGeometry args={[1, 96, 96]} />
         <meshStandardMaterial
           key={marble ? "painted" : "plain"}
-          color={marble ? "#ffffff" : "#c9b8a8"}
+          color={marble ? "#ffffff" : "#ffd6b0"}
           map={marble}
           bumpMap={grain}
           bumpScale={1.2}

@@ -7,10 +7,12 @@
   --ink: #0e1717;          /* near-black with a teal cast */
   --muted: #5a6a72;        /* cool grey derived from ink and blue */
   --border: #dbe3e6;
-  --blue: #0c6f98;         /* lightest true blue in the photo */
-  --sky: #dff1f9;          /* pale tint of the same blue hue: washes and backgrounds */
-  --accent: #ffa969;       /* lightest orange in the photo */
-  --peach: #fff0e3;        /* pale tint of the same orange hue */
+  --blue: #1a96d2;         /* bright blue: fills, icons, focus ring (3.3:1 on white, so not for small text) */
+  --blue-light: #5cc6f4;   /* lighter, brighter blue: hovers and 3D */
+  --blue-text: #08689e;    /* same hue, deeper: small blue text (5.7:1 on the page background) */
+  --sky: #d6eefc;          /* pale tint of the same blue hue: washes and backgrounds */
+  --accent: #ff9a3d;       /* bright orange: fills; dark ink on it is 8.6:1 */
+  --peach: #ffeedd;        /* pale tint of the same orange hue */
   --accent-ink: #0e1717;
   --radius: 12px;
   --content-width: 1200px;
@@ -23,6 +25,8 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-blue: var(--blue);
+  --color-blue-light: var(--blue-light);
+  --color-blue-text: var(--blue-text);
   --color-sky: var(--sky);
   --color-peach: var(--peach);
   --color-accent-ink: var(--accent-ink);

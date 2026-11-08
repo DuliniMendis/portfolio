@@ -23,7 +23,7 @@ export function Leader() {
     <section id="leadership" className="scroll-mt-20 bg-gradient-to-br from-sky to-peach py-24 text-ink md:py-32">
       <Container>
         <Reveal className="max-w-2xl">
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue">Leader</p>
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-text">Leader</p>
           <h2 className="mt-3 text-3xl font-semibold leading-tight md:text-5xl">
             Teams that are empowered, high performing, and well rested.
           </h2>
@@ -45,7 +45,7 @@ export function Leader() {
         <Reveal className="mt-10">
           <Link
             href="/work/leonardo-ai/building-the-team"
-            className="text-sm font-medium text-ink underline underline-offset-4 hover:text-blue"
+            className="text-sm font-medium text-ink underline underline-offset-4 hover:text-blue-text"
           >
             Read how I built the team →
           </Link>

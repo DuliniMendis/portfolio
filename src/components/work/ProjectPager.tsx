@@ -16,7 +16,7 @@ export function ProjectPager({ slug }: { slug: string }) {
           <span className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted">
             <ArrowLeft size={14} /> Previous
           </span>
-          <span className="font-display text-3xl font-semibold group-hover:text-blue">{prev.name}</span>
+          <span className="font-display text-3xl font-semibold group-hover:text-blue-text">{prev.name}</span>
         </Link>
         <Link
           href={`/work/${next.slug}`}
@@ -25,7 +25,7 @@ export function ProjectPager({ slug }: { slug: string }) {
           <span className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-muted">
             Next <ArrowRight size={14} />
           </span>
-          <span className="font-display text-3xl font-semibold group-hover:text-blue">{next.name}</span>
+          <span className="font-display text-3xl font-semibold group-hover:text-blue-text">{next.name}</span>
         </Link>
       </Container>
     </nav>

@@ -58,7 +58,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Stack is Next.js 16.4.5, React 19.3, Tailwind 4. `AGENTS.md` says this Next has breaking
 >   changes: read `node_modules/next/dist/docs/` before using unfamiliar APIs.
 > - Layout props use the global `LayoutProps<"/">` helper; the Cache Components feature is on.
-> - SUPERSEDED by the palette note under Phase 1 (colours now come from the profile photo). Original: coral `#f2603f`. Fonts: Inter Tight (display) + Inter (body). Light only.
+> - SUPERSEDED by the current palette note under Phase 1. Original: coral `#f2603f`, then photo-sampled colours. Fonts: Inter Tight (display) + Inter (body). Light only.
 > - Tokens live in `src/app/globals.css` as CSS variables and Tailwind theme colours
 >   (`bg-background`, `text-ink`, `text-muted`, `bg-accent`, `border-border`, `rounded-card`).
 > - 0.6 done: repo at github.com/DuliniMendis/portfolio (SSH remote), deployed to https://dulini-mendis-portfolio.vercel.app/. Pushes to `main` auto-deploy; other branches get preview URLs.
@@ -95,14 +95,15 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Project links point at `/work/...` routes that do not exist until Phase 3 (they 404 for now).
 > - Local preview: `.claude/launch.json` starts `pnpm dev` with Node on the PATH.
 
-> **Palette (sampled from `public/images/dulini.jpeg`) — LIGHTENED, supersedes earlier darker values:**
-> - Brand: orange `#ffa969` (lightest orange pixel in the photo), blue `#0c6f98` (lightest TRUE blue in the photo; the photo has no lighter blue).
-> - Tints of those same hues for backgrounds: sky `#dff1f9`, peach `#fff0e3` (derived, not sampled). Ink `#0e1717`, muted `#5a6a72`, border `#dbe3e6`, background `#f7f9fa`.
-> - Buttons: orange fill with dark ink text, blue on hover. Eyebrow text and icons are blue. The Leader band is a light sky-to-peach gradient with ink text.
-> - Removed: burnt orange `#b85209`, deep blue `#033749`, black buttons. Do not reintroduce dark blocks without asking.
-> - Contrast checked: blue text on light 4.8-5.6:1, ink on orange 9.7:1, white on blue 5.6:1. Light orange is NOT for small text on white.
+> **Palette (current; brighter orange and blue):**
+> - Theme tokens in `src/app/globals.css`: ink `#0e1717`, muted `#5a6a72`, background `#f7f9fa`, accent orange `#ff9a3d` (fills; dark ink on it is 8.6:1),
+>   blue `#1a96d2` (fills, icons, focus ring; only 3.3:1 on white, so NOT for small text), blue-light `#5cc6f4` (hovers), blue-text `#08689e`
+>   (small blue text: eyebrows, hover text; 5.7:1), sky `#d6eefc` and peach `#ffeedd` (washes, Leader gradient).
+> - Rule: small blue text uses `text-blue-text`; icons and fills use `blue`. Buttons are `bg-accent` with ink text, hover `bg-blue-light`.
+> - The seven spheres are shades of orange and blue only (`src/components/hero/qualities.ts`): Care soft orange, Creativity bright orange, Resilience deep orange,
+>   Pragmatism pale blue, Drive bright blue, Intelligence mid blue, Humility deep blue (centre of the cluster). Array order = ring order = marble bands.
+>   Label colour (ink or cream) is picked per sphere by contrast (`contrast.ts`), at least 5:1 for all seven. The share image reads the same list.
 > - Photo is only 200x200. Show it at 200px or smaller. Ask for a larger original for any bigger use or an OG image.
-> - Hero 3D model should use these colours: orange light on deep blue, like the portrait lighting.
 
 ## Phase 2 — Hero banner with 3D model (the showpiece)
 

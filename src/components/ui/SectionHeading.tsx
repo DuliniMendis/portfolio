@@ -11,7 +11,7 @@ export function SectionHeading({
 }) {
   return (
     <Reveal className="max-w-2xl">
-      <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue">
+      <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-text">
         {eyebrow}
       </p>
       <h2 className="mt-3 text-3xl font-semibold leading-tight md:text-5xl">{title}</h2>

@@ -74,7 +74,7 @@ export default async function SectionPage({ params }: PageProps<"/work/[slug]/[s
                 <li key={s.slug}>
                   <Link
                     href={`/work/${project.slug}/${s.slug}`}
-                    className="flex items-baseline justify-between gap-4 py-5 transition-colors hover:text-blue"
+                    className="flex items-baseline justify-between gap-4 py-5 transition-colors hover:text-blue-text"
                   >
                     <span className="font-display text-2xl font-semibold">{s.title}</span>
                     <span className="text-sm text-muted">{KIND_LABEL[s.kind]}</span>
