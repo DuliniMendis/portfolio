@@ -271,14 +271,14 @@ export const projects: Project[] = [
     role: "Engineering Manager",
     period: "May 2026 – Nov 2026",
     summary:
-      "I worked on AI design generation at Canva, then joined a platform team supporting Canva AI. As Engineering Manager I led a team of seven backend and ML engineers. I led the work to cut the cost of generating designs and to move design generation from fixed pipelines to agent tools, and I built tools like one-click bug reports to make everyday work easier.",
+      "I worked on AI design generation at Canva, then joined a platform team supporting Canva AI. As Engineering Manager I led a team of seven backend and ML engineers. I led the work to cut the cost of generating designs and to move design generation from fixed pipelines to agent tools, and I built tools like one-click bug reports to make everyday work easier. Along the way I set up a few small AI automations for the team: a daily round-up, slides for regular meetings, and Jira updates for weekly reporting.",
     sections: [
       {
         slug: "cost-reduction",
         title: "Cost reduction",
         kind: "build",
         blurb:
-          "Cutting the cost of Liberation, one of the ways Canva AI makes designs, by switching it to cheaper models and testing with real users that the designs were still good.",
+          "Halving the cost of Liberation, one of the ways Canva AI makes designs, by switching it to cheaper models and testing with real users that the designs were still good.",
         stack: ["LLM evals", "A/B testing", "Open-source models", "First-party models", "Frontier models"],
         body: {
           context: [
@@ -291,8 +291,8 @@ export const projects: Project[] = [
             "A lot of the work was coordination. I worked with Canva's CORE research group, who trained the first-party models, and with outside vendors to get access to third-party models, and kept them all moving towards the same goal.",
           ],
           outcome: [
+            "We cut Liberation's costs by 50%. The evals and A/B tests showed design quality held up, so users got designs just as good for half the cost.",
             "Getting AI costs under control became one of Canva's top priorities. By August 2026 the company said it had cut the cost of serving an AI task by nearly 90%, by moving work onto its own and cheaper models and reviewing the economics of its AI tools every week. Moving Liberation onto cheaper models was part of that same effort.",
-            "TODO(dulini): the savings or results you can share for Liberation.",
           ],
         },
         press: [
@@ -315,7 +315,7 @@ export const projects: Project[] = [
         title: "One-click bug reports",
         kind: "build",
         blurb:
-          "Canva staff can report a Canva AI bug with one click and a short description. The traces and everything else needed to fix it are captured automatically.",
+          "A way for Canva staff to report a Canva AI bug with one click and a short description, with the traces and everything else needed to fix it captured automatically.",
         stack: ["CoreWeave Forge", "Langfuse", "Jira", "Slack"],
         body: {
           context: [
@@ -329,7 +329,7 @@ export const projects: Project[] = [
           ],
           outcome: [
             "The aim was to turn reporting a bug from a chore into a click, so more problems got reported and each one arrived with what an engineer needed to start fixing it.",
-            "TODO(dulini): where the project got to, and any early results.",
+            "We didn't get to roll it out. The project stopped when Canva made layoffs in November 2026.",
           ],
         },
       },
@@ -345,35 +345,12 @@ export const projects: Project[] = [
             "Many of them had also been overtaken. Newer design generation methods made better designs, but the older pipelines were still running, and plenty of internal teams still relied on them.",
           ],
           did: [
-            "I led the project to move design generation from pipelines to agent tools. We went through the pipelines one by one. The ones that still had a future were packaged as tools the agent could call. The ones that newer methods had surpassed in quality were retired.",
+            "I led the project to move design generation from pipelines to agent tools. We went through the pipelines one by one. The one that still had a future was turned into tools the agent could call. The ones that newer methods had surpassed in quality were retired.",
             "Retiring them was mostly about people. Many internal teams were still using the older pipelines, so I worked with each of them on how and when they would move off, and negotiated timelines we could all keep.",
             "The timing made it harder. Canva was launching different versions of Canva AI to different groups of users at the same time. Every deprecation had to land without disrupting any of those launches, and without breaking anything for users still on the older versions.",
           ],
           outcome: [
-            "The pipelines worth keeping became tools the agent could use, and the ones newer methods had replaced were retired, leaving fewer old systems to keep running.",
-            "TODO(dulini): how many pipelines were retired or turned into tools, and how many teams moved off them.",
-          ],
-        },
-      },
-      {
-        slug: "ai-automations",
-        title: "AI automations",
-        kind: "lead",
-        blurb:
-          "Small AI automations that took the busywork out of the team's week: a daily round-up, slides for regular meetings, and Jira updates for weekly reporting.",
-        body: {
-          context: [
-            "Every team has a layer of routine work around the real work. Someone keeps track of what happened today and who needs to know. Someone puts together the slides for the regular meeting. Someone goes through Jira so the weekly report is right. None of it is hard, but it adds up, and it tends to land on the same few people.",
-          ],
-          did: [
-            "I built AI automations to take that work off the team's plate.",
-            "One posts a daily round-up of what happened that matters to the team, so nobody has to dig through threads to stay in the loop.",
-            "Another creates the slides for our regular meetings, so each meeting starts from an up-to-date deck instead of one someone threw together the hour before.",
-            "A third makes the Jira updates for weekly reporting, so the report shows where the work really is without anyone chasing tickets.",
-          ],
-          outcome: [
-            "The routine admin ran in the background, and the team got that time back for the work that mattered.",
-            "TODO(dulini): time saved, or other teams that picked the automations up.",
+            "The pipeline worth keeping became three new tools in the tools service, ready for the agent to call. The ones newer methods had replaced were retired, and seven internal teams moved off them, leaving fewer old systems to keep running.",
           ],
         },
       },

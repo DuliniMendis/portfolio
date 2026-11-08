@@ -22,7 +22,7 @@ const cards = [
   {
     icon: TrendingDown,
     title: "Making AI cheaper to run",
-    body: "At Canva I helped cut the cost of generating designs by moving to cheaper models, then checked with real users that the designs were still good.",
+    body: "At Canva I halved the cost of one of Canva AI's ways of making designs by moving it to cheaper models, without hurting design quality.",
     href: "/work/canva/cost-reduction",
     cta: "Canva cost reduction",
   },

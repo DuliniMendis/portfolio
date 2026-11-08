@@ -56,15 +56,16 @@ three companies with project pages read role and period from `projects.ts`.
 - Worked in design generation, then a platform team supporting Canva AI.
 - Copy for Cost reduction lives in `src/content/projects.ts` (drafted 2026-11-08 from Dulini's
   notes, with press links to Fortune and Forbes Australia coverage of Canva's 2026 AI costs).
-  Outcome still needs Liberation-specific results: `TODO(dulini)`.
+  Outcome: Liberation's costs cut by 50% with no loss of design quality (Dulini, 2026-11-08).
 - Copy for One-click bug reports (kind `build`: one-click Canva AI bug reports for staff, traces
   saved to CoreWeave Forge and Langfuse, Jira tickets, Slack alerts) also lives there. The
-  project was started, not necessarily finished; outcome needs status and results: `TODO(dulini)`.
+  project was never rolled out: it stopped when Canva made layoffs in November 2026.
 - Copy for From pipelines to agent tools (kind `lead`: packaging pipelines as agent tools,
   retiring overtaken ones, negotiating timelines with internal teams during parallel Canva AI
-  launches) also lives there. Outcome needs numbers (pipelines, teams): `TODO(dulini)`.
-- Copy for AI automations (kind `lead`: daily round-up, meeting slides, Jira weekly reporting)
-  also lives there. Outcome needs specifics (time saved, adoption): `TODO(dulini)`.
+  launches) also lives there. Outcome: one pipeline became three new tools in the tools service;
+  the overtaken ones were retired and seven internal teams moved off them.
+- AI automations (daily round-up, meeting slides, Jira weekly reporting) are a small mention in
+  the Canva summary, not a case study: their impact was never measured (Dulini's call, 2026-11-08).
 
 ## Tone
 
