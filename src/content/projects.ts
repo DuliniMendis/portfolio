@@ -130,7 +130,10 @@ export const projects: Project[] = [
             "I built the live version of the viewer and the interfaces that talk to the Seer Sense in real time. Signals and video stream in from the patient's home as they are recorded, and the viewer keeps them in sync as they arrive.",
             "It builds on the review viewer, so clinicians work with the same traces, video panel and controls whether a study is live or finished.",
           ],
-          outcome: ["TODO(dulini)"],
+          outcome: [
+            "Seer's support team used it to watch how each home study was going, remotely. If there was a problem with an electrode or the video, they could see it and get it fixed while the study was still running.",
+            "Live monitoring of data quality was also a requirement for FDA approval.",
+          ],
         },
       },
       {

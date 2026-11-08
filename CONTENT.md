@@ -40,7 +40,6 @@ Order on the site: most recent first. Confirm ordering is Canva → Leonardo →
 - Copy for Data Viewer, Live monitoring and Clinic operations lives in `src/content/projects.ts`
   (drafted 2026-11-08 from Dulini's notes and LinkedIn, Rob Kerr's "Seer Cloud" Medium
   article, and public Seer Sense coverage).
-- `TODO(dulini)`: Live monitoring outcome.
 
 ### Leonardo.ai — slug `leonardo-ai`
 - Role: Frontend Tech Lead. Period: `TODO(dulini)`
