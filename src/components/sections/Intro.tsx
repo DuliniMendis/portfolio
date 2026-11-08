@@ -18,15 +18,17 @@ export function Intro() {
           />
         </Reveal>
         <Reveal delay={0.1} className="max-w-4xl">
-          {/* Short form of the TL;DR on Dulini's CV. */}
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue-text">TL;DR</p>
-          <p className="mt-4 font-display text-2xl font-medium leading-snug md:text-4xl">
-            From founding engineer at Seer Medical to tech lead at Leonardo.Ai and, most
-            recently, Engineering Manager at Canva&nbsp;AI.
-          </p>
-          <p className="mt-6 text-lg text-ink/80 md:text-xl">
+          {/* Adapted from the TL;DR on Dulini's CV. */}
+          <p className="font-display text-2xl font-medium leading-snug md:text-4xl">
             Solving problems that truly make a difference, supporting the growth of others and
             getting things into the hands of users is what motivates me the most.
+          </p>
+          <p className="mt-6 text-lg text-ink/80 md:text-xl">
+            I started as a founding software engineer at Seer Medical, a regulated medtech
+            company that ran on software I built or led. From there I became tech lead at
+            Leonardo.Ai and, most recently, Engineering Manager for Canva&apos;s Design
+            Generation Platform, which supports the LLM pipelines behind Canva AI. Before all
+            that, I did a PhD in computational neuroscience at the University of Melbourne.
           </p>
         </Reveal>
       </Container>
