@@ -38,21 +38,21 @@ lists its target length so the whole thing can be tuned from one table of consta
 |---|------|------------------------|--------|
 | 0 | **Sri Lanka** | Level card "SRI LANKA". Beach, two palm trees, a tiny airport sign. Dulini stands idle (2-frame breathe), then walks to a small plane. | 2.5 s |
 | 1 | **Flight** | Plane takes off and flies right. Camera follows the plane; ocean, waves and clouds scroll in parallax. Dulini visible in a window. Near the end, the Australian coastline and a city skyline rise on the horizon. | 4 s |
-| 2 | **Jump to Melbourne** | Plane passes over the University of Melbourne (sandstone building with a clock tower, sign "UNIVERSITY OF MELBOURNE"). She jumps out of the plane, arcs down, lands with a dust puff. Level card "MELBOURNE · 2014". | 2.5 s |
+| 2 | **Jump to Melbourne** | Plane passes over the University of Melbourne (sandstone building with a clock tower, sign "UNIVERSITY OF MELBOURNE"). She jumps out of the plane, arcs down, lands with a dust puff. Level card "UNIVERSITY OF MELBOURNE". | 2.5 s |
 | 3 | **PhD** | Inside the university (cutaway wall): she sits at a desk and types on a laptop (speech bubble with `{ }` and a brain-wave squiggle, for computational neuroscience). Then she puts on a lab coat and stands at a bench; beakers bubble, a little spark pops. | 5 s |
-| 4 | **Seer Medical grows** | She walks right to a one-storey office with the Seer Medical logo on it and goes in. The building grows floor by floor (extrude up with a bounce), windows light, little people pop into them one after another until there are a lot. Level card "SEER MEDICAL · 2017–2024". | 6 s |
+| 4 | **Seer Medical grows** | She walks right to a one-storey office with the Seer Medical logo on it and goes in. The building grows floor by floor (extrude up with a bounce), windows light, little people pop into them one after another until there are a lot. Level card "SEER MEDICAL". | 6 s |
 | 5 | **Seer crumbles, jump** | The building shakes, cracks appear, floors drop one by one into dust clouds. Everyone inside hops out safely (keep it cartoonish; these are real colleagues). She leaps from the top across the gap and lands at the Leonardo.Ai office door. | 3.5 s |
-| 6 | **Leonardo.Ai** | Office with four or five colleagues at desks. She taps her laptop and small picture frames materialise in the air above her one by one with sparkles (a cat, a landscape, a rocket, a face), growing from a dot. Colleagues raise arms. Level card "LEONARDO.AI · 2024–2026". | 5 s |
+| 6 | **Leonardo.Ai** | Office with four or five colleagues at desks. She taps her laptop and small picture frames materialise in the air above her one by one with sparkles (a cat, a landscape, a rocket, a face), growing from a dot. Colleagues raise arms. Level card "LEONARDO.AI". | 5 s |
 | 7 | **The big hand** | A giant pixel hand slides down from the top edge and sweeps everyone (Dulini and the colleagues, tumbling) to the right into a tall Canva building with the Canva logo. Doors shut behind them. | 3.5 s |
-| 8 | **Canva** | Cutaway of the tall building. Many people on several floors. Lines draw from Dulini to a dozen people (a network of connections), with small heart/chat bubbles. Then a terminal window sprite appears beside her with text streaming out (the LLM work). The wind starts: leaves, sticky notes and paper fly across, clouds race, people lean into it, the window frames rattle. Level card "CANVA · 2026". | 7 s |
+| 8 | **Canva** | Cutaway of the tall building. Many people on several floors. Lines draw from Dulini to a dozen people (a network of connections), with small heart/chat bubbles. Then a terminal window sprite appears beside her with text streaming out (the LLM work). The wind starts: leaves, sticky notes and paper fly across, clouds race, people lean into it, the window frames rattle. Level card "CANVA". | 7 s |
 | 9 | **The fall** | A gust blows her out of a window. She tumbles (rotating fall frame) down the side of the building, then flips upright and lands on her feet with a squash-and-stretch and a dust puff. She is smiling. | 3 s |
 | 10 | **Wave** | She waves (2-frame wave), a "✦" sparkle twinkles. Iris-out to the ink colour (classic game transition), then the world resets to beat 0 and the iris opens. | 3 s |
 
 Total ≈ 45 s. The iris-out hides the camera jump back to the start, so the loop is seamless.
 
 **Level cards** are short uppercase strings in a pixel font that slide in at the top of the panel for about 1.6 s
-at the start of a beat. They are the only text in the panel; the three company beats carry the real logo on the
-building, so their cards can be years only ("2017–2024") if the owner prefers (see section 10).
+at the start of a beat. They are the only text in the panel and carry names only, never years (section 10,
+decision 3).
 
 ---
 
@@ -277,8 +277,9 @@ Code:
    the CV and the rest of the site. Delete `skills.ts` with the brush code (section 5).
 2. **Logos or names?** DECIDED 2026-11-08: real logos on the buildings (section 6). The pixel-font name is
    only the fallback if an official asset cannot be obtained for a company.
-3. **Years on the level cards?** Cards with years ("SEER MEDICAL · 2017–2024") or names only. Recommendation:
-   years, since the hero currently gives no sense of time.
+3. **Years on the level cards?** DECIDED 2026-11-08: names only, no years anywhere in the panel. Cards read
+   "SRI LANKA", "UNIVERSITY OF MELBOURNE", "SEER MEDICAL", "LEONARDO.AI", "CANVA". The company cards keep the
+   name even though the logo is on the building, so every level opens the same way. Years stay in the sr-only story.
 4. **Sri Lanka detail:** beach and palms is the generic choice; a Colombo landmark (Lotus Tower) or the Virtusa
    office (her first job, 2011–2013) would be more specific. Recommendation: beach and palms plus the airport
    sign; keep it light.
