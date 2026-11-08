@@ -8,9 +8,9 @@ import { msIn, type Beat } from "./common";
 import { CANVA_FOCUS, drawCanvaFacadeOver, drawCanvaPeople, DULINI_FLOOR, windStrength } from "./08-canva";
 
 /** Beat 9: a gust blows her out of a top window; she tumbles down, flips, and lands on her feet, smiling. */
-const OUT_AT = 350;
-const FLIP_AT = 1700;
-const LAND_AT = 2050;
+export const OUT_AT = 350;
+export const FLIP_AT = 1700;
+export const LAND_AT = 2050;
 /** The window on her floor (second from the top, right-hand column, lower row) that she is blown out of. */
 const WIN = { x: AT.canva + 58, y: -CANVA_H + CANVA_CROWN + DULINI_FLOOR * CANVA_FLOOR_H + 17, w: 9, h: 12 };
 export const LANDING_X = AT.landing;

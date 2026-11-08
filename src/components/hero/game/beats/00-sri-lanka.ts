@@ -7,7 +7,7 @@ import { idleFrame, msIn, walkFrame, WALK_SPEED, type Beat } from "./common";
 /** Beat 0: on the beach by the palms, then a walk to the little plane. */
 export const FOCUS = 150;
 /** She stands until this ms, then walks; she is aboard once she reaches BOARD_X. */
-const WALK_AT = 900;
+export const WALK_AT = 900;
 export const BOARD_X = AT.plane + 14;
 export const BOARD_MS = WALK_AT + (BOARD_X - AT.start) / WALK_SPEED;
 /** Propeller: spinning once she is aboard. */

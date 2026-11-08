@@ -14,9 +14,9 @@ import { LEO_ARRIVE_X, LEO_FOCUS_START } from "./05-seer-crumbles";
 export const LEO_FOCUS = AT.leo + LEO_W / 2;
 export const LEO_SEAT_X = AT.leo + 16;
 const SIT_AT = 500;
-const PIC_AT = [1100, 1700, 2300, 2900];
+export const PIC_AT = [1100, 1700, 2300, 2900];
 const PIC_GROW_MS = 260;
-const CHEER_AT = 3300;
+export const CHEER_AT = 3300;
 /** Colleagues' desks (left edges) and their looks. */
 export const LEO_PEOPLE = [0, 1, 2, 3].map((i) => ({ x: AT.leo + 44 + i * 20 + 11, look: person(200 + i) }));
 export const PIC_POS = [
@@ -27,7 +27,7 @@ export const PIC_POS = [
 ] as const;
 
 /** The magic: sparkles stream from her laptop to each picture as it forms, then a star twinkles on its corner. */
-const STREAM_MS = 450;
+export const STREAM_MS = 450;
 const STREAM_DOTS = 7;
 const TWINKLE_MS = 900;
 /** Her laptop lid, where the sparkles start. */

@@ -11,10 +11,10 @@ import { deskFrame, drawLeoDesks, drawPictures, LEO_FOCUS, LEO_PEOPLE, LEO_SEAT_
 
 /** Beat 7: a giant hand comes down and sweeps everyone, tumbling, into the Canva tower. */
 const DOWN_MS = 800;
-const SWEEP_AT = 1000;
+export const SWEEP_AT = 1000;
 const SWEEP_MS = 1800;
-const SHUT_AT = 2950;
-const UP_AT = 2900;
+export const SHUT_AT = 2950;
+export const UP_AT = 2900;
 const HAND_X0 = AT.leo - 40;
 const HAND_X1 = AT.canva - 36;
 export const CANVA_DOOR_X = AT.canva + CANVA_DOOR.x;

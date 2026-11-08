@@ -25,13 +25,13 @@ import { doorOpen, HAND_FOCUS } from "./07-hand";
 
 /** Beat 8: inside Canva. Connections to a dozen people, then a terminal streaming text, then the wind. */
 export const CANVA_FOCUS = AT.canva + CANVA_W / 2;
-const LINK_AT = 700;
-const LINK_EVERY = 150;
+export const LINK_AT = 700;
+export const LINK_EVERY = 150;
 const LINK_MS = 260;
 const LINKS_OFF = 3900;
-const TERM_AT = 2800;
-const TERM_LINES = 7;
-const TERM_LINE_MS = 210;
+export const TERM_AT = 2800;
+export const TERM_LINES = 7;
+export const TERM_LINE_MS = 210;
 export const WIND_AT = 4200;
 const TERM_X = AT.canva + CANVA_W + 3;
 const WIND_FULL = 5200;

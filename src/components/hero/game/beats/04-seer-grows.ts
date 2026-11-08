@@ -28,10 +28,10 @@ import { UNI_FOCUS } from "./02-jump";
 export const SEER_DOOR = AT.seer + SEER_W / 2;
 export const SEER_FOCUS = SEER_DOOR;
 const UNI_DOOR = AT.uni + 44;
-const ENTER_MS = (SEER_DOOR - UNI_DOOR) / WALK_SPEED;
-const GROW_AT = 2300;
-const GROW_EVERY = 480;
-const GROW_MS = 380;
+export const ENTER_MS = (SEER_DOOR - UNI_DOOR) / WALK_SPEED;
+export const GROW_AT = 2300;
+export const GROW_EVERY = 480;
+export const GROW_MS = 380;
 const POP_DELAY = 200;
 const POP_EVERY = 90;
 

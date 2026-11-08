@@ -33,7 +33,8 @@ export function HeroVisual({ fallback }: { fallback?: ReactNode }) {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div ref={ref} aria-hidden className="relative min-h-0 flex-1">
+      {/* The picture itself is hidden from screen readers (the list below tells the story); its sound button is not. */}
+      <div ref={ref} className="relative min-h-0 flex-1">
         <CareerGame active={visible} animate={animate} fallback={fallback} />
       </div>
       <ol className="sr-only" aria-label="Career story">

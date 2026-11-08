@@ -10,13 +10,13 @@ import { dissolve, msIn, type Beat } from "./common";
 
 /** Beat 3: inside the university. Typing code at a desk, then a lab coat at the bench. */
 const OPEN_MS = 0;
-const SIT_AT = 400;
-const STAND_AT = 2400;
-const COAT_AT = 2550;
-const BENCH_AT = 3100;
-const SPARK_AT = 3900;
+export const SIT_AT = 400;
+export const STAND_AT = 2400;
+export const COAT_AT = 2550;
+export const BENCH_AT = 3100;
+export const SPARK_AT = 3900;
 const CLOSE_MS = 4550;
-const TYPE_FRAME_MS = 150;
+export const TYPE_FRAME_MS = 150;
 export const BENCH_X = AT.uni + 42;
 
 const DESK_X = AT.uni + 19;

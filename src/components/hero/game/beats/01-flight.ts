@@ -9,6 +9,8 @@ import { msIn, type Beat } from "./common";
 /** Beat 1: take-off and the long flight over the ocean. */
 export const CRUISE = 0.15; // px per ms
 const ACCEL_MS = 1200;
+/** The plane starts to lift off this long into the flight beat. */
+export const TAKEOFF_MS = 700;
 export const ALTITUDE = 96;
 
 /** Plane's left edge along the whole flight (beats 1 and 2), by ms since take-off began. */
@@ -19,7 +21,7 @@ export function planeX(ms: number) {
 }
 /** Height of the plane's underside above the ground. */
 export function planeLift(ms: number) {
-  return ALTITUDE * smooth(span(ms, 700, 2400));
+  return ALTITUDE * smooth(span(ms, TAKEOFF_MS, 2400));
 }
 
 export function drawPlane(g: World, ms: number, faceIn: boolean) {

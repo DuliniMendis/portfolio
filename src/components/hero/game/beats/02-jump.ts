@@ -7,8 +7,8 @@ import { ALTITUDE, drawPlane, FLIGHT_MS, planeX } from "./01-flight";
 import { msIn, walkFrame, type Beat } from "./common";
 
 /** Beat 2: over the University of Melbourne she jumps out, lands, and walks to the door. */
-const JUMP_AT = 500;
-const LAND_AT = 1500;
+export const JUMP_AT = 500;
+export const LAND_AT = 1500;
 const WALK_AT = 1750;
 export const LAND_X = AT.uni - 24;
 /** Where she ends up: her seat at the desk inside (beat 3). */

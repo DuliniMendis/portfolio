@@ -7,9 +7,9 @@ import { FALL_FOCUS, LANDING_X } from "./09-fall";
 
 /** Beat 10: she waves, a sparkle twinkles, and the iris closes on her. The loop then opens on Sri Lanka. */
 const WAVE_MS = 280;
-const STAR_AT = 300;
-const IRIS_AT = 1860;
-const IRIS_MS = 720;
+export const STAR_AT = 300;
+export const IRIS_AT = 1860;
+export const IRIS_MS = 720;
 
 export const wave: Beat = {
   focus: () => FALL_FOCUS,

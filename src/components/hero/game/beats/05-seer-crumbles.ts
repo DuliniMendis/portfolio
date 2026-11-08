@@ -19,11 +19,11 @@ import {
 } from "./04-seer-grows";
 
 /** Beat 5: the building shakes and drops floor by floor; everyone hops out safely; she leaps to Leonardo.Ai. */
-const LEAP_MS = 1200;
+export const LEAP_MS = 1200;
 export const LEO_ARRIVE_X = AT.leo + LEO_DOOR;
 export const LEO_FOCUS_START = 1120;
 /** When the Seer colleagues vanish, ms into the Leonardo.Ai beat (its camera move takes 1000 ms). */
-const CROWD_GONE_MS = 1000;
+export const CROWD_GONE_MS = 1000;
 
 /** Colleagues hopping out of the windows and standing clear (drawn while Seer is on screen). */
 export function drawSeerCrowd(g: World) {

@@ -366,3 +366,14 @@ Deviations:
     - A pixel take on the Claude Code mascot (`CLAUDE_BOT`, deep orange) sits on the Canva terminal and hops while the
       code streams, to show the work is AI-assisted.
     - Development only: `window.__careerGame` exposes the engine so the console can seek the story.
+14. **Sound (owner, 2026-11-09; reverses "Sound" in Out of scope).** `sound.ts` synthesises a chiptune theme and
+    sound effects with the Web Audio API (no audio files). The theme is 4 phrases of 8 bars that fill the 45 s loop
+    exactly (about 171 bpm; C, Am, F, G; the third phrase drops the tune). Effects are cued to the story: level cards,
+    take-off, jumps and landings, typing, the coat, bubbles and the brain spark, floors popping up, the rumble and floor
+    drops, the magic pictures, the cheer, the hand, each Canva connection (a rising pentatonic run), the terminal, the
+    wind, the fall, the victory jingle and the iris. Cues are scheduled against the story clock, so sound pauses with the
+    game (off screen, tab hidden) and loops with it. Browsers allow sound only after a user gesture, so it is on by
+    default but starts at the visitor's first click or key press anywhere; a speaker button on the panel turns it off
+    or on, and "off" is remembered in `localStorage` (`hero-game-sound`). Reduced-motion postcards are silent and show
+    no button. The synth is a separate 2.6 kB gzipped chunk loaded after that first gesture. The sound was checked
+    by scheduling (each cue once per loop across the wrap and a pause; nothing while muted), not by ear.

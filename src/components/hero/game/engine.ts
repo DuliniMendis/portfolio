@@ -34,6 +34,14 @@ export type Engine = {
   time(): number;
   stats(): number[];
   buffer(): HTMLCanvasElement;
+  /** Attach the sound player (loaded after the first click); it follows the story clock and the pause. */
+  setSound(sound: SoundHook | null): void;
+};
+
+/** What the engine needs from the sound player (kept as an interface so the synth loads only on demand). */
+export type SoundHook = {
+  advance(prev: number, t: number): void;
+  setRunning(running: boolean): void;
 };
 
 export function createEngine(opts: {
@@ -188,12 +196,19 @@ export function createEngine(opts: {
     }
   }
 
+  let sound: SoundHook | null = null;
+
   function frame(now: number) {
     raf = 0;
-    if (!shouldRun()) return;
+    if (!shouldRun()) {
+      sound?.setRunning(false);
+      return;
+    }
+    const prev = clock;
     if (!held) clock += Math.min(MAX_STEP, now - last);
     last = now;
     draw();
+    if (animate) sound?.advance(wrap(prev), wrap(clock));
     raf = requestAnimationFrame(frame);
   }
 
@@ -204,9 +219,11 @@ export function createEngine(opts: {
   function wake() {
     if (raf || destroyed) return;
     if (!shouldRun()) {
+      sound?.setRunning(false);
       draw();
       return;
     }
+    sound?.setRunning(animate);
     last = performance.now();
     raf = requestAnimationFrame(frame);
   }
@@ -222,6 +239,8 @@ export function createEngine(opts: {
     wake,
     destroy() {
       destroyed = true;
+      sound?.setRunning(false);
+      sound = null;
       cancelAnimationFrame(raf);
       raf = 0;
       ro.disconnect();
@@ -242,5 +261,10 @@ export function createEngine(opts: {
     time: () => (animate ? wrap(clock) : clock),
     stats: () => timings.slice(),
     buffer: () => buf,
+    setSound(s: SoundHook | null) {
+      sound?.setRunning(false);
+      sound = s;
+      sound?.setRunning(animate && raf !== 0);
+    },
   };
 }
