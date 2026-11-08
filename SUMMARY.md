@@ -56,8 +56,6 @@ Needs Dulini:
 - Set the git author email on the earliest commits if wanted (two carry an auto-guessed address).
 
 Engineering follow-ups:
-- Run Lighthouse on the live site (target 90+ on mobile). Not yet done.
-- Escape-to-close on the mobile menu.
 - Test the hero on a real touch device and with a screen reader. Reduced motion and the no-JS fallback were checked in the browser pane.
 - Watch the hero at real speed in a visible browser and record a Performance trace (the paint-stroke checks were stepped frame by frame because the test pane throttled animation frames).
 - A full visual review of every section at every width. Only overflow was checked at 375, 768, 1280 and 1920 pixels.

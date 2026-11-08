@@ -122,7 +122,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 - [x] **2.4 Hero copy & layout.** Left: name, headline, one-sentence subhead, two CTAs
   (`See my work`, `How I lead`). Right (or behind on mobile): the 3D canvas. Mobile: canvas
   sits above the text at reduced height, pointer parallax off.
-- [~] **2.5 Performance pass.** (PARTLY DONE: 3D chunk measured at ~269 kB gz, under budget, lazy-loaded. Lighthouse NOT run yet; no .glb used.) Lighthouse ≥ 90 on mobile. Hero JS chunk < 300 kB gz.
+- [x] **2.5 Performance pass.** (DONE 2026-11-08: live Lighthouse mobile 100/100/100/100 after the hero headline moved to a CSS entrance and the painted-strokes hero removed three.js. Before: mobile performance 50–86, LCP 4–5.6 s. Measure locally with `npx lighthouse` plus system Chrome; the PageSpeed API's shared daily quota is often used up.) Lighthouse ≥ 90 on mobile. Hero JS chunk < 300 kB gz.
   Preload the model, compress with `gltf-transform` if a .glb is used.
 
 > **Phase 2 notes:**
@@ -241,7 +241,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 >   `a11y.css`, no-JS fallback so scroll reveals are not stuck hidden, and `@vercel/analytics`.
 > - Checked: one h1, heading order, landmarks, no unlabeled links or buttons, text contrast on solid backgrounds (gradient sections not machine-checked),
 >   no horizontal overflow at 375/768/1280/1920, absolute OG URLs, real 404 status on `/nope`.
-> - NOT done: Escape-to-close on the mobile menu (Nav.tsx was being edited by another session), Lighthouse, screen-reader test, reduced-motion path
+> - Since done: Escape-to-close on the mobile menu, Lighthouse. NOT done: screen-reader test, reduced-motion path
 >   test, visual review of every section at every width. A first-ever request to an unknown `/work/...` URL can return 200 before the cached 404 takes over.
 > - 4.5: production deploys automatically on push and is live. A custom domain is NOT set (owner's decision). Vercel Analytics collects nothing until
 >   Analytics is enabled in the Vercel project dashboard.
