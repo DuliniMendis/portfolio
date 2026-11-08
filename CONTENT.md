@@ -52,6 +52,9 @@ Order on the site: most recent first. Confirm ordering is Canva → Leonardo →
 - Copy for Cost reduction lives in `src/content/projects.ts` (drafted 2026-11-08 from Dulini's
   notes, with press links to Fortune and Forbes Australia coverage of Canva's 2026 AI costs).
   Outcome still needs Liberation-specific results: `TODO(dulini)`.
+- Copy for One-click bug reports (kind `build`: one-click Canva AI bug reports for staff, traces
+  saved to CoreWeave Forge and Langfuse, Jira tickets, Slack alerts) also lives there. The
+  project was started, not necessarily finished; outcome needs status and results: `TODO(dulini)`.
 - Copy for From pipelines to agent tools (kind `lead`: packaging pipelines as agent tools,
   retiring overtaken ones, negotiating timelines with internal teams during parallel Canva AI
   launches) also lives there. Outcome needs numbers (pipelines, teams): `TODO(dulini)`.

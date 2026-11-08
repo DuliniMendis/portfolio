@@ -270,7 +270,7 @@ export const projects: Project[] = [
     role: "TODO(dulini)",
     period: "TODO(dulini)",
     summary:
-      "At Canva I worked on AI design generation, then moved to a platform team supporting Canva AI. I led the work to bring down the cost of generating designs and to move design generation from fixed pipelines to agent tools, and built AI automations that took the routine admin out of the team's week.",
+      "At Canva I worked on AI design generation, then moved to a platform team supporting Canva AI. I led the work to bring down the cost of generating designs and to move design generation from fixed pipelines to agent tools, and built tools that made day-to-day work easier, from one-click bug reports to AI automations.",
     sections: [
       {
         slug: "cost-reduction",
@@ -308,6 +308,29 @@ export const projects: Project[] = [
             href: "https://www.forbes.com.au/news/innovation/canva-founder-says-ai-costs-down-90-per-cent/",
           },
         ],
+      },
+      {
+        slug: "one-click-bug-reports",
+        title: "One-click bug reports",
+        kind: "build",
+        blurb:
+          "Letting Canva staff report a Canva AI bug with one click and a short description, with the traces and everything else needed to fix it captured automatically.",
+        stack: ["CoreWeave Forge", "Langfuse", "Jira", "Slack"],
+        body: {
+          context: [
+            "Canva's own staff use Canva AI every day, which makes them some of the best people to catch its bugs. But a useful AI bug report needs much more than a description: what was asked, what the AI did at each step, which models ran and what came back.",
+            "Gathering all of that by hand takes time. So reports tend to arrive thin, or not at all, and engineers have to go back and ask for the missing pieces before they can start.",
+          ],
+          did: [
+            "We started on a way for internal staff to report a Canva AI bug with one click and a short description of what went wrong.",
+            "Everything else was captured automatically, saved and linked to the report. The AI traces, the step-by-step record of how a response was made, went to CoreWeave Forge and Langfuse, so engineers could see exactly what happened.",
+            "Each report also created a Jira ticket for triage, and posted to Slack so engineers heard about new bugs straight away.",
+          ],
+          outcome: [
+            "The aim was to turn reporting a bug from a chore into a click, so more problems got reported and each one arrived with what an engineer needed to start fixing it.",
+            "TODO(dulini): where the project got to, and any early results.",
+          ],
+        },
       },
       {
         slug: "pipelines-to-agent-tools",
