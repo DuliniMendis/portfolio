@@ -270,7 +270,7 @@ export const projects: Project[] = [
     role: "TODO(dulini)",
     period: "TODO(dulini)",
     summary:
-      "At Canva I worked on AI design generation, then moved to a platform team supporting Canva AI, where I led the work to bring down the cost of generating designs.",
+      "At Canva I worked on AI design generation, then moved to a platform team supporting Canva AI. I led the work to bring down the cost of generating designs, and built AI automations that took the routine admin out of the team's week.",
     sections: [
       {
         slug: "cost-reduction",
@@ -308,6 +308,28 @@ export const projects: Project[] = [
             href: "https://www.forbes.com.au/news/innovation/canva-founder-says-ai-costs-down-90-per-cent/",
           },
         ],
+      },
+      {
+        slug: "ai-automations",
+        title: "AI automations",
+        kind: "lead",
+        blurb:
+          "Small AI automations that took the busywork out of the team's week: a daily round-up, slides for regular meetings, and Jira updates for weekly reporting.",
+        body: {
+          context: [
+            "Every team has a layer of routine work around the real work. Someone keeps track of what happened today and who needs to know. Someone puts together the slides for the regular meeting. Someone goes through Jira so the weekly report is right. None of it is hard, but it adds up, and it tends to land on the same few people.",
+          ],
+          did: [
+            "I built AI automations to take that work off the team's plate.",
+            "A daily round-up that posts the things that happened that day which matter to the team, so nobody has to dig through threads to stay in the loop.",
+            "Slides for our regular meetings, created automatically, so each meeting starts from an up-to-date deck instead of one someone threw together the hour before.",
+            "Jira updates for weekly reporting, made automatically, so the report shows where the work really is without anyone chasing tickets.",
+          ],
+          outcome: [
+            "The routine admin ran in the background, and the team got that time back for the work that mattered.",
+            "TODO(dulini): time saved, or other teams that picked the automations up.",
+          ],
+        },
       },
     ],
   },
