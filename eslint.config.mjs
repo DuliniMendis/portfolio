@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Session worktrees created by the Claude desktop app live inside the repo.
+    ".claude/worktrees/**",
   ]),
 ]);
 
