@@ -179,7 +179,7 @@ export const projects: Project[] = [
             "I moved into engineering management in 2020, after three years building Seer's web app myself.",
           ],
           did: [
-            "I hired the whole Seer-Clinic product team, the team that owned the tools Seer's clinics ran on, as well as engineers for other teams. I onboarded and trained them, and kept mentoring them as they grew in their careers.",
+            "I hired the whole Seer-Clinic product team, the team that owned the tools Seer's clinics ran on, and sat on the hiring panel for more than ten engineers in all. I onboarded and trained the people who joined my teams, and kept mentoring them as they grew in their careers.",
             "I led the Seer-Clinic team for three years, with three to five engineers reporting to me. I did the technical planning and ran delivery, and I worked to build a team that was efficient, inclusive and collaborative. I also stayed hands-on, contributing to the code as an equal member of the team.",
             "In 2023 I became senior engineering manager and took on Seer's two platform teams, API and DevOps, as well. That made about 11 reports across three teams. I led cross-team projects and made sure they delivered real value to the business and finished on time. I also ran migrations to Next.js and PostGraphile, and worked to get other teams to adopt them.",
             "It was a hard stretch for the company too. I learned how to guide teams through change, work through conflict, and keep things steady when much around them wasn't.",
