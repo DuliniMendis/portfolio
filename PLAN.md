@@ -193,6 +193,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 - Leadership page with principles, rituals, and testimonials.
 - Blog / writing section.
 - Replace procedural hero model with a bespoke .glb.
+- SUPERSEDED by `PLAN-hero-paint-strokes.md`: the 3D spheres are to be replaced by painted skill strokes (plan written 2026-11-08, not yet built).
 
 > **Phase 4 notes:**
 > - Done and live: metadata and Open Graph/Twitter tags (`src/lib/site.ts` holds the site URL; change it when a custom domain is connected), generated share image
