@@ -15,7 +15,7 @@ import {
   CANVA_WALL,
 } from "../sprites/landmarks";
 import { person, personFrames } from "../sprites/people";
-import { CHAT, TALK, TERMINAL } from "../sprites/props";
+import { CHAT, CLAUDE_BOT, TALK, TERMINAL } from "../sprites/props";
 import { dither, lean } from "../sprites/types";
 import { PALETTE } from "../palette";
 import { BEAT } from "../timeline";
@@ -133,6 +133,9 @@ function drawTerminal(g: World, m: number) {
   const tx = TERM_X;
   const ty = floorY(DULINI_FLOOR) - 30;
   g.spr(TERMINAL, tx, ty);
+  // The Claude bot sits on the window's top edge, hopping while the text streams.
+  const hop = m < TERM_AT + 200 + TERM_LINES * 3 * TERM_LINE_MS && Math.floor(m / 260) % 2 ? 1 : 0;
+  g.spr(CLAUDE_BOT, tx + TERMINAL.w - CLAUDE_BOT.w - 2, ty - CLAUDE_BOT.h - hop);
   const shown = Math.floor((m - TERM_AT - 200) / TERM_LINE_MS);
   if (shown < 0) return;
   const first = Math.max(0, shown - TERM_LINES + 1);

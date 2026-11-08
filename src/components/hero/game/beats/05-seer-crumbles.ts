@@ -8,17 +8,17 @@ import { msIn, type Beat } from "./common";
 import {
   DROP_AT,
   DROP_EVERY,
+  HER_WINDOW,
+  LEAP_AT,
   HOP_AT,
   HOP_EVERY,
   HOP_MS,
-  SEER_DOOR,
   SEER_FOCUS,
   SEER_PEOPLE,
   seerState,
 } from "./04-seer-grows";
 
 /** Beat 5: the building shakes and drops floor by floor; everyone hops out safely; she leaps to Leonardo.Ai. */
-const LEAP_AT = 1000;
 const LEAP_MS = 1200;
 export const LEO_ARRIVE_X = AT.leo + LEO_DOOR;
 export const LEO_FOCUS_START = 1120;
@@ -56,11 +56,11 @@ export function drawSeerCrowd(g: World) {
   }
 }
 
-/** Her height above the ground during the leap, starting from the roof. */
-function leap(g: World, m: number, roof: number) {
+/** The leap out of her top-floor window to Leonardo.Ai; `from` is the window sill's height above the ground. */
+function leap(g: World, m: number, from: number) {
   const s = span(m, LEAP_AT, LEAP_AT + LEAP_MS);
-  const lift = roof * (1 - s * s) + 46 * s * (1 - s);
-  g.stand(s < 0.5 ? JUMP_UP : JUMP_DOWN, lerp(SEER_DOOR, LEO_ARRIVE_X, s), lift);
+  const lift = from * (1 - s * s) + 46 * s * (1 - s);
+  g.stand(s < 0.5 ? JUMP_UP : JUMP_DOWN, lerp(AT.seer + SEER_WINDOWS[HER_WINDOW] + 6, LEO_ARRIVE_X, s), lift);
 }
 
 export const seerCrumbles: Beat = {
@@ -76,13 +76,11 @@ export const seerCrumbles: Beat = {
   },
   actors(g, p) {
     const m = msIn(BEAT.seerCrumbles, p);
-    // The roof she leaps from: full height of the grown building (nothing has dropped before the leap).
+    // Until the leap she is in her top-floor window (drawn with the building). Nothing has dropped yet when she jumps.
     const { heights } = seerState(g);
-    const roof = SEER_GROUND_H + heights.reduce((a, b) => a + b, 0) + 5;
-    if (m < LEAP_AT) {
-      const jitter = m < 900 ? (Math.floor(m / 50) % 2 ? 1 : -1) : 0;
-      g.stand(IDLE[0], SEER_DOOR + jitter, roof);
-    } else if (m < LEAP_AT + LEAP_MS) leap(g, m, roof);
+    const sill = SEER_GROUND_H + heights.slice(0, -1).reduce((a, b) => a + b, 0) + 3;
+    if (m < LEAP_AT) return;
+    if (m < LEAP_AT + LEAP_MS) leap(g, m, sill);
     else {
       const landed = m - (LEAP_AT + LEAP_MS);
       dust(g, 51, landed, LEO_ARRIVE_X);

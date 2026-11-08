@@ -163,6 +163,21 @@ export const PICTURES = [
   ]),
 ];
 
+/**
+ * A pixel take on the Claude Code mascot (a blocky terracotta bot with two eyes, little arms and four legs), perched on
+ * the terminal to show the work is AI-assisted. Owner's request, 2026-11-09. Drawn in the palette's deep orange.
+ */
+export const CLAUDE_BOT = sprite("claude-bot", [
+  "..OOOOOOO..",
+  "..OkOOOkO..",
+  "..OkOOOkO..",
+  "OOOOOOOOOOO",
+  "..OOOOOOO..",
+  "..OOOOOOO..",
+  "..O.O.O.O..",
+  "..O.O.O.O..",
+]);
+
 /** A terminal window: dark body, title bar with three dots. The streaming text is drawn by the scene. */
 export const TERMINAL = build("terminal", 34, 24, (g) => {
   g.rect("m", 0, 0, 34, 4);

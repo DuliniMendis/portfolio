@@ -1,14 +1,13 @@
 import { dust, sparkle } from "../particles";
-import { SIT_TYPE, TUMBLE } from "../sprites/dulini";
+import { TUMBLE } from "../sprites/dulini";
 import { AT, CANVA_DOOR, HAND, LEO_FACADE, LEO_H } from "../sprites/landmarks";
 import { personFrames } from "../sprites/people";
-import { DESK_SIDE, LAPTOP_SIDE } from "../sprites/props";
 import { dither } from "../sprites/types";
 import { PALETTE } from "../palette";
 import { BEAT } from "../timeline";
 import { easeOut, lerp, smooth, span } from "../world";
 import { msIn, type Beat } from "./common";
-import { drawLeoDesks, drawPictures, LEO_FOCUS, LEO_PEOPLE, LEO_SEAT_X, leoFacadeLevel, PIC_POS } from "./06-leonardo";
+import { deskFrame, drawLeoDesks, drawPictures, LEO_FOCUS, LEO_PEOPLE, LEO_SEAT_X, leoFacadeLevel, PIC_POS } from "./06-leonardo";
 
 /** Beat 7: a giant hand comes down and sweeps everyone, tumbling, into the Canva tower. */
 const DOWN_MS = 800;
@@ -42,23 +41,25 @@ export const hand: Beat = {
   focus: (p) => lerp(LEO_FOCUS, HAND_FOCUS, smooth(span(msIn(BEAT.hand, p), SWEEP_AT, SWEEP_AT + 2000))),
   actors(g, p) {
     const m = msIn(BEAT.hand, p);
-    drawLeoDesks(g);
-    g.spr(LAPTOP_SIDE, LEO_SEAT_X + 11, -DESK_SIDE.h - LAPTOP_SIDE.h + 1);
     // The pictures pop away as the hand arrives.
     if (m < 200) drawPictures(g, 4000);
     if (m < 200) PIC_POS.forEach(([x, y], i) => sparkle(g, 90 + i, m, x + 6, y + 5, 6));
-    CROWD.forEach((c, i) => {
+    // People still at their desks sit behind them; once swept up they tumble in front.
+    const drawPerson = (c: (typeof CROWD)[number], i: number, pushed: boolean) => {
       const x = sweptX(m, i);
       if (x >= CANVA_DOOR_X + 4) return; // inside the tower
-      const pushed = x > c.x0 + 1;
       const lift = pushed ? Math.abs(Math.sin(m / 170 + i)) * 8 : 0;
       const q = Math.floor(m / 110 + i) % 4;
-      if (c.dulini) g.stand(pushed ? TUMBLE[q] : SIT_TYPE[0], x, pushed ? lift : -1);
+      if (c.dulini) g.stand(pushed ? TUMBLE[q] : deskFrame(m), x, lift);
       else {
         const f = personFrames(c.look!.style);
         g.stand(pushed ? f.tumble[q] : f.idle[0], x, lift, c.look!.map, c.look!.variant);
       }
-    });
+    };
+    const isPushed = (i: number) => sweptX(m, i) > CROWD[i].x0 + 1;
+    CROWD.forEach((c, i) => !isPushed(i) && drawPerson(c, i, false));
+    drawLeoDesks(g);
+    CROWD.forEach((c, i) => isPushed(i) && drawPerson(c, i, true));
     dust(g, 120, m - SHUT_AT, CANVA_DOOR_X + CANVA_DOOR.w / 2, -2, 8);
 
     const facade = dither(LEO_FACADE, leoFacadeLevel(g));

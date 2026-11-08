@@ -332,6 +332,29 @@ export const FRONT = compose("d-front", W, H, [
   [HEAD_FRONT, 0, 0],
 ]);
 
+/** Facing out behind a desk at Leonardo.Ai: a gentle bob while she works (the desk hides her hands). */
+export const FRONT_DESK = [
+  FRONT,
+  compose("d-front-bob", W, H, [
+    [LEGS_FRONT, 0, 25],
+    [TORSO_FRONT_FULL, 0, 18],
+    [HEAD_FRONT, 0, 1],
+  ]),
+];
+
+/** Her face in a Seer window, at the same scale as the colleagues there: bun on top, facing out. 10 × 9. */
+export const SEER_WINDOW_FACE = sprite("d-seer-window", [
+  "...kkkk...",
+  "..khhhhk..",
+  ".kkhhhhkk.",
+  "khhhhhhhhk",
+  "khSSSSSShk",
+  "khSkSSkShk",
+  "khSSSSSShk",
+  ".kSSEESSk.",
+  "..koooook.",
+]);
+
 /** Her face in the plane window: 7 × 7, bun at the back. */
 export const WINDOW_FACE = sprite("d-window", [
   ".kk....",
@@ -355,5 +378,7 @@ export const ALL_FRAMES: Sprite[] = [
   ...TUMBLE,
   ...WAVE,
   FRONT,
+  ...FRONT_DESK,
   WINDOW_FACE,
+  SEER_WINDOW_FACE,
 ];

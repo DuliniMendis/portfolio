@@ -358,4 +358,11 @@ Deviations:
     - The Seer colleagues vanish in a puff of dust once the camera has settled on Leonardo.Ai (1 s into that beat).
     - Once she puts on the lab coat, a brain with two electrodes sits on the lab bench and the spark pops between
       the electrodes. Two coral shades of the orange (`P`, `Q` in `palette.ts`) were added for it.
+    - At Seer she is inside, at the middle window of the top floor (moving up as each floor is added), not on the
+      roof, so she doesn't read as the boss; she leaps out of that window when it shakes. Her window face is a 10 × 9
+      portrait at the colleagues' scale (`SEER_WINDOW_FACE`).
+    - At Leonardo.Ai she sits facing out behind a front desk like her colleagues (`FRONT_DESK`), and each picture forms
+      by magic: a wavy stream of sparkles from her laptop, a bigger burst, then a twinkling star on its corner.
+    - A pixel take on the Claude Code mascot (`CLAUDE_BOT`, deep orange) sits on the Canva terminal and hops while the
+      code streams, to show the work is AI-assisted.
     - Development only: `window.__careerGame` exposes the engine so the console can seek the story.

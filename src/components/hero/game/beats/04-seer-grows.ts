@@ -1,5 +1,5 @@
 import { dust, sparkle } from "../particles";
-import { IDLE } from "../sprites/dulini";
+import { SEER_WINDOW_FACE } from "../sprites/dulini";
 import {
   AT,
   SEER_CRACKS,
@@ -29,14 +29,14 @@ export const SEER_DOOR = AT.seer + SEER_W / 2;
 export const SEER_FOCUS = SEER_DOOR;
 const UNI_DOOR = AT.uni + 44;
 const ENTER_MS = (SEER_DOOR - UNI_DOOR) / WALK_SPEED;
-const ROOF_AT = ENTER_MS + 200;
 const GROW_AT = 2300;
 const GROW_EVERY = 480;
 const GROW_MS = 380;
 const POP_DELAY = 200;
 const POP_EVERY = 90;
 
-/** Seer crumbles (beat 5): timings shared with 05-seer-crumbles. */
+/** Seer crumbles (beat 5): timings shared with 05-seer-crumbles. LEAP_AT: she jumps out of her window. */
+export const LEAP_AT = 1000;
 export const SHAKE_MS = 900;
 export const CRACK_AT = 200;
 export const HOP_AT = 380;
@@ -46,7 +46,10 @@ export const DROP_AT = 1100;
 export const DROP_EVERY = 300;
 export const RUBBLE_AT = DROP_AT + (SEER_FLOORS + 1) * DROP_EVERY;
 
-/** One window per colleague: floor (1-based from the bottom), window index, and a look. */
+/** Her window: the middle one, on whichever floor is currently the top. */
+export const HER_WINDOW = 1;
+
+/** One window per colleague: floor (1-based from the bottom), window index, and a look. Her final window is skipped. */
 export const SEER_PEOPLE = Array.from({ length: SEER_FLOORS * SEER_WINDOWS.length }, (_, i) => {
   const floor = Math.floor(i / SEER_WINDOWS.length) + 1;
   const win = i % SEER_WINDOWS.length;
@@ -56,7 +59,7 @@ export const SEER_PEOPLE = Array.from({ length: SEER_FLOORS * SEER_WINDOWS.lengt
   const side = win < 2 ? -1 : 1;
   const landX = side < 0 ? AT.seer - 10 - ((i * 5) % 30) : AT.seer + SEER_W + 8 + ((i * 3) % 10);
   return { floor, win, order, side, landX, look: person(100 + i) };
-});
+}).filter((p) => !(p.floor === SEER_FLOORS && p.win === HER_WINDOW));
 
 /** Height of each upper floor at beat-4 time m (0 when not built; overshoots while it bounces). */
 function floorHeight(k: number, m: number) {
@@ -73,18 +76,14 @@ export function seerState(g: World) {
   // Floors already dropped (from the bottom). The ground floor goes last.
   const dropped = m5 < 0 ? 0 : clamp(Math.floor((m5 - DROP_AT) / DROP_EVERY) + 1, 0, SEER_FLOORS + 1);
   const heights = Array.from({ length: SEER_FLOORS }, (_, i) => floorHeight(i + 1, m4));
-  return { m4, m5, dropped, heights };
-}
-
-/** Height of the roof above the ground right now (where she stands while it grows). */
-export function seerRoofLift(g: World) {
-  const { heights, dropped } = seerState(g);
-  const standing = heights.slice(Math.min(dropped, SEER_FLOORS)).reduce((a, b) => a + b, 0);
-  return (dropped > SEER_FLOORS ? 0 : SEER_GROUND_H) + standing + SEER_ROOF_H;
+  // Once inside, she is at the middle window of the highest finished floor (none yet: out of sight downstairs).
+  let herFloor = 0;
+  if (m4 >= ENTER_MS) heights.forEach((h, i) => h >= SEER_FLOOR_H && (herFloor = i + 1));
+  return { m4, m5, dropped, heights, herFloor };
 }
 
 export function drawSeer(g: World) {
-  const { m4, m5, dropped, heights } = seerState(g);
+  const { m4, m5, dropped, heights, herFloor } = seerState(g);
   if (m5 >= RUBBLE_AT || dropped > SEER_FLOORS) {
     g.spr(RUBBLE, AT.seer + 7, -RUBBLE.h);
     return;
@@ -116,7 +115,17 @@ export function drawSeer(g: World) {
     if (full) {
       const top = y + (h - SEER_FLOOR_H);
       SEER_WINDOWS.forEach((wx, j) => {
-        const who = SEER_PEOPLE[(k - 1) * SEER_WINDOWS.length + j];
+        if (k === herFloor && j === HER_WINDOW) {
+          // Her window: she leaves it when she leaps (beat 5).
+          if (m5 >= LEAP_AT) g.rect(PALETTE.j, x + wx + 1, top + 3, 10, 9);
+          else {
+            g.rect(PALETTE.p, x + wx + 1, top + 3, 10, 9);
+            g.spr(SEER_WINDOW_FACE, x + wx + 1, top + 3);
+          }
+          return;
+        }
+        const who = SEER_PEOPLE.find((p) => p.floor === k && p.win === j);
+        if (!who) return;
         const gone = m5 >= HOP_AT + who.order * HOP_EVERY;
         if (!lit[j]) return;
         if (gone) {
@@ -152,13 +161,11 @@ export const seerGrows: Beat = {
       g.stand(walkFrame(m), UNI_DOOR + m * WALK_SPEED);
       return;
     }
-    if (m < ROOF_AT) return;
-    const lift = seerRoofLift(g);
-    sparkle(g, 41, m - ROOF_AT, SEER_DOOR, -lift - 16, 10);
-    g.stand(IDLE[Math.floor(m / 520) % 2], SEER_DOOR, lift);
-    // Each new floor lands with a little dust at the roof edge.
+    // Inside she appears at her window (drawn with the building); a little sparkle marks each move up a floor.
     for (let k = 1; k <= SEER_FLOORS; k++) {
-      dust(g, 60 + k, m - (GROW_AT + (k - 1) * GROW_EVERY + GROW_MS * 0.6), AT.seer - 2, -lift + 2, 4);
+      const done = GROW_AT + (k - 1) * GROW_EVERY + GROW_MS;
+      const y = -(SEER_GROUND_H + k * SEER_FLOOR_H) + 8;
+      sparkle(g, 60 + k, m - done, AT.seer + SEER_WINDOWS[HER_WINDOW] + 6, y, 5);
     }
   },
 };
