@@ -1,10 +1,24 @@
-import { alphaAt, LABEL_AT, layoutStroke, pointAt, prepareStroke } from "./brush";
-import { readableTextColor } from "./contrast";
+import {
+  alphaAt,
+  estimateWidth,
+  LABEL_AT,
+  LANE_ORDER,
+  LANES,
+  layoutLabel,
+  layoutStroke,
+  prepareStroke,
+  shade,
+  type Curve,
+} from "./brush";
+import { relativeLuminance } from "./contrast";
 import { SKILLS } from "./skills";
 
-// Server-rendered stand-in for the canvas: the first skill's stroke as an SVG, drawn from the same
-// brush maths at a nominal size. It is what people see before JavaScript runs (and if it never
-// does), and the animation fades it out as the second stroke starts drawing.
+// Server-rendered stand-in for the canvas: the first strokes in the sequence, already painted, as
+// SVG drawn from the same brush maths at a nominal size. It is what people see before JavaScript
+// runs (and if it never does); the animation fades each one out on its own schedule.
+
+/** How many strokes the server paints; the animation picks up from the next one. */
+export const STATIC_COUNT = 2;
 
 const VW = 560;
 const VH = 600;
@@ -14,86 +28,128 @@ const SAMPLE_STEP = 5;
 /** Dry-trail dashes shorter than this many kept samples are dropped (they read as square stubs). */
 const MIN_RUN = 3;
 
-const skill = SKILLS[0];
-const stroke = prepareStroke(0, layoutStroke(0, VW, VH, skill.name.length), skill.color);
-const { curve } = stroke.layout;
-const n = curve.xs.length;
-const label = pointAt(curve, LABEL_AT);
-const angle = Math.max(-8, Math.min(8, (label.angle * 180) / Math.PI));
-
 const r1 = (v: number) => Math.round(v * 10) / 10;
 
-/** One SVG path per kept bristle, broken where the brush ran dry. */
-const paths = stroke.bristles
-  .filter((_, i) => i % BRISTLE_STEP === 0)
-  .map((b) => {
-    const k0 = Math.ceil((b.startT * (n - 1)) / SAMPLE_STEP) * SAMPLE_STEP;
-    const k1 = Math.floor(b.endT * (n - 1));
-    const runs: string[][] = [];
-    let run: string[] = [];
-    for (let k = k0; k <= k1; k += SAMPLE_STEP) {
-      if (b.on[k]) run.push(`${r1(b.xs[k])} ${r1(b.ys[k])}`);
-      else if (run.length) {
-        runs.push(run);
-        run = [];
-      }
-    }
-    if (run.length) runs.push(run);
-    const d = runs
-      .filter((r) => r.length >= MIN_RUN)
-      .map((r) => `M${r.join("L")}`)
-      .join("");
-    return { d, width: r1(b.lineWidth * 2.2), opacity: r1(b.alpha), color: b.color };
-  })
-  .filter((p) => p.d.includes("L"));
+/** The curve shifted along its normal by `offset`, as an SVG path. */
+function offsetPath(curve: Curve, offset: number) {
+  const pts: string[] = [];
+  for (let k = 0; k < curve.xs.length; k += 8) {
+    const a = curve.angles[k];
+    pts.push(`${r1(curve.xs[k] - Math.sin(a) * offset)} ${r1(curve.ys[k] + Math.cos(a) * offset)}`);
+  }
+  return `M${pts.join("L")}`;
+}
 
-const first = { x: curve.xs[0], y: curve.ys[0] };
-const last = { x: curve.xs[n - 1], y: curve.ys[n - 1] };
+const strokes = Array.from({ length: STATIC_COUNT }, (_, k) => {
+  const skill = SKILLS[k];
+  const layout = layoutStroke(k, LANE_ORDER[k % LANES.length], VW, VH, skill.name.length);
+  const stroke = prepareStroke(k, layout, skill.color);
+  const { curve } = layout;
+  const n = curve.xs.length;
+
+  // One SVG path per kept bristle, broken where the brush ran dry.
+  const paths = stroke.bristles
+    .filter((_, i) => i % BRISTLE_STEP === 0)
+    .map((b) => {
+      const k0 = Math.ceil((b.startT * (n - 1)) / SAMPLE_STEP) * SAMPLE_STEP;
+      const k1 = Math.floor(b.endT * (n - 1));
+      const runs: string[][] = [];
+      let run: string[] = [];
+      for (let i = k0; i <= k1; i += SAMPLE_STEP) {
+        if (b.on[i]) run.push(`${r1(b.xs[i])} ${r1(b.ys[i])}`);
+        else if (run.length) {
+          runs.push(run);
+          run = [];
+        }
+      }
+      if (run.length) runs.push(run);
+      const d = runs
+        .filter((r) => r.length >= MIN_RUN)
+        .map((r) => `M${r.join("L")}`)
+        .join("");
+      return { d, width: r1(b.lineWidth * 2.2), opacity: r1(b.alpha), color: b.color };
+    })
+    .filter((p) => p.d.includes("L"));
+
+  const label = layoutLabel(skill.name, layout, estimateWidth);
+  return {
+    k,
+    paths,
+    first: { x: r1(curve.xs[0]), y: r1(curve.ys[0]) },
+    last: { x: r1(curve.xs[n - 1]), y: r1(curve.ys[n - 1]) },
+    lines: label.lines.map((line) => ({ text: line.text, d: offsetPath(curve, line.offset) })),
+    size: label.size,
+    shadow: shade(skill.color, -0.55, r1(0.3 + 0.5 * relativeLuminance(skill.color))),
+  };
+});
+
 const loadStops = [0, 0.6, 0.8, 1].map((t) => ({ t, a: r1(alphaAt(t)) }));
 
 export function StaticStroke() {
   return (
-    <div aria-hidden className="absolute inset-0">
-      <svg
-        viewBox={`0 0 ${VW} ${VH}`}
-        preserveAspectRatio="none"
-        className="absolute inset-0 h-full w-full"
-        focusable="false"
-      >
-        <defs>
-          <linearGradient
-            id="static-stroke-load"
-            gradientUnits="userSpaceOnUse"
-            x1={r1(first.x)}
-            y1={r1(first.y)}
-            x2={r1(last.x)}
-            y2={r1(last.y)}
-          >
-            {loadStops.map(({ t, a }) => (
-              <stop key={t} offset={t} stopColor="#fff" stopOpacity={a} />
+    <svg
+      aria-hidden
+      viewBox={`0 0 ${VW} ${VH}`}
+      preserveAspectRatio="none"
+      className="absolute inset-0 h-full w-full"
+      focusable="false"
+    >
+      <defs>
+        {strokes.map((s) => (
+          <g key={s.k}>
+            <linearGradient
+              id={`static-load-${s.k}`}
+              gradientUnits="userSpaceOnUse"
+              x1={s.first.x}
+              y1={s.first.y}
+              x2={s.last.x}
+              y2={s.last.y}
+            >
+              {loadStops.map(({ t, a }) => (
+                <stop key={t} offset={t} stopColor="#fff" stopOpacity={a} />
+              ))}
+            </linearGradient>
+            <mask id={`static-mask-${s.k}`} maskUnits="userSpaceOnUse" x="0" y="0" width={VW} height={VH}>
+              <rect width={VW} height={VH} fill={`url(#static-load-${s.k})`} />
+            </mask>
+            <filter id={`static-shadow-${s.k}`} x="-10%" y="-50%" width="120%" height="200%">
+              <feDropShadow dx="0" dy="0" stdDeviation={r1(s.size * 0.18)} floodColor={s.shadow} />
+            </filter>
+            {s.lines.map((line, i) => (
+              <path key={i} id={`static-line-${s.k}-${i}`} d={line.d} fill="none" />
             ))}
-          </linearGradient>
-          <mask id="static-stroke-mask" maskUnits="userSpaceOnUse" x="0" y="0" width={VW} height={VH}>
-            <rect width={VW} height={VH} fill="url(#static-stroke-load)" />
-          </mask>
-        </defs>
-        <g mask="url(#static-stroke-mask)" fill="none" strokeLinecap="butt" strokeLinejoin="round">
-          {paths.map((p, i) => (
-            <path key={i} d={p.d} stroke={p.color} strokeWidth={p.width} strokeOpacity={p.opacity} />
-          ))}
+          </g>
+        ))}
+      </defs>
+      {strokes.map((s) => (
+        <g key={s.k} data-static-stroke mask={`url(#static-mask-${s.k})`}>
+          <g fill="none" strokeLinecap="butt" strokeLinejoin="round">
+            {s.paths.map((p, i) => (
+              <path key={i} d={p.d} stroke={p.color} strokeWidth={p.width} strokeOpacity={p.opacity} />
+            ))}
+          </g>
+          <text
+            fill="#fff"
+            fillOpacity={0.95}
+            fontSize={s.size}
+            fontWeight={600}
+            filter={`url(#static-shadow-${s.k})`}
+            style={{ fontFamily: "var(--font-inter-tight), system-ui, sans-serif" }}
+          >
+            {s.lines.map((line, i) => (
+              <textPath
+                key={i}
+                href={`#static-line-${s.k}-${i}`}
+                startOffset={`${LABEL_AT * 100}%`}
+                textAnchor="middle"
+                dominantBaseline="central"
+              >
+                {line.text}
+              </textPath>
+            ))}
+          </text>
         </g>
-      </svg>
-      <span
-        className="absolute w-max max-w-[60cqw] -translate-x-1/2 -translate-y-1/2 text-center font-display text-[clamp(16px,6cqw,34px)] font-semibold leading-[1.05] tracking-[-0.01em] [text-wrap:balance]"
-        style={{
-          left: `${r1((label.x / VW) * 100)}%`,
-          top: `${r1((label.y / VH) * 100)}%`,
-          rotate: `${r1(angle)}deg`,
-          color: readableTextColor(skill.color),
-        }}
-      >
-        {skill.name}
-      </span>
-    </div>
+      ))}
+    </svg>
   );
 }

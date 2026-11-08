@@ -165,6 +165,17 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 >   The next stroke is prepared during the current stroke's hold (2 to 5 ms once per stroke, while nothing moves); drawing frames cost about 0.1 ms mean and 0.4 ms at p99.
 > - Reduced motion (or `prefers-reduced-data`): strokes are painted fully and cross-fade every 4 s (`CALM_HOLD`); no drawing.
 > - The background wash in `Hero.tsx` was cut to about a third of its strength so the strokes carry the colour.
+> - REVISED (owner, 2026-11-08): two or three strokes at once, and labels painted in white along the stroke's arc, a bit smaller.
+>   - Schedule: a stroke starts every 1.6 s (`INTERVAL`), draws 1.5 s, holds 2.3 s, fades 0.9 s, so three are live (one drawing, one fading) and a lane is
+>     clear before it is reused. Three lanes (`LANES`, top, bottom, middle in turn), strokes 13 to 17 % of the panel height wide, every stroke arching
+>     upwards with small tilt so neighbours never touch. Lanes and widths scale with min(height, 1.4 x width).
+>   - Labels are drawn into each stroke's canvas layer: glyphs placed one by one along the curve (one or two lines, 14 to 30 px, 12 px minimum),
+>     white at 95 %, `source-atop` so they are clipped to the paint, before the load profile and paper grain, so they take the stroke's texture.
+>     A soft shadow in a deeper shade of the stroke (stronger on paler paint) holds legibility. The HTML labels, their fitting code and the cream/ink switch are gone.
+>   - Colours: strokes use mid and deep shades only (white does not read on `#ffbf85` or `#b4e0f5`); `skills.ts` picks shades so no two strokes on screen together match.
+>     Paint is laid dense and a touch deeper than the base colour for every stroke.
+>   - The canvas waits for the heading font (`document.fonts.load`) before painting labels; the two server-rendered strokes show meanwhile.
+>   - Measured (stepped at 60 fps, M-series, dev build): 0.2 ms mean frame work, 1.6 ms p99; preparing each new stroke is a 3 to 5 ms frame once every 1.6 s.
 > - Not yet done: a real-time Performance trace in a visible browser (the test pane throttles rAF while hidden, so checks were made by stepping the engine at exact
 >   60 fps frame times), a real touch device, a screen reader pass. Share image and favicon still use `qualities.ts` (follow-up).
 

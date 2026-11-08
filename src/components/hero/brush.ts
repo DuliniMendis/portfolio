@@ -8,23 +8,27 @@
 // break up (ragged edges), bristles land at slightly different moments (soft landing) and, as the
 // brush runs dry, streaks break into dashes and outer bristles lift off (dry, thinning trail).
 
-import { relativeLuminance } from "./contrast";
-
 // ---- Knobs -----------------------------------------------------------------------------------
 
 /** Points sampled along each stroke, evenly spaced by arc length. */
 export const SAMPLES = 320;
 /** Stroke span as a fraction of canvas width: short labels get the low end, long labels the high. */
-export const SPAN = [0.72, 0.86] as const;
+export const SPAN = [0.62, 0.82] as const;
 /** Stroke width (at full load) as a fraction of canvas height (or of 1.4 x width on tall, narrow canvases). */
-export const WIDTH = [0.16, 0.22] as const;
+export const WIDTH = [0.13, 0.17] as const;
 export const WIDTH_ASPECT = 1.4;
-/** Tilt range, degrees. */
-export const TILT = [-8, 6] as const;
-/** Arc (bow) height as a fraction of canvas height. */
-export const BOW = [0.06, 0.12] as const;
-/** Vertical lanes (fraction of height from centre), cycled so consecutive strokes do not overlap. */
-export const LANES = [-0.14, 0.04, 0.16, -0.04] as const;
+/** Tilt range, degrees. Kept small so strokes in neighbouring lanes never touch. */
+export const TILT = [-4, 3] as const;
+/** Arc height as a fraction of canvas height. Every stroke arches upwards (so labels read like a rainbow). */
+export const BOW = [0.05, 0.09] as const;
+/** Horizontal wander of each stroke's centre, as a fraction of canvas width. */
+export const DRIFT = 0.06;
+/**
+ * Up to three strokes show at once, one per lane (fraction of height from centre). A stroke takes
+ * the lane the stroke three before it has just left, in the order top, bottom, middle.
+ */
+export const LANES = [-0.29, 0, 0.29] as const;
+export const LANE_ORDER = [0, 2, 1] as const;
 /** Width profile: landing ramp length, taper start and width at the very end. */
 export const LAND = 0.08;
 export const TAPER_FROM = 0.75;
@@ -33,7 +37,7 @@ export const END_WIDTH = 0.55;
 export const DRY_FROM = 0.6;
 export const END_ALPHA = 0.35;
 /** Bristles per pixel of stroke width (clamped). */
-export const BRISTLE_DENSITY = 0.62;
+export const BRISTLE_DENSITY = 0.75;
 /** Body underpaint: width relative to the stroke, opacity, and where it runs out. */
 export const BODY_WIDTH = 0.8;
 export const BODY_ALPHA = 0;
@@ -42,10 +46,15 @@ export const BODY_RANGE = [0.03, 0.72] as const;
 /** Length of the dashes in the dry trail at full size, px. */
 export const DRY_DASH = 26;
 /** Where along the stroke its label is centred, and the stretch (fractions of length) it must stay within: loaded paint, not the dry trail. */
-export const LABEL_AT = 0.42;
-export const LABEL_SPAN = [0.1, 0.72] as const;
-/** Colours darker than this (WCAG luminance) carry light text, so their paint is kept deep. */
-export const DEEP_LUMINANCE = 0.2;
+export const LABEL_AT = 0.4;
+export const LABEL_SPAN = [0.12, 0.66] as const;
+/** Label font size relative to stroke width, clamped; smallest size long labels shrink to. */
+export const LABEL_FONT = 0.36;
+export const LABEL_FONT_RANGE = [14, 30] as const;
+export const LABEL_MIN_FONT = 12;
+/** Line height (em) and how much of the stroke width the label's lines may fill. */
+export const LABEL_LINE = 1.08;
+export const LABEL_MAX_HEIGHT = 0.7;
 /** Bristle lines thin to 75 % and then 50 % of their width from these points on. */
 export const DRY_THIN = [0.68, 0.84] as const;
 
@@ -204,15 +213,17 @@ const seedFor = (index: number) => 0x9e3779b1 ^ Math.imul(index + 1, 0x85ebca6b)
  * Where stroke `index` sits in a W x H canvas. Deterministic for a given index and size.
  * `labelLength` (characters) nudges long labels onto longer, wider strokes.
  */
-export function layoutStroke(index: number, W: number, H: number, labelLength: number): StrokeLayout {
+export function layoutStroke(index: number, lane: number, W: number, H: number, labelLength: number): StrokeLayout {
   const r = mulberry32(seedFor(index));
   const long = clamp((labelLength - 6) / 20, 0, 1);
   const span = lerp(SPAN[0], SPAN[1], 0.6 * long + 0.4 * r()) * W;
-  const width = lerp(WIDTH[0], WIDTH[1], 0.6 * long + 0.4 * r()) * Math.min(H, WIDTH_ASPECT * W);
+  // On tall, narrow canvases strokes and lanes scale with the width, so they stay a group, not a scatter.
+  const unit = Math.min(H, WIDTH_ASPECT * W);
+  const width = lerp(WIDTH[0], WIDTH[1], 0.6 * long + 0.4 * r()) * unit;
   const tilt = (lerp(TILT[0], TILT[1], r()) * Math.PI) / 180;
-  const bow = lerp(BOW[0], BOW[1], r()) * H * (r() < 0.5 ? -1 : 1);
-  const cx = W / 2 + (r() - 0.5) * 0.04 * W;
-  let cy = H / 2 + LANES[index % LANES.length] * H;
+  const bow = -lerp(BOW[0], BOW[1], r()) * H;
+  const cx = clamp(W / 2 + (r() - 0.5) * 2 * DRIFT * W, span / 2 + 0.02 * W, W - span / 2 - 0.02 * W);
+  let cy = H / 2 + LANES[lane] * unit;
 
   const local = [0, 1 / 3, 2 / 3, 1].map((u, i) => {
     const jitter = i === 0 || i === 3 ? 0 : (r() - 0.5) * 0.3 * bow;
@@ -223,7 +234,7 @@ export function layoutStroke(index: number, W: number, H: number, labelLength: n
   const rotated = local.map((p) => ({ x: p.x * cos - p.y * sin, y: p.x * sin + p.y * cos }));
 
   // Keep the whole stroke (plus half its width) inside the canvas.
-  const pad = width * 0.6 + H * 0.03;
+  const pad = width * 0.6 + H * 0.02;
   const minY = Math.min(...rotated.map((p) => p.y));
   const maxY = Math.max(...rotated.map((p) => p.y));
   cy = clamp(cy, pad - minY, H - pad - maxY);
@@ -240,7 +251,7 @@ function hexToRgb(hex: string) {
 }
 
 /** Same hue, lighter (amount > 0, towards white) or deeper (amount < 0, darkened without greying). */
-export function shade(hex: string, amount: number) {
+export function shade(hex: string, amount: number, alpha = 1) {
   const rgb = hexToRgb(hex);
   // Pale colours turn grey when darkened, so darken them less.
   const dim = 1 - 0.7 * ((rgb[0] + rgb[1] + rgb[2]) / 765) ** 2;
@@ -248,7 +259,7 @@ export function shade(hex: string, amount: number) {
     amount >= 0
       ? (c: number) => Math.round(lerp(c, 255, amount))
       : (c: number) => Math.round(c * (1 + amount * dim));
-  return `rgb(${rgb.map(f).join(",")})`;
+  return alpha < 1 ? `rgba(${rgb.map(f).join(",")},${alpha})` : `rgb(${rgb.map(f).join(",")})`;
 }
 
 export type Bristle = {
@@ -289,7 +300,6 @@ export function prepareStroke(index: number, layout: StrokeLayout, color: string
   const { curve, width } = layout;
   const n = curve.xs.length;
   const scale = clamp(width / 110, 0.45, 1.3);
-  const deep = relativeLuminance(color) < DEEP_LUMINANCE;
 
   type Spec = {
     offset: number;
@@ -322,18 +332,12 @@ export function prepareStroke(index: number, layout: StrokeLayout, color: string
     const tone = r();
     specs.push({
       offset,
-      lineWidth: lerp(2.2, 5.4, r()) * scale,
-      // Gouache is opaque: loaded bristles lay near-solid paint (labels need it for contrast).
-      alpha: lerp(deep ? 0.86 : 0.72, 1, r()) * (1 - 0.35 * edge ** 3),
-      // Mostly the base colour, some deeper and some lighter bristles for depth. Deep colours carry
-      // light text, so they get no lighter bristles and a slightly deeper body instead.
-      color: deep
-        ? shade(color, tone < 0.3 ? -lerp(0.1, 0.2, r()) : -lerp(0.03, 0.08, r()))
-        : tone < 0.2
-          ? shade(color, -lerp(0.06, 0.14, r()))
-          : tone > 0.88
-            ? shade(color, lerp(0.04, 0.12, r()))
-            : color,
+      // Small strokes keep fairly thick bristles, so they cover without bare lines between them.
+      lineWidth: lerp(2.2, 5.4, r()) * Math.max(scale, 0.65),
+      // Gouache is opaque, and labels are white: bristles lay near-solid paint, at or a touch deeper
+      // than the base colour (never lighter), so the lettering keeps its contrast over the streaks.
+      alpha: lerp(0.86, 1, r()) * (1 - 0.35 * edge ** 3),
+      color: shade(color, tone < 0.3 ? -lerp(0.1, 0.2, r()) : -lerp(0.03, 0.08, r())),
       startT: 0.003 + r() * 0.018 + edge ** 2 * 0.04,
       endT: inGap ? lerp(0.68, 0.86, r()) : edge > 0.7 ? lerp(0.82, 0.96, r()) : lerp(0.93, 1, r()),
       lag: edge ** 2 * 0.1 + r() * 0.04,
@@ -427,6 +431,7 @@ export function prepareStroke(index: number, layout: StrokeLayout, color: string
  * Paint the stroke up to `progress` (0..1 of its length) onto a cleared layer, in CSS pixels.
  * Redrawn from scratch each frame (a few dozen paths), so there are never seams between frames.
  * `grain`, if given, is a repeating speckle pattern knocked out of the paint for a gouache tooth.
+ * `overlay`, if given, draws on top of the bristles before the load profile and grain are applied.
  */
 export function paintStroke(
   ctx: CanvasRenderingContext2D,
@@ -435,6 +440,7 @@ export function paintStroke(
   W: number,
   H: number,
   grain?: CanvasPattern | null,
+  overlay?: (ctx: CanvasRenderingContext2D) => void,
 ) {
   ctx.save();
   ctx.clearRect(0, 0, W, H);
@@ -497,7 +503,14 @@ export function paintStroke(
     }
   }
 
-  // 3. Load profile: thin the paint towards the dry end. The chord is a close enough proxy for t.
+  // 3. Anything painted onto the stroke (the label), so it takes the same load profile and paper tooth.
+  if (overlay) {
+    ctx.save();
+    overlay(ctx);
+    ctx.restore();
+  }
+
+  // 4. Load profile: thin the paint towards the dry end. The chord is a close enough proxy for t.
   const a = { x: curve.xs[0], y: curve.ys[0] };
   const z = { x: curve.xs[n - 1], y: curve.ys[n - 1] };
   const g = ctx.createLinearGradient(a.x, a.y, z.x, z.y);
@@ -507,7 +520,7 @@ export function paintStroke(
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, H);
 
-  // 4. Paper tooth.
+  // 5. Paper tooth.
   if (grain) {
     ctx.globalCompositeOperation = "destination-out";
     ctx.fillStyle = grain;
@@ -528,4 +541,114 @@ export function drawGrain(ctx: CanvasRenderingContext2D, size: number, seed = 7)
     ctx.fillRect(r() * size, r() * size, d, d);
   }
   ctx.globalAlpha = 1;
+}
+
+// ---- Labels ----------------------------------------------------------------------------------
+
+/** Width of `text` at `size` px. The canvas measures with the real font; the server estimates. */
+export type Measure = (text: string, size: number) => number;
+
+export type LabelLine = {
+  text: string;
+  /** Distance from the stroke's centre line, px, along the normal (negative is above). */
+  offset: number;
+};
+export type LabelLayout = { size: number; lines: LabelLine[] };
+
+/** Rough width for server rendering, where no font metrics exist (Inter Tight 600 averages ~0.54 em). */
+export const estimateWidth: Measure = (text, size) => text.length * 0.54 * size;
+
+function linesAt(texts: string[], size: number): LabelLine[] {
+  const step = size * LABEL_LINE;
+  return texts.map((text, i) => ({ text, offset: (i - (texts.length - 1) / 2) * step }));
+}
+
+/**
+ * Fit a label onto the stroke, following its curve: one line if it fits at a comfortable size,
+ * else two balanced lines, shrinking until it sits within the loaded stretch and the stroke width.
+ */
+export function layoutLabel(text: string, layout: StrokeLayout, measure: Measure): LabelLayout {
+  const L = layout.curve.length;
+  const maxLen = 2 * Math.min(LABEL_AT - LABEL_SPAN[0], LABEL_SPAN[1] - LABEL_AT) * L;
+  const maxH = layout.width * LABEL_MAX_HEIGHT;
+  const preferred = Math.round(clamp(layout.width * LABEL_FONT, LABEL_FONT_RANGE[0], LABEL_FONT_RANGE[1]));
+  const fits = (texts: string[], size: number) =>
+    texts.length * size * LABEL_LINE <= maxH && texts.every((t) => measure(t, size) <= maxLen);
+
+  for (let size = preferred; size >= Math.max(LABEL_MIN_FONT, Math.round(preferred * 0.8)); size--) {
+    if (fits([text], size)) return { size, lines: linesAt([text], size) };
+  }
+  const words = text.split(" ");
+  if (words.length > 1) {
+    // The split whose longer line is shortest.
+    let best: string[] = [text];
+    let bestW = Infinity;
+    for (let i = 1; i < words.length; i++) {
+      const pair = [words.slice(0, i).join(" "), words.slice(i).join(" ")];
+      const w = Math.max(measure(pair[0], 10), measure(pair[1], 10));
+      if (w < bestW) {
+        bestW = w;
+        best = pair;
+      }
+    }
+    for (let size = preferred; size >= LABEL_MIN_FONT; size--) {
+      if (fits(best, size)) return { size, lines: linesAt(best, size) };
+    }
+  }
+  for (let size = preferred; size > LABEL_MIN_FONT; size--) {
+    if (fits([text], size)) return { size, lines: linesAt([text], size) };
+  }
+  return { size: LABEL_MIN_FONT, lines: linesAt([text], LABEL_MIN_FONT) };
+}
+
+export type Glyph = { ch: string; x: number; y: number; angle: number };
+
+/**
+ * Place each character of a line along the stroke's curve, centred at LABEL_AT and shifted along
+ * the normal by `offset`. `prefix(n)` is the width of the first n characters (keeps kerning).
+ */
+export function placeGlyphs(curve: Curve, line: LabelLine, prefix: (n: number) => number): Glyph[] {
+  const L = curve.length;
+  const total = prefix(line.text.length);
+  const s0 = LABEL_AT * L - total / 2;
+  const glyphs: Glyph[] = [];
+  for (let i = 0; i < line.text.length; i++) {
+    const ch = line.text[i];
+    if (ch === " ") continue;
+    const mid = (prefix(i) + prefix(i + 1)) / 2;
+    const p = pointAt(curve, (s0 + mid) / L);
+    glyphs.push({
+      ch,
+      x: p.x - Math.sin(p.angle) * line.offset,
+      y: p.y + Math.cos(p.angle) * line.offset,
+      angle: p.angle,
+    });
+  }
+  return glyphs;
+}
+
+/** Paint glyphs onto the stroke: white, clipped to the paint underneath so it takes on the texture. */
+export function drawGlyphs(
+  ctx: CanvasRenderingContext2D,
+  glyphs: Glyph[],
+  font: string,
+  alpha: number,
+  shadow: { color: string; blur: number },
+) {
+  if (alpha <= 0) return;
+  ctx.globalCompositeOperation = "source-atop";
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = "#fff";
+  ctx.font = font;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.shadowColor = shadow.color;
+  ctx.shadowBlur = shadow.blur;
+  for (const g of glyphs) {
+    ctx.save();
+    ctx.translate(g.x, g.y);
+    ctx.rotate(g.angle);
+    ctx.fillText(g.ch, 0, 0);
+    ctx.restore();
+  }
 }

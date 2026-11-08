@@ -1,8 +1,6 @@
-// Plain colour maths shared by the hero stroke labels, the favicon and the share image.
+// Plain colour maths shared by the hero (label shadows), the favicon and the share image.
 const INK = "#0e1717";
 const CREAM = "#fff4e6";
-/** The light text colour `readableTextColor` can return. */
-export const LIGHT_INK = CREAM;
 
 function channel(c: number) {
   const v = c / 255;
