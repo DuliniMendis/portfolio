@@ -139,7 +139,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 
 ## Phase 3 — Project scaffolding (structure only, light copy)
 
-- [ ] **3.1 Content model** in `src/content/projects.ts`:
+- [x] **3.1 Content model** in `src/content/projects.ts`:
   ```ts
   type Project = {
     slug: string; name: string; role: string; period: string; summary: string;
@@ -147,15 +147,25 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
   }
   ```
   Populate from CONTENT.md.
-- [ ] **3.2 Project page template** `/work/[slug]`: header (name, role, period, summary),
+- [x] **3.2 Project page template** `/work/[slug]`: header (name, role, period, summary),
   then a grid of section cards. `generateStaticParams` from the content file.
-- [ ] **3.3 Section page template** `/work/[slug]/[section]`: title, blurb, and a
+- [x] **3.3 Section page template** `/work/[slug]/[section]`: title, blurb, and a
   placeholder body with headings `Context · What I did · Outcome` left as `TODO(dulini)`.
-- [ ] **3.4 Routes to exist:**
+- [x] **3.4 Routes to exist:**
   - `/work/seer-medical` → `data-viewer` (EEG time-series synced with video)
   - `/work/leonardo-ai` → `blueprints`, `flow-state`, `building-the-team`
   - `/work/canva` → `cost-reduction`
-- [ ] **3.5 Prev/next navigation** between projects, and a `Back to work` link.
+- [x] **3.5 Prev/next navigation** between projects, and a `Back to work` link.
+
+> **Phase 3 notes (done):**
+> - Routes: `/work/[slug]` and `/work/[slug]/[section]`, both with `generateStaticParams` from `src/content/projects.ts`.
+>   `src/app/work/layout.tsx` adds Nav and Footer (the home page includes its own).
+> - Placeholders: copy containing `TODO(` is hidden by `finalCopy()` / `isDraft()` and replaced with "Write-up coming soon."
+>   To publish real copy, replace the TODO strings in `projects.ts`; no page changes needed. Section bodies (Context / What I did / Outcome)
+>   are placeholders in `src/app/work/[slug]/[section]/page.tsx` and are meant to be replaced per section later.
+> - Unknown slugs show the not-found page with `noindex` but return HTTP 200: `dynamicParams` is unavailable with Cache Components. Phase 4 adds a custom 404.
+> - Typed helpers `PageProps<"/work/[slug]">` only exist after `next build`/`next dev` regenerates types.
+> - Pager: previous/next project wraps around (Canva next is Seer Medical).
 
 ## Phase 4 — Polish & ship
 

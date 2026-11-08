@@ -63,3 +63,35 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+/** True for copy that is still a placeholder (see CONTENT.md). Pages hide it instead of showing it. */
+export function isDraft(text: string | undefined): boolean {
+  return !text || text.includes("TODO(");
+}
+
+/** Returns the text, or undefined while it is still a placeholder. */
+export function finalCopy(text: string | undefined): string | undefined {
+  return isDraft(text) ? undefined : text;
+}
+
+export function getProject(slug: string): Project | undefined {
+  return projects.find((p) => p.slug === slug);
+}
+
+export function getSection(project: Project, slug: string): ProjectSection | undefined {
+  return project.sections.find((s) => s.slug === slug);
+}
+
+/** Previous and next project, wrapping around the ends. */
+export function neighbours(slug: string): { prev: Project; next: Project } {
+  const i = projects.findIndex((p) => p.slug === slug);
+  return {
+    prev: projects[(i - 1 + projects.length) % projects.length],
+    next: projects[(i + 1) % projects.length],
+  };
+}
+
+export const KIND_LABEL: Record<ProjectSection["kind"], string> = {
+  build: "Build",
+  lead: "Leadership",
+};
