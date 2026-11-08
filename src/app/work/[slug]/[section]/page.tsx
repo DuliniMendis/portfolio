@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -106,6 +107,38 @@ export default async function SectionPage({ params }: PageProps<"/work/[slug]/[s
           </div>
         </Container>
       </section>
+
+      {sec.press?.length ? (
+        <section className="py-16 md:py-24">
+          <Container>
+            <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-muted">In the press</h2>
+            <ul className="mt-6 divide-y divide-border border-y border-border">
+              {sec.press.map((a) => (
+                <li key={a.href}>
+                  <a
+                    href={a.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex flex-col gap-2 py-5 transition-colors hover:text-blue-text md:flex-row md:items-baseline md:justify-between md:gap-8"
+                  >
+                    <span className="flex items-baseline gap-2 text-xl font-semibold">
+                      {a.title}
+                      <ArrowUpRight
+                        size={18}
+                        aria-hidden
+                        className="shrink-0 self-center transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
+                    </span>
+                    <span className="shrink-0 text-sm text-muted">
+                      {a.publisher} · {a.date}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      ) : null}
 
       {others.length > 0 ? (
         <section className="py-16 md:py-24">

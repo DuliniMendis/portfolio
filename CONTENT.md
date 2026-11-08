@@ -25,7 +25,7 @@ Leonardo team-building story. `TODO(dulini)`: team sizes, tenure, outcomes you c
 
 | Company | Role | Period |
 |---|---|---|
-| Canva | `TODO(dulini)` | `TODO(dulini)` |
+| Canva | `TODO(dulini)` (design generation, then Canva AI platform) | `TODO(dulini)` |
 | Leonardo.ai | `TODO(dulini)` | `TODO(dulini)` |
 | Seer Medical | Software Engineer → Senior Engineering Manager → Staff Engineer | Jul 2017 – Oct 2024 |
 | Earlier roles | `TODO(dulini)` | `TODO(dulini)` |
@@ -47,10 +47,11 @@ Order on the site: most recent first. Confirm ordering is Canva → Leonardo →
   (drafted 2026-11-08 from Leonardo's help centre, launch press and Dulini's notes).
 
 ### Canva — slug `canva`
-- Summary: `TODO(dulini)`
-- Sections:
-  - **Cost reduction** — slug `cost-reduction`, kind `build`
-    Blurb: `TODO(dulini)` (what was costing, approach, savings achieved)
+- Role: `TODO(dulini)`. Period: `TODO(dulini)`
+- Worked in design generation, then a platform team supporting Canva AI.
+- Copy for Cost reduction lives in `src/content/projects.ts` (drafted 2026-11-08 from Dulini's
+  notes, with press links to Fortune and Forbes Australia coverage of Canva's 2026 AI costs).
+  Outcome still needs Liberation-specific results: `TODO(dulini)`.
 
 ## Tone
 

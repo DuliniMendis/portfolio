@@ -22,6 +22,15 @@ export type ProjectSection = {
   stack?: string[];
   /** Screenshots shown between the intro and the story. */
   images?: ProjectImage[];
+  /** News coverage that gives the work context, shown after the story. */
+  press?: PressLink[];
+};
+
+export type PressLink = {
+  title: string;
+  publisher: string;
+  date: string;
+  href: string;
 };
 
 export type BodyPart = "context" | "did" | "outcome";
@@ -260,9 +269,46 @@ export const projects: Project[] = [
     name: "Canva",
     role: "TODO(dulini)",
     period: "TODO(dulini)",
-    summary: "Cost reduction work across the platform.",
+    summary:
+      "At Canva I worked on AI design generation, then moved to a platform team supporting Canva AI, where I led the work to bring down the cost of generating designs.",
     sections: [
-      { slug: "cost-reduction", title: "Cost reduction", kind: "build", blurb: "TODO(dulini)" },
+      {
+        slug: "cost-reduction",
+        title: "Cost reduction",
+        kind: "build",
+        blurb:
+          "Cutting the cost of Liberation, one of the ways Canva AI generates designs, by moving it off expensive frontier models and checking with real users that the designs held up.",
+        stack: ["LLM evals", "A/B testing", "Open-source models", "First-party models", "Frontier models"],
+        body: {
+          context: [
+            "Canva AI can turn a prompt into a finished design, whether that's a presentation, an Instagram post or something else. I worked first in the design generation space, and later in a platform team that supported Canva AI.",
+            "Liberation was one of the methods Canva used to generate those designs, and it ran on frontier models. They made great designs, but each one cost real money, and Canva AI was being used a lot. Cost turned into one of the biggest questions for the whole company. In 2026 Canva's founders said publicly that the cost of serving AI had forced them to slow its rollout and lower the year's revenue forecast.",
+          ],
+          did: [
+            "I led the work to bring Liberation's costs down. The main lever was the model itself. Wherever it could do the job, we replaced an expensive frontier model with an open-source model, one of Canva's own first-party models, or a cheaper frontier model.",
+            "A cheaper model only counts as a saving if the designs are still good. Every candidate went through evals first, which compared its output with the model it would replace. The ones that passed went into A/B tests with real user cohorts, so we could see whether people accepted the designs as readily as before.",
+            "A lot of the work was coordination. I worked with Canva's CORE research group, who trained the first-party models, and with outside vendors to get access to third-party models, and kept them all moving towards the same goal.",
+          ],
+          outcome: [
+            "Getting AI costs under control became one of Canva's top priorities. By August 2026 the company said it had cut the cost of serving an AI task by nearly 90%, by moving work onto its own and cheaper models and reviewing the economics of its AI tools every week. Moving Liberation onto cheaper models was part of that same effort.",
+            "TODO(dulini): the savings or results you can share for Liberation.",
+          ],
+        },
+        press: [
+          {
+            title: "AI was supposed to power Canva's next act. It also exposed software's most expensive problem",
+            publisher: "Fortune",
+            date: "12 Aug 2026",
+            href: "https://fortune.com/2026/08/12/canva-startup-growth-ai-costs-revenue-forecast-by-third/",
+          },
+          {
+            title: "Canva founder says AI costs down 90% after skyrocketing bills delayed product rollout",
+            publisher: "Forbes Australia",
+            date: "19 Aug 2026",
+            href: "https://www.forbes.com.au/news/innovation/canva-founder-says-ai-costs-down-90-per-cent/",
+          },
+        ],
+      },
     ],
   },
 ];
