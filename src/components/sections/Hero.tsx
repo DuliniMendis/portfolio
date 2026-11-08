@@ -38,7 +38,7 @@ export function Hero() {
           </Reveal>
         </ScrollDrift>
 
-        <ScrollDrift rate={0.12} className="order-1 h-72 md:order-2 md:h-[560px]">
+        <ScrollDrift rate={0.12} className="order-1 h-[22rem] md:order-2 md:h-[600px]">
           <HeroVisual />
         </ScrollDrift>
       </Container>

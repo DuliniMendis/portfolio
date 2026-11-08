@@ -15,7 +15,7 @@ export default function Scene({ active, animate, tilt }: SceneProps) {
   return (
     <Canvas
       dpr={[1, 1.5]}
-      camera={{ position: [0, 0, 11.5], fov: 32 }}
+      camera={{ position: [0, 0, 12.5], fov: 32 }}
       gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
       frameloop={active ? (animate || tilt ? "always" : "demand") : "never"}
       style={{ background: "transparent" }}

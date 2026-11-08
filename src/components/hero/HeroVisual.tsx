@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import { Legend } from "./Legend";
 import { StaticOrb } from "./StaticOrb";
 
 // The 3D code (three.js and friends) loads only on the client, after first paint.
@@ -44,12 +45,15 @@ export function HeroVisual() {
   }, []);
 
   return (
-    <div ref={ref} className="relative flex h-full w-full items-center justify-center">
-      {mode === "webgl" ? (
-        <Scene active={visible} animate={animate} tilt={tilt} />
-      ) : (
-        <StaticOrb />
-      )}
+    <div className="flex h-full w-full flex-col">
+      <div ref={ref} aria-hidden className="relative flex min-h-0 flex-1 items-center justify-center">
+        {mode === "webgl" ? (
+          <Scene active={visible} animate={animate} tilt={tilt} />
+        ) : (
+          <StaticOrb />
+        )}
+      </div>
+      <Legend />
     </div>
   );
 }

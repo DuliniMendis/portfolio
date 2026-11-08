@@ -124,10 +124,13 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
   Preload the model, compress with `gltf-transform` if a .glb is used.
 
 > **Phase 2 notes:**
-> - Files: `src/components/hero/` Model (instanced double helix: orange and blue strands, spine), Scene (R3F canvas, local Lightformer
+> - REVISED: the double helix was replaced by 49 spheres in 7 colours (one per quality) that orbit, converge into one ball, then spread, on an 11 s loop.
+>   Qualities and colours live in `src/components/hero/qualities.ts` (Creativity orange, Care peach, Pragmatism grey, Resilience rust, Drive bright blue,
+>   Intelligence blue, Humility near-black); `Legend.tsx` names them under the model. Edit that one file to change the set.
+> - Files: `src/components/hero/` Model (instanced spheres, converge/disperse loop), Scene (R3F canvas, local Lightformer
 >   environment, no HDR download), HeroVisual (lazy `next/dynamic` ssr:false, WebGL check, pauses off-screen via IntersectionObserver,
 >   reduced-motion and coarse-pointer handling), StaticOrb (skeleton and no-WebGL fallback), ScrollDrift (hero text and model move at different rates).
-> - Colours: do not blend orange into blue (it goes grey); each strand shades within its own hue. `toneMapped={false}` keeps them vivid.
+> - Colours: `toneMapped={false}` keeps them vivid. Avoid blending complementary colours (orange into blue goes grey).
 > - Not yet exercised: the no-WebGL fallback and reduced-motion paths (written but untested), and real touch devices.
 > - Later: swap the procedural model for a bespoke `.glb` in `public/models/` if wanted; run Lighthouse on the deployed URL.
 
