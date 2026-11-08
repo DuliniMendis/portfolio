@@ -38,6 +38,8 @@ export function CareerGame({
       isActive: () => activeRef.current,
     });
     engineRef.current = engine;
+    // Development only: lets the browser console seek the story (window.__careerGame.seek(ms)).
+    if (process.env.NODE_ENV !== "production") (window as unknown as { __careerGame?: Engine | null }).__careerGame = engine;
     return () => {
       engine?.destroy();
       engineRef.current = null;

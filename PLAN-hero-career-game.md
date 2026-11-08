@@ -350,3 +350,12 @@ Deviations:
     "Grew up …" is not in `CONTENT.md`, so it was left out.
 12. **A bug found in testing:** a destroyed engine could restart itself when a logo finished loading (seen under React Strict Mode). The
     engine now has a `destroyed` flag checked by `wake` and `resize`.
+13. **Owner changes after the build (2026-11-09):**
+    - Each Canva connection lands with a talk bubble (three dots, or two lines of "words"); no hearts.
+    - She works on the second floor from the top, between two colleagues, so her links reach up, down and sideways.
+      The terminal pops out beside the tower at her floor (her floor has no room for it), and the gust blows her
+      out of a window on that floor.
+    - The Seer colleagues vanish in a puff of dust once the camera has settled on Leonardo.Ai (1 s into that beat).
+    - Once she puts on the lab coat, a brain with two electrodes sits on the lab bench and the spark pops between
+      the electrodes. Two coral shades of the orange (`P`, `Q` in `palette.ts`) were added for it.
+    - Development only: `window.__careerGame` exposes the engine so the console can seek the story.

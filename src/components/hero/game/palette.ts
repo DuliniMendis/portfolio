@@ -2,7 +2,7 @@
  * Every colour the career game may draw (the company logos are the only exception: they keep their brand colours).
  * One character per colour, so sprites can be written as text. Site tokens come from `globals.css`; skin tones are
  * sampled from `public/images/dulini.jpeg` and shifted towards neutral daylight; the rest are shades of the site's
- * orange and blue, plus warm sandstone greys and one deep teal for palm fronds.
+ * orange and blue, plus warm sandstone greys, one deep teal for palm fronds and a coral orange for the lab brain.
  */
 export const PALETTE = {
   // Site tokens
@@ -44,6 +44,9 @@ export const PALETTE = {
   q: "#b88651", // sandstone deep
   f: "#1f5f69", // palm frond (deep teal, in the blue family)
   F: "#3a8f96", // palm frond highlight
+  // The lab brain: a pink-leaning shade of the orange
+  P: "#f7b49a", // brain
+  Q: "#d9806a", // brain folds
 } as const;
 
 export type PaletteKey = keyof typeof PALETTE;

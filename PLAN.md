@@ -190,7 +190,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 >   `Hero.tsx` passes `<StaticFrame />` into `HeroVisual` so the SVG is rendered by the server component, not recomputed on the client.
 >   Deleted: `PaintStrokes.tsx`, `StaticStroke.tsx`, `brush.ts`, `skills.ts`. Kept: `contrast.ts` (the share image uses it), `qualities.ts`.
 > - Measured (stepped at 60 fps over the whole loop in the lab, 560 × 600 panel at 2× DPR, dev build, pane visible): 0.105 ms mean frame work, 1.3 ms p99.
->   Hero client chunk 21.0 kB gzipped in the production build (it also carries `ScrollDrift`; the game code alone measured 15.9 kB while the lab route split it out). Static SVG frame 10.2 kB. 34 colours used, none outside the palette.
+>   Hero client chunk 21.0 kB gzipped in the production build (it also carries `ScrollDrift`; the game code alone measured 15.9 kB while the lab route split it out). Static SVG frame 10.2 kB. 34 colours used at build time, none outside the palette (two coral shades for the lab brain were added to the palette on 2026-11-09).
 
 ## Phase 3 — Project scaffolding (structure only, light copy)
 

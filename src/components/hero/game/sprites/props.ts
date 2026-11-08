@@ -58,6 +58,28 @@ export const FLASK = build("flask", 7, 9, (g) => {
   g.rect("O", 0, 8, 7, 1);
 });
 
+/** A brain with two electrodes, for the lab bench (computational neuroscience). Side view: lobes, folds, cerebellum, stem. */
+export const BRAIN = build("brain", 18, 13, (g) => {
+  g.part(
+    [
+      ".....o....o.....",
+      ".....B....B.....",
+      ".....PPPPPP.....",
+      "...PPQQPPQQPP...",
+      "..PQPPPQPPPPQP..",
+      ".PQPPQQQPPQQPQP.",
+      ".PQPQPPPQQPPPQP.",
+      ".PPQPPQPPPPQQPP.",
+      "..PPQQPPQQQPPP..",
+      "...QQQPPPPPPP...",
+      "...QQQ..PP......",
+      "........PP......",
+    ],
+    1,
+    1,
+  );
+});
+
 /** Speech bubble for the PhD: code braces and a brain-wave squiggle. */
 export const BUBBLE_CODE = build("bubble-code", 32, 16, (g) => {
   g.rect("w", 1, 0, 30, 12);
@@ -77,16 +99,12 @@ export const STAR = [
   sprite("star-1", [".....", "..o..", ".oOo.", "..o..", "....."]),
 ];
 
-export const HEART = build("heart", 9, 8, (g) => {
+/** Talk bubble with two lines of "words" (alternates with the dots bubble on the Canva connections). */
+export const TALK = build("talk", 9, 8, (g) => {
   g.rect("w", 0, 0, 9, 7);
   g.px("w", 2, 7);
-  g.px("o", 2, 2);
-  g.px("o", 3, 2);
-  g.px("o", 5, 2);
-  g.px("o", 6, 2);
-  g.rect("o", 2, 3, 5, 1);
-  g.rect("o", 3, 4, 3, 1);
-  g.px("o", 4, 5);
+  g.rect("o", 2, 2, 5, 1);
+  g.rect("o", 2, 4, 3, 1);
 });
 export const CHAT = build("chat", 9, 8, (g) => {
   g.rect("w", 0, 0, 9, 7);

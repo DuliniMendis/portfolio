@@ -1,7 +1,7 @@
 import { burst, sparkle } from "../particles";
 import { COAT, IDLE, SIT_TYPE } from "../sprites/dulini";
 import { AT, UNI_FACADE, UNI_H, UNI_INSIDE } from "../sprites/landmarks";
-import { BEAKER, BENCH, BUBBLE_CODE, DESK_SIDE, FLASK, LAPTOP_SIDE, STAR, STOOL } from "../sprites/props";
+import { BEAKER, BENCH, BRAIN, BUBBLE_CODE, DESK_SIDE, FLASK, LAPTOP_SIDE, STAR, STOOL } from "../sprites/props";
 import { dither } from "../sprites/types";
 import { BEAT } from "../timeline";
 import { lerp, span, type World } from "../world";
@@ -22,13 +22,18 @@ export const BENCH_X = AT.uni + 42;
 const DESK_X = AT.uni + 19;
 const BENCH_LEFT = AT.uni + 53;
 
-function furniture(g: World) {
+/** Bench layout: the brain (once her lab coat is on), a flask that bubbles, a beaker. */
+const BRAIN_X = BENCH_LEFT - 2;
+const FLASK_X = BENCH_LEFT + 14;
+const BEAKER_X = BENCH_LEFT + 21;
+
+function furniture(g: World, m: number) {
   g.spr(STOOL, SEAT_X - 5, -STOOL.h);
   g.spr(DESK_SIDE, DESK_X, -DESK_SIDE.h);
   g.spr(BENCH, BENCH_LEFT, -BENCH.h);
-  g.spr(BEAKER, BENCH_LEFT + 3, -BENCH.h - BEAKER.h);
-  g.spr(FLASK, BENCH_LEFT + 10, -BENCH.h - FLASK.h);
-  g.spr(BEAKER, BENCH_LEFT + 19, -BENCH.h - BEAKER.h);
+  if (m >= COAT_AT) g.spr(BRAIN, BRAIN_X, -BENCH.h - BRAIN.h + 1);
+  g.spr(FLASK, FLASK_X, -BENCH.h - FLASK.h);
+  g.spr(BEAKER, BEAKER_X, -BENCH.h - BEAKER.h);
 }
 
 export const phd: Beat = {
@@ -36,7 +41,7 @@ export const phd: Beat = {
   scenery(g) {
     if (g.beat === BEAT.phd) {
       g.spr(UNI_INSIDE, AT.uni, -UNI_H);
-      furniture(g);
+      furniture(g, msIn(BEAT.phd, g.p));
     } else {
       g.spr(UNI_FACADE, AT.uni, -UNI_H);
     }
@@ -64,13 +69,14 @@ export const phd: Beat = {
       for (let k = 0; k < 4; k++) {
         const t0 = BENCH_AT + k * 350;
         const age = (m - t0) % 1400;
-        burst(g, { seed: 40 + k, n: 3, age, x: BENCH_LEFT + 13, y: -BENCH.h - 10, kind: "bubble", life: 900, speed: 14, dir: -Math.PI / 2, spread: 0.6, gravity: -6 });
+        burst(g, { seed: 40 + k, n: 3, age, x: FLASK_X + 3, y: -BENCH.h - 10, kind: "bubble", life: 900, speed: 14, dir: -Math.PI / 2, spread: 0.6, gravity: -6 });
       }
     }
     if (m > SPARK_AT && m < SPARK_AT + 500) {
-      g.spr(STAR[Math.floor((m - SPARK_AT) / 120) % 2], BENCH_LEFT + 11, -BENCH.h - FLASK.h - 8);
+      // The spark pops between the brain's electrodes.
+      g.spr(STAR[Math.floor((m - SPARK_AT) / 120) % 2], BRAIN_X + 7, -BENCH.h - BRAIN.h - 3);
     }
-    sparkle(g, 33, m - SPARK_AT, BENCH_LEFT + 13, -BENCH.h - FLASK.h - 4, 12);
+    sparkle(g, 33, m - SPARK_AT, BRAIN_X + 9, -BENCH.h - BRAIN.h + 1, 12);
 
     // The front wall dissolves away as she walks in, and comes back as the beat ends.
     const level = m < CLOSE_MS ? dissolve(m, OPEN_MS) : dissolve(m, CLOSE_MS, 100, true);

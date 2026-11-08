@@ -22,6 +22,8 @@ const LEAP_AT = 1000;
 const LEAP_MS = 1200;
 export const LEO_ARRIVE_X = AT.leo + LEO_DOOR;
 export const LEO_FOCUS_START = 1120;
+/** When the Seer colleagues vanish, ms into the Leonardo.Ai beat (its camera move takes 1000 ms). */
+const CROWD_GONE_MS = 1000;
 
 /** Colleagues hopping out of the windows and standing clear (drawn while Seer is on screen). */
 export function drawSeerCrowd(g: World) {
@@ -64,7 +66,13 @@ function leap(g: World, m: number, roof: number) {
 export const seerCrumbles: Beat = {
   focus: (p) => lerp(SEER_FOCUS, LEO_FOCUS_START, smooth(span(msIn(BEAT.seerCrumbles, p), LEAP_AT, LEAP_AT + 1400))),
   scenery(g) {
-    if (g.beat >= BEAT.seerCrumbles && g.beat <= BEAT.hand) drawSeerCrowd(g);
+    if (g.beat === BEAT.seerCrumbles) drawSeerCrowd(g);
+    else if (g.beat === BEAT.leonardo) {
+      // Once the camera has settled on Leonardo.Ai the Seer colleagues vanish in a puff.
+      const m = msIn(BEAT.leonardo, g.p);
+      if (m < CROWD_GONE_MS) drawSeerCrowd(g);
+      else for (const who of SEER_PEOPLE) dust(g, 900 + who.order, m - CROWD_GONE_MS, who.landX, -10, 6);
+    }
   },
   actors(g, p) {
     const m = msIn(BEAT.seerCrumbles, p);

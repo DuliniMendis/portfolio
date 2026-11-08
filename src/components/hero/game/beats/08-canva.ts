@@ -15,7 +15,7 @@ import {
   CANVA_WALL,
 } from "../sprites/landmarks";
 import { person, personFrames } from "../sprites/people";
-import { CHAT, HEART, TERMINAL } from "../sprites/props";
+import { CHAT, TALK, TERMINAL } from "../sprites/props";
 import { dither, lean } from "../sprites/types";
 import { PALETTE } from "../palette";
 import { BEAT } from "../timeline";
@@ -33,21 +33,23 @@ const TERM_AT = 2800;
 const TERM_LINES = 7;
 const TERM_LINE_MS = 210;
 export const WIND_AT = 4200;
+const TERM_X = AT.canva + CANVA_W + 3;
 const WIND_FULL = 5200;
 
 /** Standing height of floor f (0 = top floor) above which people stand: world y of the slab top. */
 export const floorY = (f: number) => -CANVA_H + CANVA_CROWN + f * CANVA_FLOOR_H + CANVA_FLOOR_H - 3;
-export const DULINI_X = AT.canva + 20;
-export const DULINI_FLOOR = 0;
+/** She works on the second floor from the top, so her connections reach up, down and sideways. */
+export const DULINI_FLOOR = 1;
+export const DULINI_X = AT.canva + CANVA_W / 2;
 
-/** Twelve colleagues: four on each of the lower three floors. */
-export const CANVA_PEOPLE = Array.from({ length: 12 }, (_, i) => {
-  const f = 1 + Math.floor(i / 4);
-  const slot = i % 4;
-  return { f, x: AT.canva + 12 + slot * 16 + (f % 2) * 3, look: person(300 + i) };
-});
+/** Colleagues: four on each other floor, and one either side of her on hers. */
+export const CANVA_PEOPLE = [0, 2, 3].flatMap((f, n) =>
+  [0, 1, 2, 3].map((slot) => ({ f, x: AT.canva + 12 + slot * 16 + (f % 2) * 3, look: person(300 + n * 4 + slot) })),
+).concat(
+  [AT.canva + 12, AT.canva + CANVA_W - 12].map((x, k) => ({ f: DULINI_FLOOR, x, look: person(320 + k) })),
+);
 // Links go out nearest first.
-const LINK_ORDER = CANVA_PEOPLE.map((c, i) => ({ i, d: Math.hypot(c.x - DULINI_X, floorY(c.f) - floorY(0)) }))
+const LINK_ORDER = CANVA_PEOPLE.map((c, i) => ({ i, d: Math.hypot(c.x - DULINI_X, floorY(c.f) - floorY(DULINI_FLOOR)) }))
   .sort((a, b) => a.d - b.d)
   .map((o) => o.i);
 
@@ -127,8 +129,9 @@ export function drawCanvaPeople(g: World, strength: number) {
 
 /** The terminal's streaming text: rows of short pixel words. */
 function drawTerminal(g: World, m: number) {
-  const tx = DULINI_X + 12;
-  const ty = floorY(0) - 30;
+  // It pops out beside the tower at her floor, like a game window, since her floor is full.
+  const tx = TERM_X;
+  const ty = floorY(DULINI_FLOOR) - 30;
   g.spr(TERMINAL, tx, ty);
   const shown = Math.floor((m - TERM_AT - 200) / TERM_LINE_MS);
   if (shown < 0) return;
@@ -164,9 +167,9 @@ export const canva: Beat = {
     const strength = windStrength(g);
     drawCanvaPeople(g, strength);
     const me = strength > 0.3 && !g.calm ? lean(IDLE[0], 2, 16) : IDLE[Math.floor(m / 520) % 2];
-    g.stand(me, DULINI_X, -floorY(DULINI_FLOOR));
 
-    // Connections, nearest first, each with a heart or a chat bubble once it lands.
+    // Connections, nearest first, each with a talk bubble once it lands. She is drawn over the lines' start.
+    const bubbles: [number, number, number][] = [];
     if (m < LINKS_OFF) {
       LINK_ORDER.forEach((idx, k) => {
         const t0 = LINK_AT + k * LINK_EVERY;
@@ -174,16 +177,19 @@ export const canva: Beat = {
         const c = CANVA_PEOPLE[idx];
         const s = clamp((m - t0) / LINK_MS);
         const x0 = DULINI_X + 2;
-        const y0 = floorY(0) - 22;
+        const y0 = floorY(DULINI_FLOOR) - 22;
         const x1 = c.x;
         const y1 = floorY(c.f) - 26;
         line(g, k % 2 ? PALETTE.B : PALETTE.o, x0, y0, lerp(x0, x1, s), lerp(y0, y1, s));
-        if (s >= 1) g.spr(k % 2 ? CHAT : HEART, x1 - 4, y1 - 9);
+        // Bubbles sit just over each head, kept below the floor above (or the crown).
+        if (s >= 1) bubbles.push([k, x1 - 4, Math.max(y1 - 9, floorY(c.f) - CANVA_FLOOR_H + 4)]);
       });
     }
+    g.stand(me, DULINI_X, -floorY(DULINI_FLOOR));
+    for (const [k, x, y] of bubbles) g.spr(k % 2 ? CHAT : TALK, x, y);
     if (m >= TERM_AT) {
       drawTerminal(g, m);
-      sparkle(g, 140, m - TERM_AT, DULINI_X + 28, floorY(0) - 20, 10);
+      sparkle(g, 140, m - TERM_AT, TERM_X + TERMINAL.w / 2, floorY(DULINI_FLOOR) - 18, 10);
     }
     wind(g, 11, m - WIND_AT, strength);
     drawCanvaFacadeOver(g);
