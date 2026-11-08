@@ -3,6 +3,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 
 const LINKEDIN = "https://www.linkedin.com/in/dulini-mendis-537aa11b/";
+const GITHUB = "https://github.com/DuliniMendis";
+const LINK_CLASS = "font-medium text-ink underline underline-offset-4 hover:text-blue-text";
 
 export function Contact() {
   return (
@@ -17,14 +19,13 @@ export function Contact() {
             Based in Melbourne, Australia. Open to engineering and leadership roles.
           </p>
           <p className="mt-6 text-lg text-muted">
-            Send me a message here, or{" "}
-            <a
-              href={LINKEDIN}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-ink underline underline-offset-4 hover:text-blue-text"
-            >
-              connect on LinkedIn
+            Send me a message here, or find me on{" "}
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+              LinkedIn
+            </a>{" "}
+            and{" "}
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+              GitHub
             </a>
             .
           </p>
