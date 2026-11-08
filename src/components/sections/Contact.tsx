@@ -27,6 +27,10 @@ export function Contact() {
             <a href={GITHUB} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
               GitHub
             </a>
+            . You can also{" "}
+            <a href="/dulini-mendis-cv.pdf" download className={LINK_CLASS}>
+              download my CV
+            </a>
             .
           </p>
         </Reveal>

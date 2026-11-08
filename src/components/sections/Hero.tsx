@@ -36,6 +36,9 @@ export function Hero() {
             <Button href="/#leadership" variant="ghost">
               How I lead
             </Button>
+            <Button href="/dulini-mendis-cv.pdf" variant="ghost" download>
+              Download CV
+            </Button>
           </Reveal>
         </ScrollDrift>
 
