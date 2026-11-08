@@ -54,6 +54,10 @@ export type Project = {
   role: string;
   period: string;
   summary: string;
+  /** One sentence for the home page card. The full summary stays on the project page. */
+  teaser: string;
+  /** Up to three section slugs shown as tags on the home page card, most important first. */
+  featured: string[];
   /** Roles held there, earliest first. Shown on the project page as a progression. */
   roles?: ProjectRole[];
   sections: ProjectSection[];
@@ -67,6 +71,9 @@ export const projects: Project[] = [
     period: "Jul 2017 – Oct 2024",
     summary:
       "Seer moved week-long epilepsy monitoring out of hospital and into the home. I joined as one of its first software engineers and grew into leading its clinic and platform teams.",
+    teaser:
+      "Founding engineer, then leader of the clinic and platform teams, at the company that moved epilepsy monitoring from hospital to home.",
+    featured: ["data-viewer", "live-monitoring", "leading-the-teams"],
     roles: [
       {
         title: "Software Engineer",
@@ -200,6 +207,9 @@ export const projects: Project[] = [
     period: "Oct 2024 – May 2026",
     summary:
       "I led the frontend for the squad behind two of Leonardo's biggest AI features, Flow State and Blueprints, and grew the team along the way. I also led work on performance, engineering standards and security.",
+    teaser:
+      "I led the frontend for Flow State and Blueprints, two of Leonardo's biggest AI features, and grew the team behind them.",
+    featured: ["flow-state", "blueprints", "building-the-team"],
     sections: [
       {
         slug: "flow-state",
@@ -387,6 +397,9 @@ export const projects: Project[] = [
     period: "May 2026 – Nov 2026",
     summary:
       "I worked on AI design generation at Canva, then joined a platform team supporting Canva AI. As Engineering Manager I led a team of seven backend and ML engineers. I led the work to cut the cost of generating designs and to move design generation from fixed pipelines to agent tools, and I built tools like one-click bug reports to make everyday work easier. Along the way I set up a few small AI automations for the team: a daily round-up, slides for regular meetings, and Jira updates for weekly reporting.",
+    teaser:
+      "I led seven backend and ML engineers on the platform behind Canva AI, and halved the cost of one of its design generation methods.",
+    featured: ["cost-reduction", "pipelines-to-agent-tools", "one-click-bug-reports"],
     sections: [
       {
         slug: "cost-reduction",
@@ -485,6 +498,13 @@ export function finalCopy(text: string | undefined): string | undefined {
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
+}
+
+/** The sections named in `featured`, in that order, for the home page card. */
+export function featuredSections(project: Project): ProjectSection[] {
+  return project.featured
+    .map((slug) => getSection(project, slug))
+    .filter((s): s is ProjectSection => Boolean(s));
 }
 
 export function getSection(project: Project, slug: string): ProjectSection | undefined {

@@ -4,7 +4,7 @@ import { Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Tag } from "@/components/ui/Tag";
-import { projects } from "@/content/projects";
+import { featuredSections, projects } from "@/content/projects";
 
 export function Work() {
   return (
@@ -25,9 +25,9 @@ export function Work() {
                   <h3 className="text-3xl font-semibold">{p.name}</h3>
                   <ArrowUpRight className="text-muted transition-colors group-hover:text-blue" />
                 </div>
-                <p className="mt-4 flex-1 text-muted">{p.summary}</p>
+                <p className="mt-4 flex-1 text-muted">{p.teaser}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
-                  {p.sections.map((s) => (
+                  {featuredSections(p).map((s) => (
                     <Tag key={s.slug}>{s.title}</Tag>
                   ))}
                 </div>
