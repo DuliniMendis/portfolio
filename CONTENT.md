@@ -26,7 +26,7 @@ Leonardo team-building story. `TODO(dulini)`: team sizes, tenure, outcomes you c
 | Company | Role | Period |
 |---|---|---|
 | Canva | Engineering Manager (CV: Generative Foundations Platform) | May 2026 – Nov 2026 |
-| Leonardo.ai | Frontend Tech Lead (LinkedIn: Technical Lead) | Nov 2024 – Apr 2026 (CV says Oct 2024 – May 2026) |
+| Leonardo.ai | Frontend Tech Lead (LinkedIn: Technical Lead) | Oct 2024 – May 2026 (from CV; LinkedIn says Nov 2024 – Apr 2026) |
 | Seer Medical | Software Engineer → Senior Engineering Manager → Staff Engineer | Jul 2017 – Oct 2024 |
 | Outcome.Life | Web Developer (part-time) | Mar 2017 – Jun 2017 |
 | IBM | Research Intern | Jun 2016 – Oct 2016 |
@@ -47,7 +47,7 @@ three companies with project pages read role and period from `projects.ts`.
   article, and public Seer Sense coverage).
 
 ### Leonardo.ai — slug `leonardo-ai`
-- Role: Frontend Tech Lead. Period: Nov 2024 – Apr 2026.
+- Role: Frontend Tech Lead. Period: Oct 2024 – May 2026 (CV).
 - Copy for Flow State, Blueprints and Building the team lives in `src/content/projects.ts`
   (drafted 2026-11-08 from Leonardo's help centre, launch press and Dulini's notes).
 - Also there, from Dulini's notes (2026-11-08) and the CV: Faster generation history (performance and

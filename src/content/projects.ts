@@ -196,7 +196,7 @@ export const projects: Project[] = [
     slug: "leonardo-ai",
     name: "Leonardo.ai",
     role: "Frontend Tech Lead",
-    period: "Nov 2024 – Apr 2026",
+    period: "Oct 2024 – May 2026",
     summary:
       "I led the frontend for the squad behind two of Leonardo's biggest AI features, Flow State and Blueprints, and grew the team along the way. I also led work on performance, engineering standards and security.",
     sections: [
@@ -238,7 +238,7 @@ export const projects: Project[] = [
         kind: "build",
         blurb:
           "Ready-made AI recipes. Fill in a few simple steps and get a finished result, with no prompt writing needed.",
-        stack: ["React", "Next.js", "Server-side rendering", "GraphQL", "Apollo Client", "Node.js", "React Hook Form"],
+        stack: ["TypeScript", "React", "Next.js", "Server-side rendering", "GraphQL", "Apollo Client", "Node.js", "React Hook Form"],
         images: [
           {
             src: blueprintsCatalogue,
@@ -259,7 +259,7 @@ export const projects: Project[] = [
           did: [
             "Our squad built Blueprints, and I led the frontend, which is everything you see and click. That covers the catalogue with its filters and search, the step-by-step flow for your inputs, and the results screen, which hands your images to the editor if you want to keep tweaking.",
             "The big challenge was variety. One Blueprint wants a photo and a colour, another wants a story brief, and what comes back might be images, video or both. Building a custom page for each one would never keep up, so the frontend had to handle any Blueprint, including ones nobody had thought of yet.",
-            "Under the hood, it's React and Next.js, leaning heavily on server-side rendering. That means pages are put together on the server and arrive ready to show, rather than assembling themselves in your browser. A Node backend talks to the frontend through GraphQL. Apollo's built-in cache kept track of data from the server, React context held state shared across the page, and the step-by-step forms ran on React Hook Form, a popular form library.",
+            "Under the hood, it's TypeScript, React and Next.js, leaning heavily on server-side rendering. That means pages are put together on the server and arrive ready to show, rather than assembling themselves in your browser. A Node backend talks to the frontend through GraphQL. Apollo's built-in cache kept track of data from the server, React context held state shared across the page, and the step-by-step forms ran on React Hook Form, a popular form library.",
           ],
           outcome: [
             "Blueprints launched in November 2025 with a big first batch, including Instant Brand Kit, Product Lifestyle Photoshoot and Instant Animate. The catalogue has kept growing since, from ideation tools to video, and now includes Blueprints made by people in Leonardo's creator community.",
