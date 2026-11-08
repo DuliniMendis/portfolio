@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 const entries = [
   { company: "Canva", note: "Platform cost reduction" },
   { company: "Leonardo.ai", note: "Flow State, Blueprints, and building the team" },
-  { company: "Seer Medical", note: "Clinical Data Viewer" },
+  { company: "Seer Medical", note: "Data Viewer, live monitoring and clinic tools" },
 ];
 
 export function Timeline() {

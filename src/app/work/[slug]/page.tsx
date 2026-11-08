@@ -42,6 +42,28 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
             ) : null}
             <p className="mt-6 text-xl text-ink/80">{project.summary}</p>
           </Reveal>
+          {project.roles?.length ? (
+            <Reveal className="mt-14 max-w-3xl">
+              <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-muted">
+                Roles at {project.name}
+              </h2>
+              <ol className="mt-6 border-l border-border">
+                {project.roles.map((r) => (
+                  <li key={r.title} className="relative pb-8 pl-8 last:pb-0">
+                    <span
+                      aria-hidden
+                      className="absolute -left-[5px] top-2 size-2.5 rounded-full bg-accent"
+                    />
+                    <div className="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between md:gap-6">
+                      <h3 className="font-display text-xl font-semibold">{r.title}</h3>
+                      <p className="shrink-0 text-sm text-muted">{r.period}</p>
+                    </div>
+                    {r.note ? <p className="mt-2 text-ink/80">{r.note}</p> : null}
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
+          ) : null}
         </Container>
       </section>
 

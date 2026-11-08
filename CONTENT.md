@@ -27,7 +27,7 @@ Leonardo team-building story. `TODO(dulini)`: team sizes, tenure, outcomes you c
 |---|---|---|
 | Canva | `TODO(dulini)` | `TODO(dulini)` |
 | Leonardo.ai | `TODO(dulini)` | `TODO(dulini)` |
-| Seer Medical | `TODO(dulini)` | `TODO(dulini)` |
+| Seer Medical | Software Engineer → Senior Engineering Manager → Staff Engineer | Jul 2017 – Oct 2024 |
 | Earlier roles | `TODO(dulini)` | `TODO(dulini)` |
 
 Order on the site: most recent first. Confirm ordering is Canva → Leonardo → Seer.
@@ -35,12 +35,12 @@ Order on the site: most recent first. Confirm ordering is Canva → Leonardo →
 ## Projects
 
 ### Seer Medical — slug `seer-medical`
-- Summary: `TODO(dulini)` (medical device / epilepsy monitoring context, one line)
-- Sections:
-  - **Data Viewer** — slug `data-viewer`, kind `build`
-    Blurb: Clinical viewer for EEG time-series data synchronised frame-accurately with
-    patient video. Expand later: scale of data, sync/perf challenges, clinician workflow,
-    tech stack, outcome.
+- Role: Founding engineer to Senior Engineering Manager, 2017 – 2024. Full role list (from
+  LinkedIn) is in `roles` in `src/content/projects.ts`.
+- Copy for Data Viewer, Live monitoring and Clinic operations lives in `src/content/projects.ts`
+  (drafted 2026-11-08 from Dulini's notes and LinkedIn, Rob Kerr's "Seer Cloud" Medium
+  article, and public Seer Sense / FDA coverage).
+- `TODO(dulini)`: Live monitoring outcome.
 
 ### Leonardo.ai — slug `leonardo-ai`
 - Role: Frontend Tech Lead. Period: `TODO(dulini)`
