@@ -64,7 +64,7 @@ three companies with project pages read role and period from `projects.ts`.
   notes, with press links to Fortune and Forbes Australia coverage of Canva's 2026 AI costs).
   Outcome: Liberation's costs cut by 50% with no loss of design quality (Dulini, 2026-11-08).
 - Copy for One-click bug reports (kind `build`: one-click Canva AI bug reports for staff, traces
-  saved to CoreWeave Forge and Langfuse, Jira tickets, Slack alerts) also lives there. The
+  saved to Weights & Biases and Langfuse, Jira tickets, Slack alerts) also lives there. The
   project was never rolled out: it stopped when Canva made layoffs in November 2026.
 - Copy for From pipelines to agent tools (kind `lead`: packaging pipelines as agent tools,
   retiring overtaken ones, negotiating timelines with internal teams during parallel Canva AI

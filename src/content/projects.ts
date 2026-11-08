@@ -399,7 +399,7 @@ export const projects: Project[] = [
         kind: "build",
         blurb:
           "A way for Canva staff to report a Canva AI bug with one click and a short description, with the traces and everything else needed to fix it captured automatically.",
-        stack: ["CoreWeave Forge", "Langfuse", "Jira", "Slack"],
+        stack: ["Weights & Biases", "Langfuse", "Jira", "Slack"],
         body: {
           context: [
             "Canva's own staff use Canva AI every day, which makes them some of the best people to catch its bugs. But a useful AI bug report needs much more than a description: what was asked, what the AI did at each step, which models ran and what came back.",
@@ -407,7 +407,7 @@ export const projects: Project[] = [
           ],
           did: [
             "We started on a way for internal staff to report a Canva AI bug with one click and a short description of what went wrong.",
-            "Everything else was captured automatically, saved and linked to the report. The AI traces, the step-by-step record of how a response was made, went to CoreWeave Forge and Langfuse, so engineers could see exactly what happened.",
+            "Everything else was captured automatically, saved and linked to the report. The AI traces, the step-by-step record of how a response was made, went to Weights & Biases and Langfuse, so engineers could see exactly what happened.",
             "Each report also created a Jira ticket for triage, and posted to Slack so engineers heard about new bugs straight away.",
           ],
           outcome: [
