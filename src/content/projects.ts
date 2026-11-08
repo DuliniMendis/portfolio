@@ -175,7 +175,7 @@ export const projects: Project[] = [
     role: "Frontend Tech Lead",
     period: "Nov 2024 – Apr 2026",
     summary:
-      "I led the frontend for the squad behind two of Leonardo's biggest AI features, Flow State and Blueprints, and grew the team along the way.",
+      "I led the frontend for the squad behind two of Leonardo's biggest AI features, Flow State and Blueprints, and grew the team along the way. I also led work on performance, engineering standards and security.",
     sections: [
       {
         slug: "flow-state",
@@ -244,6 +244,27 @@ export const projects: Project[] = [
         },
       },
       {
+        slug: "generation-history",
+        title: "Faster generation history",
+        kind: "build",
+        blurb:
+          "Making generation history, where people go back to everything they've made, fast again, and untangling the React components behind it.",
+        stack: ["React", "Next.js", "TypeScript"],
+        body: {
+          context: [
+            "Generation history is where Leonardo users go back to the images and videos they've made, and it had become slow.",
+            "The code behind it was part of the problem. Over time its React components had grown tangled together, so a change in one place could ripple into others, and it was hard to see why the page was slow, let alone fix it.",
+          ],
+          did: [
+            "I led the work to make generation history fast again.",
+            "Alongside the performance fixes, we cleaned up the component hierarchy around it. We pulled apart components that knew too much about each other, so each one has a clear job and can change without breaking its neighbours.",
+          ],
+          outcome: [
+            "Generation history got faster, and the code behind it is easier to understand and safer to change. That makes the next improvement to it cheaper too.",
+          ],
+        },
+      },
+      {
         slug: "building-the-team",
         title: "Building the team",
         kind: "lead",
@@ -260,6 +281,48 @@ export const projects: Project[] = [
           ],
           outcome: [
             "We shipped both features. And by the time I left, one of the mid-level engineers had grown into a senior engineer.",
+          ],
+        },
+      },
+      {
+        slug: "engineering-standards",
+        title: "Engineering standards",
+        kind: "lead",
+        blurb:
+          "Clear frontend standards with dos and don'ts and real examples, taught through talks at the weekly knowledge share.",
+        stack: ["React", "Next.js"],
+        body: {
+          context: [
+            "When a team moves fast, everyone ends up solving the same problems in slightly different ways. The code gets harder to read, reviews turn into debates about style, and new people have no way of knowing which pattern is the right one to copy.",
+          ],
+          did: [
+            "I set up engineering standards for the team to follow, built around React and Next.js best practice.",
+            "Each standard came with clear dos and don'ts, and real examples of both, so it was obvious what good looked like rather than left to interpretation.",
+            "I also walked people through them in talks at our weekly knowledge share, so people heard the reasons behind each standard and could ask about them, rather than just reading a document.",
+          ],
+          outcome: [
+            "The standards caught on beyond my own team and were adopted across the company.",
+          ],
+        },
+      },
+      {
+        slug: "secrets-in-aws",
+        title: "Secrets in one place",
+        kind: "lead",
+        blurb:
+          "Moving all our secrets into AWS, so that if there's ever a security breach, every one of them can be rotated from one place.",
+        stack: ["AWS"],
+        body: {
+          context: [
+            "Every app runs on secrets: API keys, tokens and passwords for the services it talks to. When there's a security breach, all of them have to be rotated, and fast.",
+            "That's only quick if you know where every secret lives. When they're spread around, rotating them means hunting each one down, and it's easy to miss one.",
+          ],
+          did: [
+            "I led the work to move all our secrets into AWS. A senior engineer reporting to me did the build.",
+            "My part was to make sure it was done well. I oversaw the work, reviewed the solution, and made sure it covered every secret we had and would hold up when we actually needed it.",
+          ],
+          outcome: [
+            "All our secrets now live in one place in AWS. If there's ever a breach, they can be rotated from there, rather than tracked down one by one.",
           ],
         },
       },

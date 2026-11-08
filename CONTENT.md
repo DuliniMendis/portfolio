@@ -50,6 +50,10 @@ three companies with project pages read role and period from `projects.ts`.
 - Role: Frontend Tech Lead. Period: Nov 2024 – Apr 2026.
 - Copy for Flow State, Blueprints and Building the team lives in `src/content/projects.ts`
   (drafted 2026-11-08 from Leonardo's help centre, launch press and Dulini's notes).
+- Also there, from Dulini's notes (2026-11-08) and the CV: Faster generation history (performance and
+  decoupling the React components), Engineering standards (dos and don'ts with examples, knowledge-share
+  talks; adopted company-wide per the CV), Secrets in one place (all secrets moved into AWS, built by a
+  senior engineer reporting to Dulini, who oversaw and reviewed it). No metrics yet for any of the three.
 
 ### Canva — slug `canva`
 - Role: Engineering Manager. Period: May 2026 – Nov 2026.
