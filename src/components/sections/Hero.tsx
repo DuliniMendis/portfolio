@@ -1,14 +1,19 @@
-import { Parallax } from "@/components/motion/Parallax";
+import { HeroVisual } from "@/components/hero/HeroVisual";
+import { ScrollDrift } from "@/components/hero/ScrollDrift";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
-/** Phase 1 hero. The orb is a stand-in that Phase 2 replaces with the 3D scene. */
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden pt-16">
-      <Container className="grid items-center gap-12 md:grid-cols-2">
-        <div>
+      {/* Soft colour wash behind the model, drawn from the portrait palette. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-40 top-1/2 h-[720px] w-[720px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(5,108,149,0.14),rgba(247,152,64,0.10)_45%,transparent_70%)]"
+      />
+      <Container className="relative grid items-center gap-4 md:grid-cols-2 md:gap-12">
+        <ScrollDrift rate={-0.08} fade className="order-2 md:order-1">
           <Reveal>
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent-strong">
               Dulini Mendis
@@ -31,14 +36,11 @@ export function Hero() {
               How I lead
             </Button>
           </Reveal>
-        </div>
+        </ScrollDrift>
 
-        <Parallax distance={50} className="relative flex h-80 items-center justify-center md:h-[520px]">
-          <div
-            aria-hidden
-            className="h-64 w-64 rounded-full bg-[radial-gradient(circle_at_30%_28%,#f79840_0%,#d96a1a_30%,#056c95_68%,#033749_100%)] shadow-[0_40px_120px_-20px_rgba(5,108,149,0.55)] md:h-96 md:w-96"
-          />
-        </Parallax>
+        <ScrollDrift rate={0.12} className="order-1 h-72 md:order-2 md:h-[560px]">
+          <HeroVisual />
+        </ScrollDrift>
       </Container>
     </section>
   );

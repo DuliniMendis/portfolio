@@ -105,23 +105,31 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 
 ## Phase 2 — Hero banner with 3D model (the showpiece)
 
-- [ ] **2.1 Scene setup.** `Scene.tsx`: R3F `<Canvas>` with transparent background, soft
+- [x] **2.1 Scene setup.** `Scene.tsx`: R3F `<Canvas>` with transparent background, soft
   studio lighting (`Environment preset="studio"` or 2 directional lights + ambient),
   `dpr={[1, 1.5]}`, `frameloop="demand"` when idle. Lazy-loaded; show a CSS skeleton until
   ready. Fallback for no-WebGL: static SVG/PNG of the same shape.
-- [ ] **2.2 The model.** Start with a procedural abstract form (e.g. a cluster of smooth
+- [x] **2.2 The model.** Start with a procedural abstract form (e.g. a cluster of smooth
   glass/matte spheres or a torus-knot in the accent colour, `MeshTransmissionMaterial` or
   `MeshPhysicalMaterial` with light roughness). Later swap for a custom `.glb` in
   `public/models/`. The form should read as "signal / data / connection" — nods to EEG
   waveforms and AI without being literal.
-- [ ] **2.3 Animation.** Slow idle rotation + subtle float (`drei/Float`). Pointer parallax:
+- [x] **2.3 Animation.** Slow idle rotation + subtle float (`drei/Float`). Pointer parallax:
   model tilts a few degrees toward the cursor (lerped). Scroll parallax: model drifts and
   scales down as the hero leaves the viewport; hero text moves at a different rate.
-- [ ] **2.4 Hero copy & layout.** Left: name, headline, one-sentence subhead, two CTAs
+- [x] **2.4 Hero copy & layout.** Left: name, headline, one-sentence subhead, two CTAs
   (`See my work`, `How I lead`). Right (or behind on mobile): the 3D canvas. Mobile: canvas
   sits above the text at reduced height, pointer parallax off.
-- [ ] **2.5 Performance pass.** Lighthouse ≥ 90 on mobile. Hero JS chunk < 300 kB gz.
+- [~] **2.5 Performance pass.** (PARTLY DONE: 3D chunk measured at ~269 kB gz, under budget, lazy-loaded. Lighthouse NOT run yet; no .glb used.) Lighthouse ≥ 90 on mobile. Hero JS chunk < 300 kB gz.
   Preload the model, compress with `gltf-transform` if a .glb is used.
+
+> **Phase 2 notes:**
+> - Files: `src/components/hero/` Model (instanced double helix: orange and blue strands, spine), Scene (R3F canvas, local Lightformer
+>   environment, no HDR download), HeroVisual (lazy `next/dynamic` ssr:false, WebGL check, pauses off-screen via IntersectionObserver,
+>   reduced-motion and coarse-pointer handling), StaticOrb (skeleton and no-WebGL fallback), ScrollDrift (hero text and model move at different rates).
+> - Colours: do not blend orange into blue (it goes grey); each strand shades within its own hue. `toneMapped={false}` keeps them vivid.
+> - Not yet exercised: the no-WebGL fallback and reduced-motion paths (written but untested), and real touch devices.
+> - Later: swap the procedural model for a bespoke `.glb` in `public/models/` if wanted; run Lighthouse on the deployed URL.
 
 ## Phase 3 — Project scaffolding (structure only, light copy)
 
