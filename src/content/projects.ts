@@ -80,12 +80,12 @@ export const projects: Project[] = [
       {
         title: "Engineering Manager",
         period: "May 2020 – Mar 2023",
-        note: "Led the Seer-Clinic team of three to five engineers, including hiring, onboarding, mentoring and planning.",
+        note: "Hired the whole Seer-Clinic team and led it, three to five engineers, through onboarding, mentoring and planning. Promoted one engineer from mid-level to senior.",
       },
       {
         title: "Senior Engineering Manager",
         period: "Mar 2023 – Feb 2024",
-        note: "Led the Seer-Clinic product team and the Platform team, running cross-team projects and migrations.",
+        note: "Led the Seer-Clinic product team and two platform teams, API and DevOps, about 11 people in all, running cross-team projects and migrations.",
       },
       {
         title: "Staff Engineer",
@@ -271,7 +271,7 @@ export const projects: Project[] = [
     role: "Engineering Manager",
     period: "May 2026 – Nov 2026",
     summary:
-      "I worked on AI design generation at Canva, then joined a platform team supporting Canva AI. I led the work to cut the cost of generating designs and to move design generation from fixed pipelines to agent tools, and I built tools like one-click bug reports to make everyday work easier.",
+      "I worked on AI design generation at Canva, then joined a platform team supporting Canva AI. As Engineering Manager I led a team of seven backend and ML engineers. I led the work to cut the cost of generating designs and to move design generation from fixed pipelines to agent tools, and I built tools like one-click bug reports to make everyday work easier.",
     sections: [
       {
         slug: "cost-reduction",

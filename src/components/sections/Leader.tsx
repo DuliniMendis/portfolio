@@ -2,7 +2,14 @@ import Link from "next/link";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 
-// Plain-language summary of the Leonardo.ai case study. Keep it in step with that page.
+// Facts from Dulini (Nov 2026), LinkedIn, the CV and the Leonardo.ai case study. Keep them in step.
+const stats = [
+  { value: "11", label: "reports at Seer, across a product team and two platform teams" },
+  { value: "7", label: "backend and ML engineers led at Canva" },
+  { value: "4", label: "engineers led at Leonardo.ai" },
+  { value: "2", label: "engineers promoted from mid-level to senior" },
+];
+
 const points = [
   {
     title: "People own the work",
@@ -10,11 +17,11 @@ const points = [
   },
   {
     title: "Time to switch off",
-    body: "Rested people make better calls. I don't see doing great work and having a life outside it as a trade-off.",
+    body: "At Leonardo, I took a team used to burnout and last-minute fixes and got it shipping high-quality work on time, without the late nights.",
   },
   {
     title: "Room to grow",
-    body: "Coaching, honest feedback and real responsibility. One of my mid-level engineers had grown into a senior by the time I left.",
+    body: "I hired the whole Seer-Clinic team, and promoted two engineers from mid-level to senior, one at Seer and one at Leonardo. I grew the same way, promoted three times at Seer from software engineer to senior engineering manager.",
   },
 ];
 
@@ -28,10 +35,20 @@ export function Leader() {
             Teams that own their work and still log off on time.
           </h2>
           <p className="mt-4 text-lg text-ink/70">
-            At Leonardo.ai I led four engineers. Instead of handing out tickets, I gave each
-            part of a feature an owner, and spent my time coaching.
+            I&apos;ve led engineering teams at Seer Medical, Leonardo.ai and Canva. Instead of
+            handing out tickets, I give each part of the work an owner, and spend my time
+            coaching.
           </p>
         </Reveal>
+
+        <Stagger className="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4">
+          {stats.map((s) => (
+            <StaggerItem key={s.label}>
+              <p className="font-display text-5xl font-semibold">{s.value}</p>
+              <p className="mt-2 text-sm text-ink/70">{s.label}</p>
+            </StaggerItem>
+          ))}
+        </Stagger>
 
         <Stagger className="mt-14 grid gap-px overflow-hidden rounded-card bg-ink/10 md:grid-cols-3">
           {points.map((p) => (
