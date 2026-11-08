@@ -1,40 +1,27 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
-import { StaticOrb } from "./StaticOrb";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { PaintStrokes } from "./PaintStrokes";
+import { SKILLS } from "./skills";
 
-// The 3D code (three.js and friends) loads only on the client, after first paint.
-const Scene = dynamic(() => import("./Scene"), {
-  ssr: false,
-  loading: () => <StaticOrb />,
-});
+// Reduced motion, or a reduced-data preference, gets the calm cross-fade instead of the drawing.
+const CALM_QUERY = "(prefers-reduced-motion: reduce), (prefers-reduced-data: reduce)";
 
-function hasWebGL() {
-  try {
-    const c = document.createElement("canvas");
-    return !!(c.getContext("webgl2") || c.getContext("webgl"));
-  } catch {
-    return false;
-  }
+function subscribe(onChange: () => void) {
+  const mq = window.matchMedia(CALM_QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
 }
+const getAnimate = () => !window.matchMedia(CALM_QUERY).matches;
+// Unknown on the server: render the static stroke and decide after hydration.
+const getServerAnimate = () => null;
 
 export function HeroVisual() {
   const ref = useRef<HTMLDivElement>(null);
-  const [mode, setMode] = useState<"pending" | "webgl" | "fallback">("pending");
+  const animate = useSyncExternalStore<boolean | null>(subscribe, getAnimate, getServerAnimate);
   const [visible, setVisible] = useState(true);
-  const [animate, setAnimate] = useState(true);
-  const [tilt, setTilt] = useState(false);
 
-  useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const finePointer = window.matchMedia("(pointer: fine)").matches;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time client capability detection
-    setMode(hasWebGL() ? "webgl" : "fallback");
-    setAnimate(!reduce);
-    setTilt(!reduce && finePointer);
-  }, []);
-
+  // Pause the painting while the hero is scrolled out of view.
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -45,13 +32,14 @@ export function HeroVisual() {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div ref={ref} aria-hidden className="relative flex min-h-0 flex-1 items-center justify-center">
-        {mode === "webgl" ? (
-          <Scene active={visible} animate={animate} tilt={tilt} />
-        ) : (
-          <StaticOrb />
-        )}
+      <div ref={ref} aria-hidden className="relative min-h-0 flex-1">
+        <PaintStrokes active={visible} animate={animate} />
       </div>
+      <ul className="sr-only" aria-label="Skills">
+        {SKILLS.map((s) => (
+          <li key={s.name}>{s.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }

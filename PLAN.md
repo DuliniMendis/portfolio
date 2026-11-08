@@ -139,6 +139,34 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Gotcha: three.js does not recompile a material when `map` goes from null to a texture; Model.tsx re-keys the material when textures load.
 > - Not yet exercised: the no-WebGL fallback and reduced-motion paths (written but untested), and real touch devices.
 > - Later: swap the procedural model for a bespoke `.glb` in `public/models/` if wanted; run Lighthouse on the deployed URL.
+> - (All of the above is superseded by the v2 notes below; the three.js files and dependencies are gone.)
+
+> **Phase 2 v2 notes: painted skill strokes (2026-11-08, replaces the spheres; spec in `PLAN-hero-paint-strokes.md`):**
+> - What it does: one broad paint stroke at a time is drawn left to right over 1.5 s (`DRAW`), holds 1.3 s (`HOLD`), and fades over 0.9 s (`FADE`) while the next
+>   one lands. Each carries one skill. 22 skills in a fixed order (`skills.ts`), about 62 s per loop. All randomness is seeded by stroke index, so every load looks the same.
+> - Files: `skills.ts` (list, groups, colours), `brush.ts` (pure maths: PRNG, value noise, Catmull-Rom curve resampled by arc length, width/load profiles,
+>   bristle generation, `paintStroke`; no React or DOM globals), `PaintStrokes.tsx` (client engine: rAF time driver, two offscreen layers for the
+>   overlapping fade, two HTML labels driven imperatively, ResizeObserver, pause logic), `StaticStroke.tsx` (server SVG of stroke 1, same box),
+>   `HeroVisual.tsx` (motion preference via `useSyncExternalStore`, IntersectionObserver pause, screen-reader list). Deleted: `Model`, `Scene`,
+>   `marbleTexture`, `clayTextures`, `StaticOrb`, `public/models/`, and the `three`, `@react-three/fiber`, `@react-three/drei`, `@types/three` packages.
+> - Decision: Spike A (hand-rolled Canvas 2D) was good enough on the first focused pass; Spike B (SVG + `pathLength`) was not built. One change to the plan's
+>   technique: instead of stamping a pre-rendered brush tip every few pixels, the brush is a row of 40 to 70 bristles, each a polyline along the stroke that
+>   keeps its place across the brush. Stamping smeared the tip's texture across the direction of travel and banded at the stamp spacing; bristle paths
+>   give streaks along the stroke, ragged edges (outer bristles wander, start late, end early), a soft landing (staggered touch-down, width ramp) and a dry trail
+>   (noise-driven dashes that thin and break up, outer bristles lifting off). The current stroke is redrawn from scratch each frame (a few dozen paths), so there are no seams.
+>   A sparse speckle pattern knocked out of the paint gives a paper tooth.
+> - Labels: HTML, Inter Tight 600. Font size starts at 42 % of the stroke width (18 to 44 px) and shrinks until the text fits: one line if possible, else two balanced lines.
+>   The rotated label box must stay inside 80 % of the painted band along its whole length, and between 10 % and 72 % of the stroke (before the brush dries).
+>   Labels are centred at 42 % along the stroke. They fade in once the brush has painted past their right-hand end (not at a fixed 35 to 70 % of the draw, which let
+>   labels float over bare paper). Cream text on deep paint gets a soft halo in a deeper shade of the stroke's own hue.
+> - Paint for colours that carry cream text (deep blue) is laid denser and slightly deeper; gap lanes open only after 68 % of the stroke, so labels never sit on bare streaks.
+> - Stroke width is a fraction of min(height, 1.4 x width), so the tall, narrow panel at 768 px gets a stroke, not a dab.
+> - Start-up: the server SVG is skill 1 already painted. After hydration it holds for `HOLD`, then fades out while skill 2 draws, so no skill shows twice in a row.
+>   The next stroke is prepared during the current stroke's hold (2 to 5 ms once per stroke, while nothing moves); drawing frames cost about 0.1 ms mean and 0.4 ms at p99.
+> - Reduced motion (or `prefers-reduced-data`): strokes are painted fully and cross-fade every 4 s (`CALM_HOLD`); no drawing.
+> - The background wash in `Hero.tsx` was cut to about a third of its strength so the strokes carry the colour.
+> - Not yet done: a real-time Performance trace in a visible browser (the test pane throttles rAF while hidden, so checks were made by stepping the engine at exact
+>   60 fps frame times), a real touch device, a screen reader pass. Share image and favicon still use `qualities.ts` (follow-up).
 
 ## Phase 3 — Project scaffolding (structure only, light copy)
 
@@ -193,7 +221,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 - Leadership page with principles, rituals, and testimonials.
 - Blog / writing section.
 - Replace procedural hero model with a bespoke .glb.
-- SUPERSEDED by `PLAN-hero-paint-strokes.md`: the 3D spheres are to be replaced by painted skill strokes (plan written 2026-11-08, not yet built).
+- DONE (2026-11-08): the 3D spheres were replaced by painted skill strokes per `PLAN-hero-paint-strokes.md`. See the Phase 2 v2 notes.
 
 > **Phase 4 notes:**
 > - Done and live: metadata and Open Graph/Twitter tags (`src/lib/site.ts` holds the site URL; change it when a custom domain is connected), generated share image
