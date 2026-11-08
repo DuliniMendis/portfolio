@@ -179,12 +179,12 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 
 ## Phase 4 — Polish & ship
 
-- [ ] **4.1 Metadata & OG image** (static OG image generated with `next/og`).
-- [ ] **4.2 Accessibility:** keyboard nav, focus rings, alt text, colour contrast ≥ 4.5:1,
+- [x] **4.1 Metadata & OG image** (static OG image generated with `next/og`).
+- [x] **4.2 Accessibility:** keyboard nav, focus rings, alt text, colour contrast ≥ 4.5:1,
   reduced-motion verified.
-- [ ] **4.3 Responsive QA** at 375 / 768 / 1280 / 1920.
-- [ ] **4.4 Analytics** (Vercel Analytics) and a custom 404.
-- [ ] **4.5 Production deploy** and custom domain if available.
+- [x] **4.3 Responsive QA** at 375 / 768 / 1280 / 1920.
+- [x] **4.4 Analytics** (Vercel Analytics) and a custom 404.
+- [~] **4.5 Production deploy** and custom domain if available.
 
 ## Later (not this round)
 
@@ -192,3 +192,16 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 - Leadership page with principles, rituals, and testimonials.
 - Blog / writing section.
 - Replace procedural hero model with a bespoke .glb.
+
+> **Phase 4 notes:**
+> - Done and live: metadata and Open Graph/Twitter tags (`src/lib/site.ts` holds the site URL; change it when a custom domain is connected), generated share image
+>   (`opengraph-image.tsx`, reads `QUALITIES` so it follows the palette), favicon (`icon.tsx`, default Next favicon removed), `sitemap.ts`, `robots.ts`,
+>   custom 404 (`not-found.tsx` at the root with its own nav; `work/not-found.tsx` inside the work layout), skip link + `id="main"`, global focus ring in
+>   `a11y.css`, no-JS fallback so scroll reveals are not stuck hidden, and `@vercel/analytics`.
+> - Checked: one h1, heading order, landmarks, no unlabeled links or buttons, text contrast on solid backgrounds (gradient sections not machine-checked),
+>   no horizontal overflow at 375/768/1280/1920, absolute OG URLs, real 404 status on `/nope`.
+> - NOT done: Escape-to-close on the mobile menu (Nav.tsx was being edited by another session), Lighthouse, screen-reader test, reduced-motion path
+>   test, visual review of every section at every width. A first-ever request to an unknown `/work/...` URL can return 200 before the cached 404 takes over.
+> - 4.5: production deploys automatically on push and is live. A custom domain is NOT set (owner's decision). Vercel Analytics collects nothing until
+>   Analytics is enabled in the Vercel project dashboard.
+> - Process note: several sessions share this one folder. Commits made with `git add -A` swept my Phase 4 files into another session's commit.
