@@ -103,7 +103,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - The seven spheres are shades of orange and blue only (`src/components/hero/qualities.ts`): Care soft orange, Creativity bright orange, Resilience deep orange,
 >   Pragmatism pale blue, Drive bright blue, Intelligence mid blue, Humility deep blue (centre of the cluster). Array order = ring order = marble bands.
 >   Label colour (ink or cream) is picked per sphere by contrast (`contrast.ts`), at least 5:1 for all seven. The share image reads the same list.
-> - Photo is only 200x200. Show it at 200px or smaller. Ask for a larger original for any bigger use or an OG image.
+> - Photo is only 200x200 and no larger original exists (owner confirmed 2026-11-08). Show it at 200px or smaller; do not use it in the OG image.
 
 ## Phase 2 — Hero banner with 3D model (the showpiece)
 

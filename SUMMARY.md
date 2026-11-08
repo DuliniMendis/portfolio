@@ -46,7 +46,6 @@ Use `pnpm build` to check a production build. `AGENTS.md` warns that this Next v
 Needs Dulini:
 - Real copy: headline, bio, roles and dates for each company, and the case-study text for every section (see `CONTENT.md`). Placeholders are hidden on the site until real text replaces them in `src/content/projects.ts`.
 - Link GitHub and an email address in the contact section if wanted.
-- A larger original of the photo (the current file is 200x200 pixels, so it is shown small).
 - Decide on a custom domain (a purchase; not done). When connected, change the one address in `src/lib/site.ts`.
 - Turn on Analytics in the Vercel project dashboard; the tag records nothing until then.
 - Set the git author email on the earliest commits if wanted (two carry an auto-guessed address).
