@@ -95,11 +95,12 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Project links point at `/work/...` routes that do not exist until Phase 3 (they 404 for now).
 > - Local preview: `.claude/launch.json` starts `pnpm dev` with Node on the PATH.
 
-> **Palette (sampled from `public/images/dulini.jpeg`):**
-> - ink `#0e1717`, blue-deep `#033749`, blue `#056c95`, accent orange `#f79840`,
->   accent-strong `#b85209`, muted `#5a6a72`, border `#dbe3e6`, background `#f7f9fa`.
-> - Contrast rule: vivid orange is for fills and for text on dark (5.8:1+). On light backgrounds use
->   `text-accent-strong` (4.7:1). Button hover is `bg-blue` with white text.
+> **Palette (sampled from `public/images/dulini.jpeg`) — LIGHTENED, supersedes earlier darker values:**
+> - Brand: orange `#ffa969` (lightest orange pixel in the photo), blue `#0c6f98` (lightest TRUE blue in the photo; the photo has no lighter blue).
+> - Tints of those same hues for backgrounds: sky `#dff1f9`, peach `#fff0e3` (derived, not sampled). Ink `#0e1717`, muted `#5a6a72`, border `#dbe3e6`, background `#f7f9fa`.
+> - Buttons: orange fill with dark ink text, blue on hover. Eyebrow text and icons are blue. The Leader band is a light sky-to-peach gradient with ink text.
+> - Removed: burnt orange `#b85209`, deep blue `#033749`, black buttons. Do not reintroduce dark blocks without asking.
+> - Contrast checked: blue text on light 4.8-5.6:1, ink on orange 9.7:1, white on blue 5.6:1. Light orange is NOT for small text on white.
 > - Photo is only 200x200. Show it at 200px or smaller. Ask for a larger original for any bigger use or an OG image.
 > - Hero 3D model should use these colours: orange light on deep blue, like the portrait lighting.
 
@@ -166,6 +167,14 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Unknown slugs show the not-found page with `noindex` but return HTTP 200: `dynamicParams` is unavailable with Cache Components. Phase 4 adds a custom 404.
 > - Typed helpers `PageProps<"/work/[slug]">` only exist after `next build`/`next dev` regenerates types.
 > - Pager: previous/next project wraps around (Canva next is Seer Medical).
+
+> **Phase 3 notes (done):**
+> - Routes: `/work/[slug]` and `/work/[slug]/[section]` (all 7 real paths return 200; unknown slugs 404 via `notFound()`).
+>   `src/app/work/layout.tsx` adds the Nav and Footer for these pages. Content helpers live in `src/content/projects.ts`
+>   (`getProject`, `getSection`, `neighbours`, `isDraft`, `finalCopy`). Copy containing `TODO(` is hidden on the site and shown as "Write-up coming soon."
+> - Section pages have Context / What I did / Outcome headings with "This write-up is in progress." Replace per `CONTENT.md`.
+> - Project role and period are still `TODO(dulini)` in `projects.ts` and therefore not shown yet.
+> - Typed route helpers (`PageProps<'/work/[slug]'>`) only exist after `next build` or `next dev` regenerates them; run a build before `tsc` after adding routes.
 
 ## Phase 4 — Polish & ship
 

@@ -1,0 +1,6 @@
+/* Accessibility base styles, kept apart from the theme so they survive palette changes. */
+:focus-visible {
+  outline: 2px solid var(--blue, #0c6f98);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

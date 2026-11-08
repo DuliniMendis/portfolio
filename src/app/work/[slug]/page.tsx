@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
         <Container>
           <BackLink href="/#work">All work</BackLink>
           <Reveal className="mt-10 max-w-3xl">
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent-strong">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue">
               Selected work
             </p>
             <h1 className="mt-3 text-5xl font-semibold leading-tight md:text-7xl">{project.name}</h1>
@@ -59,7 +59,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
                 >
                   <div className="flex items-start justify-between gap-4">
                     <Tag>{KIND_LABEL[s.kind]}</Tag>
-                    <ArrowUpRight className="text-muted transition-colors group-hover:text-accent-strong" />
+                    <ArrowUpRight className="text-muted transition-colors group-hover:text-blue" />
                   </div>
                   <h3 className="mt-6 text-3xl font-semibold">{s.title}</h3>
                   <p className="mt-3 flex-1 text-muted">

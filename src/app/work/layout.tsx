@@ -5,7 +5,7 @@ export default function WorkLayout({ children }: LayoutProps<"/work">) {
   return (
     <>
       <Nav />
-      <main className="flex-1 pt-16">{children}</main>
+      <main id="main" className="flex-1 pt-16">{children}</main>
       <Footer />
     </>
   );

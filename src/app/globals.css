@@ -7,10 +7,10 @@
   --ink: #0e1717;          /* near-black with a teal cast */
   --muted: #5a6a72;        /* cool grey derived from ink and blue */
   --border: #dbe3e6;
-  --blue: #056c95;         /* vivid backdrop blue */
-  --blue-deep: #033749;    /* deep teal-blue */
-  --accent: #f79840;       /* light orange: fills, and text on dark */
-  --accent-strong: #b85209;/* burnt orange: text and icons on light (4.7:1) */
+  --blue: #0c6f98;         /* lightest true blue in the photo */
+  --sky: #dff1f9;          /* pale tint of the same blue hue: washes and backgrounds */
+  --accent: #ffa969;       /* lightest orange in the photo */
+  --peach: #fff0e3;        /* pale tint of the same orange hue */
   --accent-ink: #0e1717;
   --radius: 12px;
   --content-width: 1200px;
@@ -22,9 +22,9 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
-  --color-accent-strong: var(--accent-strong);
   --color-blue: var(--blue);
-  --color-blue-deep: var(--blue-deep);
+  --color-sky: var(--sky);
+  --color-peach: var(--peach);
   --color-accent-ink: var(--accent-ink);
   --color-border: var(--border);
   --radius-card: var(--radius);

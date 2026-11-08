@@ -1,11 +1,12 @@
 // Seven qualities, each with a colour from the portrait palette (see PLAN.md).
-// Warm tones lead the human qualities, blues the sharp ones, grey and ink the grounded ones.
+// Light, clay-like shades: the lightest orange and blue in the photo, plus tints of them.
+// Warm tones lead the human qualities, blues the sharp ones, grey and charcoal the grounded ones.
 export const QUALITIES = [
-  { name: "Creativity", color: "#f79840" }, // vivid orange: the spark
-  { name: "Care", color: "#ffc59a" }, // soft peach: the warm face light
-  { name: "Pragmatism", color: "#8a99a1" }, // cool grey: steady, no fuss
-  { name: "Resilience", color: "#a8481f" }, // rust: weathered and strong
-  { name: "Drive", color: "#1aa3d6" }, // bright blue: energy
-  { name: "Intelligence", color: "#056c95" }, // backdrop blue: depth
-  { name: "Humility", color: "#0e1717" }, // near-black: quiet and grounded
+  { name: "Creativity", color: "#ffa969" }, // lightest orange in the photo: the spark
+  { name: "Care", color: "#ffd2b0" }, // peach tint: the warm face light
+  { name: "Pragmatism", color: "#9fb0b8" }, // cool grey: steady, no fuss
+  { name: "Resilience", color: "#d4703c" }, // terracotta: weathered and strong
+  { name: "Drive", color: "#3fb6e6" }, // light blue: energy
+  { name: "Intelligence", color: "#0c6f98" }, // lightest true blue in the photo: depth
+  { name: "Humility", color: "#3b4a51" }, // charcoal: quiet and grounded
 ] as const;

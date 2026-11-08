@@ -23,7 +23,7 @@ export function Work() {
               >
                 <div className="flex items-start justify-between">
                   <h3 className="text-3xl font-semibold">{p.name}</h3>
-                  <ArrowUpRight className="text-muted transition-colors group-hover:text-accent-strong" />
+                  <ArrowUpRight className="text-muted transition-colors group-hover:text-blue" />
                 </div>
                 <p className="mt-4 flex-1 text-muted">{p.summary}</p>
                 <div className="mt-6 flex flex-wrap gap-2">

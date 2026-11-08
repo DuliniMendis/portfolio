@@ -33,7 +33,7 @@ export function makeNameTexture(name: string, color: string, fontFamily: string)
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   // Dark ink on light clay, cream on dark clay.
-  ctx.fillStyle = luminance(color) > 0.3 ? "rgba(14,23,23,0.88)" : "rgba(255,244,230,0.92)";
+  ctx.fillStyle = luminance(color) > 0.2 ? "rgba(14,23,23,0.88)" : "rgba(255,244,230,0.92)";
   ctx.fillText(name, W * 0.25, H * 0.5);
 
   const tex = new THREE.CanvasTexture(canvas);

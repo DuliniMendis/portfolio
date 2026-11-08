@@ -10,12 +10,12 @@ export function Hero() {
       {/* Soft colour wash behind the model, drawn from the portrait palette. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-40 top-1/2 h-[720px] w-[720px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(5,108,149,0.14),rgba(247,152,64,0.10)_45%,transparent_70%)]"
+        className="pointer-events-none absolute -right-40 top-1/2 h-[720px] w-[720px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(12,111,152,0.12),rgba(255,169,105,0.18)_45%,transparent_70%)]"
       />
       <Container className="relative grid items-center gap-4 md:grid-cols-2 md:gap-12">
         <ScrollDrift rate={-0.08} fade className="order-2 md:order-1">
           <Reveal>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent-strong">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-blue">
               Dulini Mendis
             </p>
           </Reveal>
