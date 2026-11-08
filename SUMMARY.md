@@ -44,6 +44,10 @@ Use `pnpm build` to check a production build. `AGENTS.md` warns that this Next v
 ## Still to do
 
 Needs Dulini:
+- Turn on the contact form. It sends through Resend (`src/app/actions/contact.ts`). Create a free Resend account with dulini.mendis@gmail.com
+  (without a verified domain, Resend only delivers to the account's own address), create an API key, and add it as `RESEND_API_KEY` in the
+  Vercel project's environment variables (and in `.env.local` for local testing), then redeploy. Until then the form shows a "couldn't be sent" message.
+  Optional: `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` override the recipient and sender.
 - Real copy: headline, bio, roles and dates for each company, and the case-study text for every section (see `CONTENT.md`). Placeholders are hidden on the site until real text replaces them in `src/content/projects.ts`.
 - Link GitHub and an email address in the contact section if wanted.
 - Decide on a custom domain (a purchase; not done). When connected, change the one address in `src/lib/site.ts`.
