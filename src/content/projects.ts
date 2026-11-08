@@ -326,6 +326,26 @@ export const projects: Project[] = [
           ],
         },
       },
+      {
+        slug: "security-updates",
+        title: "Automatic security updates",
+        kind: "lead",
+        blurb:
+          "Automating package updates whenever a security vulnerability is found, so fixes go in quickly instead of waiting for someone to notice.",
+        body: {
+          context: [
+            "A modern web app depends on hundreds of open-source packages. When a security vulnerability turns up in one of them, the fix is usually a newer version of that package.",
+            "Doing those updates by hand means someone has to spot the alert, find every place the package is used, update it and check nothing broke. It's easy for that to slip behind feature work, and the app stays exposed while it does.",
+          ],
+          did: [
+            "I led a project to automate package updates whenever a security vulnerability is found. Another senior engineer reporting to me did the build.",
+            "As with moving our secrets into AWS, my part was to oversee it: supervising the work and reviewing the solution.",
+          ],
+          outcome: [
+            "Security fixes to our packages now start automatically, rather than depending on someone noticing an alert and finding time for it.",
+          ],
+        },
+      },
     ],
   },
   {

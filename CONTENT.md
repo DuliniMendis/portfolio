@@ -53,7 +53,9 @@ three companies with project pages read role and period from `projects.ts`.
 - Also there, from Dulini's notes (2026-11-08) and the CV: Faster generation history (performance and
   decoupling the React components), Engineering standards (dos and don'ts with examples, knowledge-share
   talks; adopted company-wide per the CV), Secrets in one place (all secrets moved into AWS, built by a
-  senior engineer reporting to Dulini, who oversaw and reviewed it). No metrics yet for any of the three.
+  senior engineer reporting to Dulini, who oversaw and reviewed it), and Automatic security updates
+  (package updates automated for security vulnerabilities, built by another senior engineer and
+  supervised by Dulini). No metrics yet for any of these.
 
 ### Canva — slug `canva`
 - Role: Engineering Manager. Period: May 2026 – Nov 2026.
