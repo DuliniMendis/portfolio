@@ -20,7 +20,7 @@ const points = [
 
 export function Leader() {
   return (
-    <section id="leadership" className="scroll-mt-20 bg-ink py-24 text-white md:py-32">
+    <section id="leadership" className="scroll-mt-20 bg-gradient-to-br from-blue-deep to-ink py-24 text-white md:py-32">
       <Container>
         <Reveal className="max-w-2xl">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">Leader</p>
@@ -35,7 +35,7 @@ export function Leader() {
 
         <Stagger className="mt-14 grid gap-px overflow-hidden rounded-card bg-white/15 md:grid-cols-3">
           {points.map((p) => (
-            <StaggerItem key={p.title} className="bg-ink p-8">
+            <StaggerItem key={p.title} className="bg-blue-deep/60 p-8 backdrop-blur">
               <h3 className="text-2xl font-semibold">{p.title}</h3>
               <p className="mt-3 text-white/70">{p.body}</p>
             </StaggerItem>

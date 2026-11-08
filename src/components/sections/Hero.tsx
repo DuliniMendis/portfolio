@@ -10,7 +10,7 @@ export function Hero() {
       <Container className="grid items-center gap-12 md:grid-cols-2">
         <div>
           <Reveal>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent">
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-accent-strong">
               Dulini Mendis
             </p>
           </Reveal>
@@ -36,7 +36,7 @@ export function Hero() {
         <Parallax distance={50} className="relative flex h-80 items-center justify-center md:h-[520px]">
           <div
             aria-hidden
-            className="h-64 w-64 rounded-full bg-gradient-to-br from-accent via-orange-200 to-white shadow-[0_40px_120px_-20px_rgba(242,96,63,0.5)] md:h-96 md:w-96"
+            className="h-64 w-64 rounded-full bg-[radial-gradient(circle_at_30%_28%,#f79840_0%,#d96a1a_30%,#056c95_68%,#033749_100%)] shadow-[0_40px_120px_-20px_rgba(5,108,149,0.55)] md:h-96 md:w-96"
           />
         </Parallax>
       </Container>

@@ -44,10 +44,10 @@ export function Builder() {
                 href={href}
                 className="group flex h-full flex-col rounded-card border border-border bg-surface p-8 transition-all hover:-translate-y-1 hover:border-ink hover:shadow-lg"
               >
-                <Icon className="text-accent" size={28} />
+                <Icon className="text-blue" size={28} />
                 <h3 className="mt-6 text-2xl font-semibold">{title}</h3>
                 <p className="mt-3 flex-1 text-muted">{body}</p>
-                <span className="mt-6 text-sm font-medium group-hover:text-accent">{cta} →</span>
+                <span className="mt-6 text-sm font-medium group-hover:text-accent-strong">{cta} →</span>
               </Link>
             </StaggerItem>
           ))}

@@ -58,7 +58,7 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Stack is Next.js 16.4.5, React 19.3, Tailwind 4. `AGENTS.md` says this Next has breaking
 >   changes: read `node_modules/next/dist/docs/` before using unfamiliar APIs.
 > - Layout props use the global `LayoutProps<"/">` helper; the Cache Components feature is on.
-> - Accent colour chosen: warm coral `#f2603f`. Fonts: Inter Tight (display) + Inter (body). Light only.
+> - SUPERSEDED by the palette note under Phase 1 (colours now come from the profile photo). Original: coral `#f2603f`. Fonts: Inter Tight (display) + Inter (body). Light only.
 > - Tokens live in `src/app/globals.css` as CSS variables and Tailwind theme colours
 >   (`bg-background`, `text-ink`, `text-muted`, `bg-accent`, `border-border`, `rounded-card`).
 > - 0.6 done: repo at github.com/DuliniMendis/portfolio (SSH remote), deployed to https://dulini-mendis-portfolio.vercel.app/. Pushes to `main` auto-deploy; other branches get preview URLs.
@@ -94,6 +94,14 @@ marked `TODO(dulini)` where CONTENT.md has gaps.
 > - Leader and Builder copy is draft wording with no invented metrics.
 > - Project links point at `/work/...` routes that do not exist until Phase 3 (they 404 for now).
 > - Local preview: `.claude/launch.json` starts `pnpm dev` with Node on the PATH.
+
+> **Palette (sampled from `public/images/dulini.jpeg`):**
+> - ink `#0e1717`, blue-deep `#033749`, blue `#056c95`, accent orange `#f79840`,
+>   accent-strong `#b85209`, muted `#5a6a72`, border `#dbe3e6`, background `#f7f9fa`.
+> - Contrast rule: vivid orange is for fills and for text on dark (5.8:1+). On light backgrounds use
+>   `text-accent-strong` (4.7:1). Button hover is `bg-blue` with white text.
+> - Photo is only 200x200. Show it at 200px or smaller. Ask for a larger original for any bigger use or an OG image.
+> - Hero 3D model should use these colours: orange light on deep blue, like the portrait lighting.
 
 ## Phase 2 — Hero banner with 3D model (the showpiece)
 

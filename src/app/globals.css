@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
+  /* Palette sampled from public/images/dulini.jpeg */
+  --background: #f7f9fa;
   --surface: #ffffff;
-  --ink: #111111;
-  --muted: #6b7280;
-  --accent: #f2603f; /* warm coral — chosen in Phase 0.5 */
-  --accent-ink: #ffffff;
-  --border: #e5e7eb;
+  --ink: #0e1717;          /* near-black with a teal cast */
+  --muted: #5a6a72;        /* cool grey derived from ink and blue */
+  --border: #dbe3e6;
+  --blue: #056c95;         /* vivid backdrop blue */
+  --blue-deep: #033749;    /* deep teal-blue */
+  --accent: #f79840;       /* light orange: fills, and text on dark */
+  --accent-strong: #b85209;/* burnt orange: text and icons on light (4.7:1) */
+  --accent-ink: #0e1717;
   --radius: 12px;
   --content-width: 1200px;
 }
@@ -18,6 +22,9 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-blue: var(--blue);
+  --color-blue-deep: var(--blue-deep);
   --color-accent-ink: var(--accent-ink);
   --color-border: var(--border);
   --radius-card: var(--radius);

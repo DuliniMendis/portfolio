@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
@@ -17,7 +18,14 @@ export function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/70 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="font-display text-lg font-semibold tracking-tight">
+        <Link href="/" className="flex items-center gap-3 font-display text-lg font-semibold tracking-tight">
+          <Image
+            src="/images/dulini.jpeg"
+            alt=""
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded-full object-cover ring-2 ring-accent"
+          />
           Dulini Mendis
         </Link>
 
@@ -29,7 +37,7 @@ export function Nav() {
           ))}
           <Link
             href="/#contact"
-            className="rounded-full bg-ink px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-accent"
+            className="rounded-full bg-ink px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue"
           >
             Let&apos;s talk
           </Link>
