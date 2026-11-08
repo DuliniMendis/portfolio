@@ -1,6 +1,7 @@
 # Hero visual v3: the career game — implementation plan
 
-Status: PLAN ONLY (written 2026-11-08). Nothing here is built. Written so a fresh session can execute it.
+Status: PLAN, READY TO BUILD (written 2026-11-08; all owner decisions made the same day, section 10). Nothing is built yet.
+Written so a fresh session can execute it.
 
 Companion docs: `PLAN.md` (site build plan and phase notes), `PLAN-hero-paint-strokes.md` (the hero being replaced;
 its engine, lab-route workflow and acceptance method are the template for this one), `SUMMARY.md` (state of the site),
@@ -271,7 +272,7 @@ Code:
 
 ---
 
-## 10. Decisions for the owner (ask one at a time)
+## 10. Decisions (all made 2026-11-08)
 
 1. **Skills as pickups?** DECIDED 2026-11-08: no. Story only. The 22 skills leave the hero; they remain in
    the CV and the rest of the site. Delete `skills.ts` with the brush code (section 5).
@@ -282,8 +283,9 @@ Code:
    name even though the logo is on the building, so every level opens the same way. Years stay in the sr-only story.
 4. **Sri Lanka detail:** DECIDED 2026-11-08: beach, two palm trees and the small airport sign, as in beat 0.
    No city landmark and no Virtusa office.
-5. **Mobile length:** 45 s is long for a phone where the hero scrolls away quickly; the loop could run faster
-   (0.8×) below 768 px. Recommendation: same speed everywhere; the pause-when-unseen already saves work.
+5. **Mobile length:** DECIDED 2026-11-08: same speed everywhere. One set of beat lengths; no breakpoint on time.
+
+All five decisions are made. The plan is ready to build.
 
 Follow-ups after this ships: redesign favicon and share image around the character (`qualities.ts`); a tap to
 skip to the next beat; record a real-browser Performance trace.
