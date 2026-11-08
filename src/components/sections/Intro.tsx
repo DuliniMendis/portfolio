@@ -23,7 +23,7 @@ export function Intro() {
           <p className="mt-4 font-display text-2xl font-medium leading-snug md:text-4xl">
             Over the years I&apos;ve gone from being a founding software engineer at Seer
             Medical, a regulated medtech company that ran on software I built or led, to tech
-            lead at Leonardo.Ai and now Engineering Manager for Canva&apos;s Design Generation
+            lead at Leonardo.Ai and, most recently, Engineering Manager for Canva&apos;s Design Generation
             Platform, which supports the LLM pipelines behind Canva AI.
           </p>
           <p className="mt-6 text-lg text-ink/80 md:text-xl">
