@@ -157,7 +157,7 @@ export const projects: Project[] = [
       {
         slug: "clinic-operations",
         title: "Clinic operations",
-        kind: "build",
+        kind: "both",
         blurb:
           "The tools that ran Seer's clinics: a referrals board, a bookings and equipment calendar, dynamic forms, and integrations with Zendesk, Asset Panda and Mailchimp.",
         stack: ["React", "TypeScript", "GraphQL", "Node.js", "PostgreSQL", "AWS"],
