@@ -58,6 +58,8 @@ export type Project = {
   teaser: string;
   /** Up to three section slugs shown as tags on the home page card, most important first. */
   featured: string[];
+  /** Screenshot shown faded behind the home page card. */
+  cover?: StaticImageData;
   /** Roles held there, earliest first. Shown on the project page as a progression. */
   roles?: ProjectRole[];
   sections: ProjectSection[];
@@ -74,6 +76,7 @@ export const projects: Project[] = [
     teaser:
       "Founding engineer, then leader of the clinic and platform teams, at the company that moved epilepsy monitoring from hospital to home.",
     featured: ["data-viewer", "live-monitoring", "leading-the-teams"],
+    cover: seerDataViewer,
     roles: [
       {
         title: "Software Engineer",
@@ -210,6 +213,7 @@ export const projects: Project[] = [
     teaser:
       "I led the frontend for Flow State and Blueprints, two of Leonardo's biggest AI features, and grew the team behind them.",
     featured: ["flow-state", "blueprints", "building-the-team"],
+    cover: flowStateStream,
     sections: [
       {
         slug: "flow-state",
