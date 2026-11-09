@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Stagger, StaggerItem } from "@/components/motion/Reveal";
-import { CardBackdrop } from "@/components/ui/CardBackdrop";
+import { BRAND_TEXT, CardBackdrop } from "@/components/ui/CardBackdrop";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Tag } from "@/components/ui/Tag";
@@ -20,17 +20,19 @@ export function Work() {
             <StaggerItem key={p.slug}>
               <Link
                 href={`/work/${p.slug}`}
-                className="group relative isolate flex h-full min-h-72 flex-col overflow-hidden rounded-card border border-border bg-surface p-8 transition-all hover:-translate-y-1 hover:border-ink hover:shadow-lg"
+                className={`group relative isolate flex h-full min-h-72 flex-col overflow-hidden rounded-card p-8 transition-all hover:-translate-y-1 hover:shadow-xl ${BRAND_TEXT[p.brand.text].body}`}
               >
-                <CardBackdrop colors={p.brand} />
+                <CardBackdrop brand={p.brand} />
                 <div className="flex items-start justify-between">
                   <h3 className="text-3xl font-semibold">{p.name}</h3>
-                  <ArrowUpRight className="text-muted transition-colors group-hover:text-blue" />
+                  <ArrowUpRight className={`transition-colors ${BRAND_TEXT[p.brand.text].icon}`} />
                 </div>
-                <p className="mt-4 flex-1 text-ink/80">{p.teaser}</p>
+                <p className="mt-4 flex-1">{p.teaser}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {featuredSections(p).map((s) => (
-                    <Tag key={s.slug}>{s.title}</Tag>
+                    <Tag key={s.slug} tone={BRAND_TEXT[p.brand.text].tag}>
+                      {s.title}
+                    </Tag>
                   ))}
                 </div>
               </Link>
