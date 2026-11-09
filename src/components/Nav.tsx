@@ -10,7 +10,6 @@ const links = [
   { href: "/#work", label: "Work" },
   { href: "/#leadership", label: "Leadership" },
   { href: "/#about", label: "About" },
-  { href: "/#contact", label: "Contact" },
 ];
 
 export function Nav() {
@@ -82,6 +81,13 @@ export function Nav() {
                 {l.label}
               </Link>
             ))}
+            <Link
+              href="/#contact"
+              onClick={() => setOpen(false)}
+              className="mt-3 self-start rounded-full bg-accent px-6 py-3 text-lg font-medium text-ink transition-colors hover:bg-blue-light"
+            >
+              Let&apos;s talk
+            </Link>
           </Container>
         </nav>
       ) : null}
