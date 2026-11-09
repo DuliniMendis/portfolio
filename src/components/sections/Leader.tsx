@@ -7,7 +7,7 @@ const stats = [
   { value: "11", label: "reports at Seer, across a product team and two platform teams" },
   { value: "7", label: "backend and ML engineers led at Canva" },
   { value: "4", label: "engineers led at Leonardo.ai" },
-  { value: "2", label: "engineers promoted from mid-level to senior" },
+  { value: "2", label: "engineers guided to promotions" },
 ];
 
 // Excerpts from LinkedIn recommendations, quoted word for word (cuts marked with an ellipsis).
