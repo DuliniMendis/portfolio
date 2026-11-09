@@ -30,7 +30,7 @@ export function Hero() {
           </div>
           <div className="hero-in" style={delay(0.16)}>
             <p className="mt-6 max-w-lg text-lg text-muted">
-              I lead engineering teams and still build things myself. I&apos;ve worked on
+              I lead engineering teams and still build things myself. I&apos;ve shipped
               clinical data tools and AI products, and I care about the craft and the
               people doing it.
             </p>

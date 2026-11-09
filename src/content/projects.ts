@@ -191,8 +191,8 @@ export const projects: Project[] = [
           ],
           did: [
             "I hired the whole Seer-Clinic product team, the team that owned the tools Seer's clinics ran on, and sat on the hiring panel for more than ten engineers in all. I onboarded and trained the people who joined my teams, and kept mentoring them as they grew in their careers.",
-            "I led the Seer-Clinic team for three years, with three to five engineers reporting to me. I did the technical planning and ran delivery, and I worked to build a team that was efficient, inclusive and collaborative. I also stayed hands-on, contributing to the code as an equal member of the team.",
-            "In 2023 I became senior engineering manager and took on Seer's two platform teams, API and DevOps, as well. That made about 11 reports across three teams. I led cross-team projects and made sure they delivered real value to the business and finished on time. I also ran migrations to Next.js and PostGraphile, and worked to get other teams to adopt them.",
+            "I led the Seer-Clinic team for three years, with three to five engineers reporting to me. I owned the technical planning and ran delivery, and built a team culture that was efficient, inclusive and collaborative. I also stayed hands-on, shipping code as an equal member of the team.",
+            "In 2023 I became senior engineering manager and took on Seer's two platform teams, API and DevOps, as well. That made about 11 reports across three teams. I led cross-team projects that delivered real business value and landed on time. I also drove the migrations to Next.js and PostGraphile and their adoption across other teams.",
             "It was a hard stretch for the company too. I learned how to guide teams through change, work through conflict, and keep things steady when much around them wasn't.",
           ],
           outcome: [
@@ -237,7 +237,7 @@ export const projects: Project[] = [
             "When something catches your eye, you hit More Like This and the stream fills up with versions closer to that image. Do it again on one of those and you get closer still. You start broad, with wildly different looks, and keep narrowing until you're only fiddling with the small details. It's made for the messy early stage of a creative idea.",
           ],
           did: [
-            "I joined Leonardo partway through Flow State, and the project was pretty chaotic at that point. I got up to speed fast and helped the squad finish it. That meant fixing bugs, getting it out the door, and bringing some calm and clarity to a project that badly needed it.",
+            "I joined Leonardo partway through Flow State, and the project was pretty chaotic at that point. I got up to speed fast and drove it to launch. That meant fixing bugs, getting it out the door, and bringing calm and clarity to a project that badly needed it.",
             "Two things made it tricky. It had to feel instant, with new images showing up in under five seconds. And every image costs the user a token, Leonardo's credits, so the app can't race ahead and make hundreds of images nobody sees. Images are only made as you scroll towards them.",
             "Under the hood, it was a Next.js app written in TypeScript and React. It ran entirely in the browser (client-side rendering) and used GraphQL to talk to the backend. The hardest part was keeping track of everything happening at once: images loading as you scroll, the trail of steps as you dig into an image, and the stream starting over whenever you change the prompt or style.",
             "XState handled that by describing the feature as a state machine. Think of it as a map of every situation the screen can be in, and exactly how it gets from one to the next. With that many moving parts, having the map written down makes the feature far easier to reason about and to debug.",
@@ -315,7 +315,7 @@ export const projects: Project[] = [
         title: "Building the team",
         kind: "lead",
         blurb:
-          "How I helped my engineers own their work and grow into bigger roles, while still logging off on time.",
+          "How I empowered my engineers to own their work and grow into bigger roles, while still logging off on time.",
         body: {
           context: [
             "Our squad built two of Leonardo's biggest features, Flow State and Blueprints. I was the frontend tech lead, looking after four engineers: two mid-level and two senior.",
@@ -323,7 +323,7 @@ export const projects: Project[] = [
           did: [
             "Rather than handing out tickets, I split each feature into sections and gave every section a champion. That's one engineer who leads the piece and pulls others in to help.",
             "Being a champion meant owning it from start to finish. They ran the technical kickoff, took their questions to product and design, planned the work and broke it into tasks in Jira, and then delivered it. Once it shipped it was still theirs, so they kept an eye out for bugs and ways to make it better.",
-            "My job changed too. I spent less time deciding who does what and more time coaching: helping someone through their first kickoff, talking a plan through with them, and backing them on the calls that were theirs to make.",
+            "My job changed too. I spent less time deciding who does what and more time coaching: guiding someone through their first kickoff, talking a plan through with them, and backing them on the calls that were theirs to make.",
           ],
           outcome: [
             "We shipped both features. And by the time I left, one of the mid-level engineers had grown into a senior engineer.",
@@ -365,7 +365,7 @@ export const projects: Project[] = [
           ],
           did: [
             "I led the work to move all our secrets into AWS. A senior engineer reporting to me did the build.",
-            "My part was to make sure it was done well. I oversaw the work, reviewed the solution, and made sure it covered every secret we had and would hold up when we actually needed it.",
+            "I owned the outcome: I oversaw the work and reviewed the solution, so it covered every secret we had and would hold up when we actually needed it.",
           ],
           outcome: [
             "All our secrets now live in one place in AWS. If there's ever a breach, they can be rotated from there, rather than tracked down one by one.",
@@ -385,7 +385,7 @@ export const projects: Project[] = [
           ],
           did: [
             "I led a project to automate package updates whenever a security vulnerability is found. Another senior engineer reporting to me did the build.",
-            "As with moving our secrets into AWS, my part was to oversee it: supervising the work and reviewing the solution.",
+            "As with moving our secrets into AWS, I owned the outcome, supervising the work and reviewing the solution.",
           ],
           outcome: [
             "Security fixes to our packages now start automatically, rather than depending on someone noticing an alert and finding time for it.",
@@ -400,7 +400,7 @@ export const projects: Project[] = [
     role: "Engineering Manager",
     period: "May 2026 – Nov 2026",
     summary:
-      "I worked on AI design generation at Canva, then joined a platform team supporting Canva AI. As Engineering Manager I led a team of seven backend and ML engineers. I led the work to cut the cost of generating designs and to move design generation from fixed pipelines to agent tools, and I built tools like one-click bug reports to make everyday work easier. Along the way I set up a few small AI automations for the team: a daily round-up, slides for regular meetings, and Jira updates for weekly reporting.",
+      "At Canva I led a team of seven backend and ML engineers on the platform behind Canva AI's design generation. I drove the work to halve the cost of one of its design generation methods and to move design generation from fixed pipelines to agent tools, and built tools like one-click bug reports to accelerate everyday work. Along the way I set up a few small AI automations for the team: a daily round-up, slides for regular meetings, and Jira updates for weekly reporting.",
     teaser:
       "I led seven backend and ML engineers on the platform behind Canva AI, and halved the cost of one of its design generation methods.",
     featured: ["cost-reduction", "pipelines-to-agent-tools", "one-click-bug-reports"],
@@ -414,13 +414,13 @@ export const projects: Project[] = [
         stack: ["LLM evals", "A/B testing", "Open-source models", "First-party models", "Frontier models"],
         body: {
           context: [
-            "Canva AI can turn a prompt into a finished design, whether that's a presentation, an Instagram post or something else. I worked first in the design generation space, and later in a platform team that supported Canva AI.",
+            "Canva AI can turn a prompt into a finished design, whether that's a presentation, an Instagram post or something else. I led engineering first in the design generation space, and then on the platform team that powers Canva AI.",
             "Liberation was one of the methods Canva used to generate those designs, and it ran on frontier models. They made great designs, but each one cost real money, and Canva AI was being used a lot. Cost turned into one of the biggest questions for the whole company. In 2026 Canva's founders said publicly that the cost of serving AI had forced them to slow its rollout and lower the year's revenue forecast.",
           ],
           did: [
             "I led the work to bring Liberation's costs down. The main lever was the model itself. Wherever it could do the job, we replaced an expensive frontier model with an open-source model, one of Canva's own first-party models, or a cheaper frontier model.",
             "A cheaper model only counts as a saving if the designs are still good. Every candidate went through evals first, which compared its output with the model it would replace. The ones that passed went into A/B tests with real user cohorts, so we could see whether people accepted the designs as readily as before.",
-            "A lot of the work was coordination. I worked with Canva's CORE research group, who trained the first-party models, and with outside vendors to get access to third-party models, and kept them all moving towards the same goal.",
+            "A lot of the work was coordination. I partnered with Canva's CORE research group, who trained the first-party models, and with outside vendors to get access to third-party models, and kept everyone moving towards the same goal.",
           ],
           outcome: [
             "We cut Liberation's costs by 50%. The evals and A/B tests showed design quality held up, so users got designs just as good for half the cost.",
@@ -455,12 +455,12 @@ export const projects: Project[] = [
             "Gathering all of that by hand takes time. So reports tend to arrive thin, or not at all, and engineers have to go back and ask for the missing pieces before they can start.",
           ],
           did: [
-            "We started on a way for internal staff to report a Canva AI bug with one click and a short description of what went wrong.",
+            "I drove a project to let internal staff report a Canva AI bug with one click and a short description of what went wrong.",
             "Everything else was captured automatically, saved and linked to the report. The AI traces, the step-by-step record of how a response was made, went to Weights & Biases and Langfuse, so engineers could see exactly what happened.",
             "Each report also created a Jira ticket for triage, and posted to Slack so engineers heard about new bugs straight away.",
           ],
           outcome: [
-            "The aim was to turn reporting a bug from a chore into a click, so more problems got reported and each one arrived with what an engineer needed to start fixing it.",
+            "The goal was to turn reporting a bug from a chore into a click, so more problems got reported and each one arrived with what an engineer needed to start fixing it.",
             "We didn't get to roll it out. The project stopped when Canva made layoffs in November 2026.",
           ],
         },
@@ -478,7 +478,7 @@ export const projects: Project[] = [
           ],
           did: [
             "I led the project to move design generation from pipelines to agent tools. We went through the pipelines one by one. The one that still had a future was turned into tools the agent could call. The ones that newer methods had surpassed in quality were retired.",
-            "Retiring them was mostly about people. Many internal teams were still using the older pipelines, so I worked with each of them on how and when they would move off, and negotiated timelines we could all keep.",
+            "Retiring them was mostly about people. Many internal teams were still using the older pipelines, so I partnered with each of them on how and when they would move off, and negotiated timelines we could all keep.",
             "The timing made it harder. Canva was launching different versions of Canva AI to different groups of users at the same time. Every deprecation had to land without disrupting any of those launches, and without breaking anything for users still on the older versions.",
           ],
           outcome: [
