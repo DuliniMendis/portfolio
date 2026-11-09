@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
-import { BRAND_TEXT, CardBackdrop } from "@/components/ui/CardBackdrop";
+import { CARD_ICON, CardBackdrop } from "@/components/ui/CardBackdrop";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { BackLink } from "@/components/work/BackLink";
@@ -25,7 +25,6 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
   const project = getProject(slug);
   if (!project) notFound();
 
-  const tone = BRAND_TEXT[project.brand.text];
   const role = finalCopy(project.role);
   const period = finalCopy(project.period);
 
@@ -79,12 +78,12 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
               <StaggerItem key={s.slug}>
                 <Link
                   href={`/work/${project.slug}/${s.slug}`}
-                  className={`group relative isolate flex h-full min-h-56 flex-col overflow-hidden rounded-card p-8 transition-all hover:-translate-y-1 hover:shadow-xl ${tone.body}`}
+                  className={`group relative isolate flex h-full min-h-56 flex-col overflow-hidden rounded-card p-8 transition-all hover:-translate-y-1 hover:shadow-xl text-white`}
                 >
-                  <CardBackdrop brand={project.brand} image={s.images?.[0]?.src} />
+                  <CardBackdrop image={s.images?.[0]?.src} shade={s.kind} />
                   <div className="flex items-start justify-between gap-4">
-                    <Tag tone={tone.tag}>{KIND_LABEL[s.kind]}</Tag>
-                    <ArrowUpRight className={`transition-colors ${tone.icon}`} />
+                    <Tag tone="light">{KIND_LABEL[s.kind]}</Tag>
+                    <ArrowUpRight className={CARD_ICON} />
                   </div>
                   <h3 className="mt-6 text-3xl font-semibold">{s.title}</h3>
                   <p className="mt-3 flex-1">

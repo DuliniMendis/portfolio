@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 
 const TONES = {
   default: "border-border bg-surface text-muted",
-  /** On a dark brand colour: white text on a translucent white pill. */
+  /** On a dark card colour: white text on a translucent white pill. */
   light: "border-white/45 bg-white/15 text-white",
-  /** On a light brand colour: ink text on a translucent white pill. */
+  /** On a light card colour: ink text on a translucent white pill. */
   dark: "border-ink/25 bg-white/45 text-ink",
 };
 

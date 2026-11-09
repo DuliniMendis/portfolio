@@ -1,38 +1,35 @@
 import Image, { type StaticImageData } from "next/image";
 
-export type Brand = {
-  /** The card's single background colour. */
-  color: string;
-  /** Text colour that passes 4.5:1 on `color`: white ("light") or ink ("dark"). */
-  text: "light" | "dark";
-};
-
-/** Text classes for a card on a brand colour. */
-export const BRAND_TEXT = {
-  light: { body: "text-white", icon: "text-white/80 group-hover:text-white", tag: "light" },
-  dark: { body: "text-ink", icon: "text-ink/70 group-hover:text-ink", tag: "dark" },
-} as const;
+/** Arrow icon classes for a card on the CardBackdrop blue. */
+export const CARD_ICON = "text-white/80 transition-colors group-hover:text-white";
 
 /**
- * Solid brand-colour background for a link card, with an optional screenshot blended into the colour.
- * The card must be `relative isolate overflow-hidden` and a `group`.
- * The screenshot is greyscale and multiplied into the colour, so the card stays one colour with the image as shading
- * (kept faint on pale colours with dark text, so it never eats into the text contrast). It fades out
- * by three quarters of the way down, so the body text and tags sit on the plain colour. Decorative only.
+ * Background for a link card: a diagonal gradient of the theme's deep blues (or teal-ink for leadership work) (white text 5.2:1 at the lightest
+ * corner, 6.0:1 on --blue-text, more towards the navy), with an optional screenshot
+ * blended into it. The card must be `relative isolate overflow-hidden text-white` and a `group`.
+ * The screenshot is greyscale and multiplied into the blue, so the card stays one colour and the image only ever
+ * darkens it (more contrast for the white text, never less). It fades out diagonally, clear in the top-right corner and
+ * gone by the bottom left, so the body text and tags sit on the plain colour. Decorative only.
  */
-export function CardBackdrop({ brand, image }: { brand: Brand; image?: StaticImageData }) {
+/** Card gradients. "lead" is a deep teal-ink, matching the dark Leadership section (white text 7.7:1 or better). */
+const SHADES = {
+  build: "bg-[linear-gradient(135deg,#0873ab_0%,var(--blue-text)_45%,#0b3550_100%)]",
+  lead: "bg-[linear-gradient(135deg,#1f5a66_0%,#163c44_45%,var(--ink)_100%)]",
+};
+
+export function CardBackdrop({ image, shade = "build" }: { image?: StaticImageData; shade?: keyof typeof SHADES }) {
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ backgroundColor: brand.color }}>
+    <div aria-hidden className={`pointer-events-none absolute inset-0 -z-10 ${SHADES[shade]}`}>
+      {/* Soft light-blue glow in the top corner, as in the Leadership section. */}
+      <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-light/20 blur-3xl" />
       {image ? (
-        <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_75%)]">
+        <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom_left,black,transparent_70%)]">
           <Image
             src={image}
             alt=""
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
-            className={`object-cover object-left-top grayscale mix-blend-multiply transition-opacity duration-500 ${
-              brand.text === "light" ? "opacity-45 group-hover:opacity-65" : "opacity-20 group-hover:opacity-30"
-            }`}
+            className="object-cover object-right-top opacity-45 mix-blend-multiply grayscale transition-opacity duration-500 group-hover:opacity-65"
           />
         </div>
       ) : null}
