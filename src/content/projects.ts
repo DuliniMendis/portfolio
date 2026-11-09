@@ -15,7 +15,8 @@ export type ProjectImage = {
 export type ProjectSection = {
   slug: string;
   title: string;
-  kind: "build" | "lead";
+  /** What I did: built it, led the people building it, or both (as an EM leading the team on the work). */
+  kind: "build" | "lead" | "both";
   blurb: string;
   /** Case-study body. Each part is a list of paragraphs; a missing part shows as in progress. */
   body?: Partial<Record<BodyPart, string[]>>;
@@ -404,7 +405,7 @@ export const projects: Project[] = [
       {
         slug: "cost-reduction",
         title: "Cost reduction",
-        kind: "build",
+        kind: "both",
         blurb:
           "Halving the cost of Liberation, one of the ways Canva AI makes designs, by switching it to cheaper models and testing with real users that the designs were still good.",
         stack: ["LLM evals", "A/B testing", "Open-source models", "First-party models", "Frontier models"],
@@ -441,7 +442,7 @@ export const projects: Project[] = [
       {
         slug: "one-click-bug-reports",
         title: "One-click bug reports",
-        kind: "build",
+        kind: "both",
         blurb:
           "A way for Canva staff to report a Canva AI bug with one click and a short description, with the traces and everything else needed to fix it captured automatically.",
         stack: ["Weights & Biases", "Langfuse", "Jira", "Slack"],
@@ -464,7 +465,7 @@ export const projects: Project[] = [
       {
         slug: "pipelines-to-agent-tools",
         title: "From pipelines to agent tools",
-        kind: "lead",
+        kind: "both",
         blurb:
           "Moving Canva's design generation from fixed pipelines to tools an AI agent can call, and retiring old pipelines without disrupting the Canva AI launches happening at the same time.",
         body: {
@@ -520,7 +521,9 @@ export function neighbours(slug: string): { prev: Project; next: Project } {
   };
 }
 
-export const KIND_LABEL: Record<ProjectSection["kind"], string> = {
-  build: "Build",
-  lead: "Leadership",
+/** Tags shown for each kind of section. */
+export const KIND_TAGS: Record<ProjectSection["kind"], string[]> = {
+  build: ["Build"],
+  lead: ["Leadership"],
+  both: ["Build", "Leadership"],
 };

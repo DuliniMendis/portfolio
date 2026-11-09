@@ -11,10 +11,12 @@ export const CARD_ICON = "text-white/80 transition-colors group-hover:text-white
  * darkens it (more contrast for the white text, never less). It fades out diagonally, clear in the top-right corner and
  * gone by the bottom left, so the body text and tags sit on the plain colour. Decorative only.
  */
-/** Card gradients, both from the theme blue. "lead" is a darker navy shade of it (white text 11:1 or better). */
+/** Card gradients, all from the theme blue. "lead" is a darker navy shade of it (white text 11:1 or better). */
 const SHADES = {
   build: "bg-[linear-gradient(135deg,#0873ab_0%,var(--blue-text)_45%,#0b3550_100%)]",
   lead: "bg-[linear-gradient(135deg,#123f63_0%,#0d2c47_50%,#081a2b_100%)]",
+  /** Build and leadership: the build blue in the top corner running into the leadership navy. */
+  both: "bg-[linear-gradient(135deg,#0873ab_0%,#0d2c47_60%,#081a2b_100%)]",
 };
 
 export function CardBackdrop({ image, shade = "build" }: { image?: StaticImageData; shade?: keyof typeof SHADES }) {

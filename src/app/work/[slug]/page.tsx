@@ -8,7 +8,7 @@ import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { BackLink } from "@/components/work/BackLink";
 import { ProjectPager } from "@/components/work/ProjectPager";
-import { KIND_LABEL, finalCopy, getProject, projects } from "@/content/projects";
+import { KIND_TAGS, finalCopy, getProject, projects } from "@/content/projects";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -78,11 +78,17 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
               <StaggerItem key={s.slug}>
                 <Link
                   href={`/work/${project.slug}/${s.slug}`}
-                  className={`group relative isolate flex h-full min-h-56 flex-col overflow-hidden rounded-card p-8 transition-all hover:-translate-y-1 hover:shadow-xl text-white`}
+                  className="group relative isolate flex h-full min-h-56 flex-col overflow-hidden rounded-card p-8 transition-all hover:-translate-y-1 hover:shadow-xl text-white"
                 >
                   <CardBackdrop image={s.images?.[0]?.src} shade={s.kind} />
                   <div className="flex items-start justify-between gap-4">
-                    <Tag tone="light">{KIND_LABEL[s.kind]}</Tag>
+                    <div className="flex flex-wrap gap-2">
+                      {KIND_TAGS[s.kind].map((t) => (
+                        <Tag key={t} tone="light">
+                          {t}
+                        </Tag>
+                      ))}
+                    </div>
                     <ArrowUpRight className={CARD_ICON} />
                   </div>
                   <h3 className="mt-6 text-3xl font-semibold">{s.title}</h3>

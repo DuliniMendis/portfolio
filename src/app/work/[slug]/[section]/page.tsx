@@ -7,7 +7,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { BackLink } from "@/components/work/BackLink";
-import { BODY_PARTS, KIND_LABEL, finalCopy, getProject, getSection, isDraft, projects } from "@/content/projects";
+import { BODY_PARTS, KIND_TAGS, finalCopy, getProject, getSection, isDraft, projects } from "@/content/projects";
 
 export function generateStaticParams() {
   return projects.flatMap((p) => p.sections.map((s) => ({ slug: p.slug, section: s.slug })));
@@ -38,7 +38,11 @@ export default async function SectionPage({ params }: PageProps<"/work/[slug]/[s
         <Container>
           <BackLink href={`/work/${project.slug}`}>{project.name}</BackLink>
           <Reveal className="mt-10 max-w-3xl">
-            <Tag>{KIND_LABEL[sec.kind]}</Tag>
+            <div className="flex flex-wrap gap-2">
+              {KIND_TAGS[sec.kind].map((t) => (
+                <Tag key={t}>{t}</Tag>
+              ))}
+            </div>
             <h1 className="mt-5 text-5xl font-semibold leading-tight md:text-7xl">{sec.title}</h1>
             <p className="mt-6 text-xl text-ink/80">
               {finalCopy(sec.blurb) ?? `My work on ${sec.title} at ${project.name}.`}
@@ -154,7 +158,7 @@ export default async function SectionPage({ params }: PageProps<"/work/[slug]/[s
                     className="flex items-baseline justify-between gap-4 py-5 transition-colors hover:text-blue-text"
                   >
                     <span className="font-display text-2xl font-semibold">{s.title}</span>
-                    <span className="text-sm text-muted">{KIND_LABEL[s.kind]}</span>
+                    <span className="text-sm text-muted">{KIND_TAGS[s.kind].join(" and ")}</span>
                   </Link>
                 </li>
               ))}
