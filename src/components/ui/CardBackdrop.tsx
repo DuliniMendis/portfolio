@@ -16,8 +16,8 @@ export const BRAND_TEXT = {
 /**
  * Solid brand-colour background for a link card, with an optional screenshot blended into the colour.
  * The card must be `relative isolate overflow-hidden` and a `group`.
- * The screenshot is greyscale and multiplied into the colour (screen-blended on light colours with dark text), so
- * the card stays one colour and the image only ever pushes the background away from the text colour. It fades out
+ * The screenshot is greyscale and multiplied into the colour, so the card stays one colour with the image as shading
+ * (kept faint on pale colours with dark text, so it never eats into the text contrast). It fades out
  * by three quarters of the way down, so the body text and tags sit on the plain colour. Decorative only.
  */
 export function CardBackdrop({ brand, image }: { brand: Brand; image?: StaticImageData }) {
@@ -30,8 +30,8 @@ export function CardBackdrop({ brand, image }: { brand: Brand; image?: StaticIma
             alt=""
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
-            className={`object-cover object-left-top opacity-45 grayscale transition-opacity duration-500 group-hover:opacity-65 ${
-              brand.text === "light" ? "mix-blend-multiply" : "mix-blend-screen"
+            className={`object-cover object-left-top grayscale mix-blend-multiply transition-opacity duration-500 ${
+              brand.text === "light" ? "opacity-45 group-hover:opacity-65" : "opacity-20 group-hover:opacity-30"
             }`}
           />
         </div>

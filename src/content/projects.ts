@@ -77,7 +77,7 @@ export const projects: Project[] = [
     teaser:
       "Founding engineer, then leader of the clinic and platform teams, at the company that moved epilepsy monitoring from hospital to home.",
     featured: ["data-viewer", "live-monitoring", "leading-the-teams"],
-    brand: { color: "#e40046", text: "light" }, // Seer Medical red, from its logo (white text 4.8:1)
+    brand: { color: "#fbdbe5", text: "dark" }, // pale tint of Seer Medical red #e40046 (from its logo), to sit with the site's soft palette
     roles: [
       {
         title: "Software Engineer",
@@ -214,7 +214,7 @@ export const projects: Project[] = [
     teaser:
       "I led the frontend for Flow State and Blueprints, two of Leonardo's biggest AI features, and grew the team behind them.",
     featured: ["flow-state", "blueprints", "building-the-team"],
-    brand: { color: "#6a55f0", text: "light" }, // Leonardo.Ai purple, sampled from its UI and deepened for white text (5.0:1)
+    brand: { color: "#e9e6fe", text: "dark" }, // pale tint of Leonardo.Ai purple #7261f9 (sampled from its UI)
     sections: [
       {
         slug: "flow-state",
@@ -405,7 +405,7 @@ export const projects: Project[] = [
     teaser:
       "I led seven backend and ML engineers on the platform behind Canva AI, and halved the cost of one of its design generation methods.",
     featured: ["cost-reduction", "pipelines-to-agent-tools", "one-click-bug-reports"],
-    brand: { color: "#00c4cc", text: "dark" }, // Canva teal, from its logo (ink text 8.5:1)
+    brand: { color: "#d9f6f7", text: "dark" }, // pale tint of Canva teal #00c4cc (from its logo)
     sections: [
       {
         slug: "cost-reduction",
