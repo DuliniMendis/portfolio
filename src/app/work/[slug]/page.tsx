@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
+import { CardBackdrop } from "@/components/ui/CardBackdrop";
 import { Container } from "@/components/ui/Container";
 import { Tag } from "@/components/ui/Tag";
 import { BackLink } from "@/components/work/BackLink";
@@ -77,14 +78,15 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
               <StaggerItem key={s.slug}>
                 <Link
                   href={`/work/${project.slug}/${s.slug}`}
-                  className="group flex h-full min-h-56 flex-col rounded-card border border-border bg-surface p-8 transition-all hover:-translate-y-1 hover:border-ink hover:shadow-lg"
+                  className="group relative isolate flex h-full min-h-56 flex-col overflow-hidden rounded-card border border-border bg-surface p-8 transition-all hover:-translate-y-1 hover:border-ink hover:shadow-lg"
                 >
+                  <CardBackdrop image={s.images?.[0]?.src} colors={project.brand} />
                   <div className="flex items-start justify-between gap-4">
                     <Tag>{KIND_LABEL[s.kind]}</Tag>
                     <ArrowUpRight className="text-muted transition-colors group-hover:text-blue" />
                   </div>
                   <h3 className="mt-6 text-3xl font-semibold">{s.title}</h3>
-                  <p className="mt-3 flex-1 text-muted">
+                  <p className="mt-3 flex-1 text-ink/80">
                     {finalCopy(s.blurb) ?? "This one is still being written."}
                   </p>
                 </Link>

@@ -58,8 +58,8 @@ export type Project = {
   teaser: string;
   /** Up to three section slugs shown as tags on the home page card, most important first. */
   featured: string[];
-  /** Screenshot shown faded behind the home page card. */
-  cover?: StaticImageData;
+  /** The company's brand colours (one, or two for a gradient), used as a faded wash on cards. */
+  brand: readonly string[];
   /** Roles held there, earliest first. Shown on the project page as a progression. */
   roles?: ProjectRole[];
   sections: ProjectSection[];
@@ -76,7 +76,7 @@ export const projects: Project[] = [
     teaser:
       "Founding engineer, then leader of the clinic and platform teams, at the company that moved epilepsy monitoring from hospital to home.",
     featured: ["data-viewer", "live-monitoring", "leading-the-teams"],
-    cover: seerDataViewer,
+    brand: ["#e40046"], // Seer Medical red, from its logo
     roles: [
       {
         title: "Software Engineer",
@@ -213,7 +213,7 @@ export const projects: Project[] = [
     teaser:
       "I led the frontend for Flow State and Blueprints, two of Leonardo's biggest AI features, and grew the team behind them.",
     featured: ["flow-state", "blueprints", "building-the-team"],
-    cover: flowStateStream,
+    brand: ["#7261f9", "#2b1e7a"], // Leonardo.Ai purple, sampled from its interface
     sections: [
       {
         slug: "flow-state",
@@ -404,6 +404,7 @@ export const projects: Project[] = [
     teaser:
       "I led seven backend and ML engineers on the platform behind Canva AI, and halved the cost of one of its design generation methods.",
     featured: ["cost-reduction", "pipelines-to-agent-tools", "one-click-bug-reports"],
+    brand: ["#00c4cc", "#7d2ae8"], // Canva teal to purple, from its logo gradient
     sections: [
       {
         slug: "cost-reduction",
