@@ -215,7 +215,7 @@ export const projects: Project[] = [
       {
         slug: "flow-state",
         title: "Flow State",
-        kind: "build",
+        kind: "both",
         blurb:
           "Type a rough idea and scroll through an endless stream of images based on it. Made for exploring before you know exactly what you want.",
         stack: ["TypeScript", "React", "Next.js", "Client-side rendering", "GraphQL", "XState"],
@@ -247,7 +247,7 @@ export const projects: Project[] = [
       {
         slug: "blueprints",
         title: "Blueprints",
-        kind: "build",
+        kind: "both",
         blurb:
           "Ready-made AI recipes. Fill in a few simple steps and get a finished result, with no prompt writing needed.",
         stack: ["TypeScript", "React", "Next.js", "Server-side rendering", "GraphQL", "Apollo Client", "Node.js", "React Hook Form"],
@@ -281,7 +281,7 @@ export const projects: Project[] = [
       {
         slug: "generation-history",
         title: "Faster generation history",
-        kind: "build",
+        kind: "both",
         blurb:
           "Making generation history, where people go back to everything they've made, fast again, and untangling the React components behind it.",
         stack: ["React", "Next.js", "TypeScript"],
