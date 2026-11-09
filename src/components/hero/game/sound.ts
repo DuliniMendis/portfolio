@@ -12,7 +12,7 @@ import { IRIS_AT, IRIS_MS, STAR_AT } from "./beats/10-wave";
 import { BEAT, BEAT_MS, CARDS, STARTS, TOTAL } from "./timeline";
 
 /**
- * The game's sound: a chiptune theme and sound effects, synthesised with the Web Audio API (no audio files).
+ * The game's sound effects, synthesised with the Web Audio API (no audio files). No background music.
  * Everything is a cue at a story time, so sound follows the game clock: it pauses with the game (hero off screen,
  * tab hidden) and loops with it. Loaded only after the visitor's first click or key press (browsers block sound
  * before that). No React here.
@@ -20,21 +20,17 @@ import { BEAT, BEAT_MS, CARDS, STARTS, TOTAL } from "./timeline";
 
 // ---- Knobs -----------------------------------------------------------------------------------
 
-/** Overall volume, then the music's share of it. */
+/** Overall volume, then the effects' share of it. */
 const MASTER_GAIN = 0.5;
-const MUSIC_GAIN = 0.32;
 const SFX_GAIN = 0.55;
 /** How far ahead cues are handed to the audio clock, story ms. */
 const LOOKAHEAD = 160;
 /** A step bigger than this (or backwards) is a seek: skip ahead without playing what was jumped over. */
 const MAX_STEP = 500;
 
-/** The theme: 4 phrases of 8 bars of 8 eighth notes fill the loop exactly (256 eighths in 45 s, about 171 bpm). */
-const EIGHTH = TOTAL / 256;
-
 // ---- Synth -----------------------------------------------------------------------------------
 
-type Out = { ctx: AudioContext; music: GainNode; sfx: GainNode; noise: AudioBuffer };
+type Out = { ctx: AudioContext; sfx: GainNode; noise: AudioBuffer };
 type Play = (o: Out, when: number) => void;
 
 const midi = (n: number) => 440 * Math.pow(2, (n - 69) / 12);
@@ -182,60 +178,6 @@ function sfxCues(): Cue[] {
   return cues;
 }
 
-/** Melody, 8 bars of 8 eighths: note names, "-" holds the previous note, "." rests. */
-const MELODY = [
-  "E5 - G5 - C6 - B5 G5",
-  "A5 - G5 - E5 - . .",
-  "C5 - E5 - A5 - G5 E5",
-  "G5 - E5 - D5 - . .",
-  "F5 - A5 - C6 - A5 F5",
-  "G5 - A5 - G5 - E5 D5",
-  "D5 - G5 - B5 - D6 B5",
-  "C6 - - - . . . .",
-];
-/** Bass, two bars per chord: C, Am, F, G. */
-const BASS = [
-  "C3 . G2 . C3 . G2 .",
-  "C3 . G2 . C3 . E3 .",
-  "A2 . E2 . A2 . E2 .",
-  "A2 . E2 . A2 . C3 .",
-  "F2 . C3 . F2 . C3 .",
-  "F2 . C3 . F2 . A2 .",
-  "G2 . D3 . G2 . D3 .",
-  "G2 . D3 . G2 . B2 .",
-];
-
-function voice(bars: string[], t0: number, play: (o: Out, w: number, freq: number, dur: number) => void): Cue[] {
-  const cues: Cue[] = [];
-  const steps = bars.flatMap((b) => b.split(" "));
-  steps.forEach((s, i) => {
-    if (s === "-" || s === ".") return;
-    let len = 1;
-    while (steps[i + len] === "-") len++;
-    const freq = pitch(s);
-    const dur = (len * EIGHTH) / 1000 - 0.02;
-    cues.push({ t: t0 + i * EIGHTH, play: (o, w) => play(o, w, freq, dur) });
-  });
-  return cues;
-}
-
-function musicCues(): Cue[] {
-  const cues: Cue[] = [];
-  const phrase = 64 * EIGHTH;
-  for (let p = 0; p < 4; p++) {
-    const t0 = p * phrase;
-    // The third phrase drops the tune, so the theme breathes.
-    if (p !== 2) cues.push(...voice(MELODY, t0, (o, w, f, d) => tone(o, o.music, w, { freq: f, dur: d, gain: 0.16 })));
-    cues.push(...voice(BASS, t0, (o, w, f, d) => tone(o, o.music, w, { freq: f, dur: d, type: "triangle", gain: 0.5 })));
-    for (let i = 0; i < 64; i++) {
-      const t = t0 + i * EIGHTH;
-      if (i % 4 === 0) cues.push({ t, play: (o, w) => tone(o, o.music, w, { freq: 150, to: 45, dur: 0.12, type: "sine", gain: 0.55 }) });
-      else if (i % 2 === 1) cues.push({ t, play: (o, w) => noise(o, o.music, w, { dur: 0.04, freq: 7000, q: 1, gain: 0.12 }) });
-    }
-  }
-  return cues;
-}
-
 // ---- The player ------------------------------------------------------------------------------
 
 export type Sound = {
@@ -255,23 +197,18 @@ export function createSound(ctx: AudioContext): Sound {
   const buf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
   const data = buf.getChannelData(0);
   for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-  const out: Out = { ctx, music: master, sfx: master, noise: buf };
-  /** Fresh music and effects buses; dropping the old ones silences anything already queued on them. */
+  const out: Out = { ctx, sfx: master, noise: buf };
+  /** A fresh effects bus; dropping the old one silences anything already queued on it. */
   const buses = () => {
-    for (const [key, gain] of [
-      ["music", MUSIC_GAIN],
-      ["sfx", SFX_GAIN],
-    ] as const) {
-      if (out[key] !== master) out[key].disconnect();
-      const g = ctx.createGain();
-      g.gain.value = gain;
-      g.connect(master);
-      out[key] = g;
-    }
+    if (out.sfx !== master) out.sfx.disconnect();
+    const g = ctx.createGain();
+    g.gain.value = SFX_GAIN;
+    g.connect(master);
+    out.sfx = g;
   };
   buses();
 
-  const cues = [...musicCues(), ...sfxCues()].sort((a, b) => a.t - b.t);
+  const cues = sfxCues().sort((a, b) => a.t - b.t);
   // Story time unwrapped: laps of the loop so far, plus the time in this lap. Cues are handed over once each.
   let lap = 0;
   let cursor: number | null = null;

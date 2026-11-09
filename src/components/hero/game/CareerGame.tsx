@@ -29,8 +29,8 @@ const setSoundPref = (on: boolean) => {
  * known on the client; until then (and without JavaScript) the server-rendered `fallback` frame shows.
  * `animate` false gives the reduced-motion postcards (silent).
  *
- * Sound (theme and effects) is on by default, but browsers only allow it after the visitor's first click or key
- * press, so it starts then. The speaker button turns it off or on, and the choice is remembered.
+ * Sound effects are on by default (there is no background music), but browsers only allow them after the visitor's first click or key
+ * press, so they start then. The speaker button turns them off or on, and the choice is remembered.
  */
 export function CareerGame({
   active,
