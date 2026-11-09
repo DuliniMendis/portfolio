@@ -1,8 +1,8 @@
 import { fitLogo, LOGOS } from "./logos";
-import { drawScene } from "./scene";
+import { drawScene, type IrisState } from "./scene";
 import { colorOf } from "./sprites/raster";
 import { START_T } from "./timeline";
-import { World, type Painter } from "./world";
+import { World, type Painter, type View } from "./world";
 
 /**
  * Draw one moment of the story as SVG data instead of pixels: one path per colour (each pixel run a tiny
@@ -12,14 +12,17 @@ import { World, type Painter } from "./world";
 export type SvgFrame = {
   paths: [color: string, d: string][];
   images: { href: string; x: number; y: number; w: number; h: number }[];
+  /** The iris transition, when it is partly closed (only at the loop's start and end). */
+  iris: IrisState | null;
 };
 
 /** Wide and tall enough for any panel the hero uses (up to 760 × 600 CSS px at 2×; the outer SVG clips the rest). */
-const VIEW = { ox: 0, gy: 0, left: -190, right: 190, top: -300 };
+const VIEW: View = { ox: 0, gy: 0, left: -190, right: 190, top: -300 };
 
 const n = (v: number) => Math.round(v * 100) / 100;
 
-export function svgFrame(t = START_T): SvgFrame {
+/** `view` crops the frame (the share GIF passes a smaller one, so the level cards drop in at its top edge). */
+export function svgFrame(t = START_T, view: View = VIEW): SvgFrame {
   // Paths keep the painter's order: a rectangle joins its colour's latest path only if nothing drawn since
   // overlaps it; otherwise it starts a new path on top.
   // Each path walks its rectangles with relative moves (`m`), so most numbers are short.
@@ -93,6 +96,6 @@ export function svgFrame(t = START_T): SvgFrame {
       images.push({ href: LOGOS[id].src, x: n(f.x), y: n(f.y), w: n(f.w), h: n(f.h) });
     },
   };
-  drawScene(new World(painter, t, VIEW, false));
-  return { paths: chunks.map((k) => [k.c, k.d.join("")]), images };
+  const iris = drawScene(new World(painter, t, view, false));
+  return { paths: chunks.map((k) => [k.c, k.d.join("")]), images, iris };
 }
