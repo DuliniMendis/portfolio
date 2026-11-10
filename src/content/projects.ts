@@ -121,7 +121,7 @@ export const projects: Project[] = [
         body: {
           context: [
             "Diagnosing epilepsy often depends on capturing a seizure on a recording. Traditionally that meant days in a hospital bed, wired to an EEG. Seer moved it home. Patients wear the Seer Sense, which records brain and heart activity for up to ten days, while a hub in the home records video.",
-            "That leaves days of continuous signals and video for every patient. Clinicians have to move through all of it, find the abnormal moments, and check what the patient was doing at each one.",
+            "That leaves days of continuous signals and video for every patient, around 10 GB per study. Clinicians have to move through all of it, find the abnormal moments, and check what the patient was doing at each one.",
           ],
           did: [
             "I was one of the founding members of Seer's software team, and I built the Data Viewer in the Seer Cloud web app, from the backend to the frontend.",
