@@ -130,8 +130,17 @@ export const projects: Project[] = [
           ],
           outcome: [
             "The Data Viewer became the core of how Seer's clinical team reviewed studies, scanning EEG and ECG in sync with video at up to 40 times normal speed. Referring doctors used the same platform to see their patients' data and reports.",
+            "By November 2023, Seer had analysed more than two million hours of clinical data, which it calls the world's largest library of epilepsy data.",
           ],
         },
+        press: [
+          {
+            title: "Technology and research with immediate impact",
+            publisher: "Seer Medical",
+            date: "May 2024",
+            href: "https://web.archive.org/web/20240518230957/https://seermedical.com/au/impact/",
+          },
+        ],
       },
       {
         slug: "live-monitoring",
@@ -151,8 +160,17 @@ export const projects: Project[] = [
           outcome: [
             "Seer's support team used it to watch how each home study was going, remotely. If there was a problem with an electrode or the video, they could see it and get it fixed while the study was still running.",
             "Live monitoring of data quality was also a requirement for FDA approval.",
+            "It mattered most in 2020, when hospital epilepsy units closed for COVID. Seer delivered 24,963 days of home monitoring that year, which it estimates saved the health system $49 million.",
           ],
         },
+        press: [
+          {
+            title: "Technology and research with immediate impact",
+            publisher: "Seer Medical",
+            date: "May 2024",
+            href: "https://web.archive.org/web/20240518230957/https://seermedical.com/au/impact/",
+          },
+        ],
       },
       {
         slug: "clinic-operations",
@@ -163,7 +181,7 @@ export const projects: Project[] = [
         stack: ["React", "TypeScript", "GraphQL", "Node.js", "PostgreSQL", "AWS"],
         body: {
           context: [
-            "Every home study has a lot around it. A doctor sends a referral, the patient is booked in, a device and hub go out to their home, and patient and billing details have to be collected. Seer's clinics ran this for patients across Australia, and the team needed tools built for that workflow.",
+            "Every home study has a lot around it. A doctor sends a referral, the patient is booked in, a device and hub go out to their home, and patient and billing details have to be collected. Seer ran this through more than 20 clinics around Australia, and the team needed tools built for that workflow.",
           ],
           did: [
             "I built a set of operational tools into the Seer Cloud platform.",
@@ -172,9 +190,23 @@ export const projects: Project[] = [
             "I also built integrations with Zendesk, Asset Panda and Mailchimp for managing equipment, bookings and communications, so the platform and those tools stayed in step.",
           ],
           outcome: [
-            "These tools ran the day-to-day work of Seer's clinics. As an engineering manager I went on to lead the Seer-Clinic team that owned them.",
+            "These tools ran the day-to-day work of Seer's clinics. By 2024 Seer had helped more than 15,000 people since 2017, and cut the wait for monitoring from 6–18 months in hospital to 6–8 weeks at home. As an engineering manager I went on to lead the Seer-Clinic team that owned them.",
           ],
         },
+        press: [
+          {
+            title: "Technology and research with immediate impact",
+            publisher: "Seer Medical",
+            date: "May 2024",
+            href: "https://web.archive.org/web/20240518230957/https://seermedical.com/au/impact/",
+          },
+          {
+            title: "Seer Medical: Media release",
+            publisher: "Breakthrough Victoria",
+            date: "8 Jul 2022",
+            href: "https://breakthroughvictoria.com/stories/seer-medical-launch-media-release/",
+          },
+        ],
       },
       {
         slug: "leading-the-teams",
@@ -241,8 +273,17 @@ export const projects: Project[] = [
           ],
           outcome: [
             "Flow State launched in December 2024 for everyone, free and paid. It sits on Leonardo's home page right next to the main prompt bar, and speed was the headline when Leonardo's founder talked about it in the press.",
+            "That put it in front of Leonardo's 29 million registered users.",
           ],
         },
+        press: [
+          {
+            title: "Leonardo.AI founder JJ Fiasson on Flow State, Phoenix and Google Cloud",
+            publisher: "Forbes Australia",
+            date: "14 Jan 2025",
+            href: "https://www.forbes.com.au/news/innovation/leonardo-ai-founder-jj-fiasson-on-flow-state-phoenix-and-google-cloud/",
+          },
+        ],
       },
       {
         slug: "blueprints",
