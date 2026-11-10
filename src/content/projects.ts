@@ -129,7 +129,7 @@ export const projects: Project[] = [
             "We built it with React and TypeScript, a Node and GraphQL API, PostgreSQL and Python, running on AWS.",
           ],
           outcome: [
-            "The Data Viewer became the core of how Seer's clinical team reviewed studies, scanning EEG and ECG in sync with video at up to 40 times normal speed. Referring doctors used the same platform to see their patients' data and reports.",
+            "The Data Viewer became the core of how Seer's clinical team reviewed studies, used by more than 50 staff and clinicians to scan EEG and ECG in sync with video at up to 40 times normal speed. Referring doctors used the same platform to see their patients' data and reports.",
             "By November 2023, Seer had analysed more than two million hours of clinical data, which it calls the world's largest library of epilepsy data.",
           ],
         },
@@ -190,7 +190,7 @@ export const projects: Project[] = [
             "I also built integrations with Zendesk, Asset Panda and Mailchimp for managing equipment, bookings and communications, so the platform and those tools stayed in step.",
           ],
           outcome: [
-            "These tools ran the day-to-day work of Seer's clinics. By 2024 Seer had helped more than 15,000 people since 2017, and cut the wait for monitoring from 6–18 months in hospital to 6–8 weeks at home. As an engineering manager I went on to lead the Seer-Clinic team that owned them.",
+            "These tools ran the day-to-day work of Seer's clinics, used by around 20 staff for clinic and equipment management. By 2024 Seer had helped more than 15,000 people since 2017, and cut the wait for monitoring from 6–18 months in hospital to 6–8 weeks at home. As an engineering manager I went on to lead the Seer-Clinic team that owned them.",
           ],
         },
         press: [
