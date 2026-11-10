@@ -274,6 +274,7 @@ export const projects: Project[] = [
             "Under the hood, it's TypeScript, React and Next.js, leaning heavily on server-side rendering. That means pages are put together on the server and arrive ready to show, rather than assembling themselves in your browser. A Node backend talks to the frontend through GraphQL. Apollo's built-in cache kept track of data from the server, React context held state shared across the page, and the step-by-step forms ran on React Hook Form, a popular form library.",
           ],
           outcome: [
+            "We took Blueprints from idea to MVP in three months.",
             "Blueprints launched in November 2025 with a big first batch, including Instant Brand Kit, Product Lifestyle Photoshoot and Instant Animate. The catalogue has kept growing since, from ideation tools to video, and now includes Blueprints made by people in Leonardo's creator community.",
           ],
         },
